@@ -1,21 +1,19 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include <SDL.h>
+#pragma once
+#include <SDL2/SDL.h>
 
-class Window {
+class Window 
+{    
 public:
-    // Constructor
     Window(const char* title, int width, int height);
-    
-    // Destructor
     ~Window();
 
-    // Get the SDL_Window pointer
-    SDL_Window* getWindow() const;
+    SDL_Window* getSdlWindow() const;
 
 private:
-    SDL_Window* window;  // SDL Window pointer
+    SDL_Window* window_;
 };
 
-#endif // WINDOW_H
+#endif 

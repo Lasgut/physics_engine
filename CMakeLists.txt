@@ -1,21 +1,40 @@
-cmake_minimum_required(VERSION 3.10)
-project(MySDL2Window VERSION 1.0)
+cmake_minimum_required(VERSION 3.10.0)
+project(physics_engine VERSION 1.0 LANGUAGES CXX)
 
-# Specify the source files
-set(SOURCES
-    Main.cpp       # Use relative paths to your source files
-    sources/Window.cpp
-)
+set(OSBitness 32)
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(OSBitness 64)
+endif()
+set (FullOutputDir "${CMAKE_SOURCE_DIR}/bin/${CMAKE_SYSTEM_NAME}${OSBitness}/${CMAKE_BUILD_TYPE}")
+set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${FullOutputDir}/static libs")
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY "${FullOutputDir}")
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${FullOutputDir}")
 
-# Include the directory containing the header files
 include_directories(sources)
 
-# Find the SDL2 package
 find_package(SDL2 REQUIRED)
+find_package(GLEW REQUIRED)
+find_package(glm REQUIRED)
+find_package(OpenGL REQUIRED)
 
-# Specify the executable target
-add_executable(my_window ${SOURCES})
+include_directories(${SDL2_INCLUDE_DIRS} 
+                    ${GLEW_INCLUDE_DIRS} 
+                    ${glm_INCLUDE_DIRS} 
+                    ${OPENGL_INCLUDE_DIRS})
 
-# Link the SDL2 library to the executable
-target_link_libraries(my_window SDL2::SDL2)
+set(SOURCES
+    Main.cpp
+    sources/Window.cpp
+    sources/Context.cpp
+    sources/Axes.cpp
+    sources/Cube.cpp
+    sources/Camera.cpp
+)
+
+add_executable(${PROJECT_NAME} ${SOURCES})
+
+target_link_libraries(${PROJECT_NAME} 
+                      ${SDL2_LIBRARIES} 
+                      ${GLEW_LIBRARIES} 
+                      ${OPENGL_LIBRARIES})
 
