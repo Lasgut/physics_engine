@@ -1,7 +1,6 @@
 #include "Context.h"
 #include <iostream>
 #include "glad/glad.h"
-#include <GL/gl.h>
 
 Context::Context(Window& window) 
     : window_(window) 
@@ -20,11 +19,7 @@ Context::Context(Window& window)
     } 
     
     glViewport(0,0,1000,1000);
-
-    // Enable depth testing
     glEnable(GL_DEPTH_TEST);
-
-    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 }
 
 Context::~Context() 
@@ -34,5 +29,6 @@ Context::~Context()
 
 void Context::clear() 
 {
+    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

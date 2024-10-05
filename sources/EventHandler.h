@@ -1,15 +1,15 @@
-#ifndef EVENTHANDLING_H
-#define EVENTHANDLING_H
+#ifndef EVENTHANDLER_H
+#define EVENTHANDLER_H
 
 #pragma once
 #include <SDL2/SDL.h>
 #include "EventState.h"
 
-class EventHandling
+class EventHandler
 {
 public:
-    EventHandling(EventState& eventState);
-    ~EventHandling();
+    EventHandler(EventState& eventState);
+    ~EventHandler();
 
     void update();
 

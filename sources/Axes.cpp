@@ -1,7 +1,6 @@
 #include "Axes.h"
 #include "ShaderHandler.h"
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include <glad/glad.h>
 
 Axes::Axes()
 {
@@ -54,7 +53,7 @@ void Axes::drawAxes(ShaderHandler& shader, const glm::mat4& viewMatrix, const gl
 {
     // Model matrix is identity for the axes (they are placed at the origin)
     glm::mat4 modelMatrix = glm::mat4(1.0f);
-    shader.setMat4("model", modelMatrix);
+    //shader.setMat4("model", modelMatrix);
 
     // Bind the VAO (the axes data)
     glBindVertexArray(VAO);

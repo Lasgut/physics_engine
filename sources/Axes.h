@@ -1,9 +1,12 @@
 #ifndef AXES_H
 #define AXES_H
 
-#include <GL/glew.h> // or <GL/gl3w.h>, depending on your setup
-#include <glm/glm.hpp>
+#pragma once
 #include "ShaderHandler.h"
+#include <glad/glad.h>
+#include <glm/glm.hpp> 
+#include <glm/gtc/matrix_transform.hpp> 
+#include <glm/gtc/type_ptr.hpp> 
 
 class Axes {
 public:

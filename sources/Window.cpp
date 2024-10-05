@@ -1,6 +1,5 @@
 #include "Window.h"
 #include <iostream>
-#include <GL/gl.h>
 
 Window::Window(const char* title, int width, int height) 
 {

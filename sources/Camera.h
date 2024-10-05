@@ -2,10 +2,13 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#pragma once
 #include "EventState.h"
 #include "ShaderHandler.h"
-#include <glm/glm.hpp>
+#include <glad/glad.h>
+#include <glm/glm.hpp> 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp> 
 
 class Camera 
 {

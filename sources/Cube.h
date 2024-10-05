@@ -3,8 +3,7 @@
 #define CUBE_H
 
 #pragma once
-#include <GL/glew.h>
-#include <GL/gl.h>
+#include <glad/glad.h>
 
 class Cube 
 {

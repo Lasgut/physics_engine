@@ -30,8 +30,9 @@ set(SOURCES
     sources/Axes.cpp
     sources/Cube.cpp
     sources/Camera.cpp
-    sources/EventHandling.cpp
+    sources/EventHandler.cpp
     sources/ShaderHandler.cpp
+    sources/Triangle2D.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})

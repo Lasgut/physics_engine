@@ -1,21 +1,21 @@
-#include "EventHandling.h"
+#include "EventHandler.h"
 #include "EventState.h"
 #include <SDL2/SDL.h>
 #include <iostream>
 
-EventHandling::EventHandling(EventState& eventState)
+EventHandler::EventHandler(EventState& eventState)
     : eventState_(eventState)
 {
     SDL_Event sdlEvent_;
 }
 
-EventHandling::~EventHandling()
+EventHandler::~EventHandler()
 {
 
 }
 
 void 
-EventHandling::update()
+EventHandler::update()
 {
     while (SDL_PollEvent(&sdlEvent_)) 
     {
@@ -27,7 +27,7 @@ EventHandling::update()
 }
 
 void 
-EventHandling::quit()
+EventHandler::quit()
 {
     if (sdlEvent_.type == SDL_QUIT) 
     {
@@ -36,7 +36,7 @@ EventHandling::quit()
 }
 
 void 
-EventHandling::mouseButton()
+EventHandler::mouseButton()
 {
     // Handle mouse button events
     if (sdlEvent_.type == SDL_MOUSEBUTTONDOWN) 
@@ -67,7 +67,7 @@ EventHandling::mouseButton()
 }
 
 void 
-EventHandling::mouseMotion()
+EventHandler::mouseMotion()
 {
     // Handle mouse motion events
     if (sdlEvent_.type == SDL_MOUSEMOTION) 
@@ -77,7 +77,7 @@ EventHandling::mouseMotion()
     }
 }
 
-void EventHandling::mouseMotionWhilePressed()
+void EventHandler::mouseMotionWhilePressed()
 {
     if (eventState_.mouse.leftButtonDown)
     {

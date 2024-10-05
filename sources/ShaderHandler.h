@@ -1,21 +1,30 @@
 #ifndef SHADERHANDLER_H
 #define SHADERHANDLER_H
 
-#include <GL/glew.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <string>
+#include <glad/glad.h>
 
-class ShaderHandler {
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+
+class ShaderHandler
+{
 public:
     ShaderHandler(const char* vertexPath, const char* fragmentPath);
-    ~ShaderHandler();
+    
+    void use(); 
 
-    void use();
-    void setMat4(const std::string& name, const glm::mat4& value) const;
+    unsigned int& getID();
+
+    void setBool(const std::string &name, bool value) const;
+    void setInt(const std::string &name, int value) const;
+    void setFloat(const std::string &name, float value) const;
 
 private:
-    GLuint ID;
+    unsigned int ID_;
+
+    void checkCompileErrors(unsigned int shader, std::string type);
 };
 
-#endif 
+#endif
