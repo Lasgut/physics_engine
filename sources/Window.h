@@ -10,10 +10,17 @@ public:
     Window(const char* title, int width, int height);
     ~Window();
 
+    void swapBuffers();
+
     SDL_Window* getSdlWindow() const;
+    SDL_Event*  getSdlEvent();
 
 private:
-    SDL_Window* window_;
+    SDL_Window* sdlWindow_;
+    SDL_Event   sdlEvent_;
+
+    bool rightMouseButtonDown_;
+    bool leftMouseButtonDown_;
 };
 
 #endif 

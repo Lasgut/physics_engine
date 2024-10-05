@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10.0)
-project(physics_engine VERSION 1.0 LANGUAGES CXX)
+project(physics_engine VERSION 1.0)
 
 set(OSBitness 32)
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
@@ -11,24 +11,27 @@ set (CMAKE_LIBRARY_OUTPUT_DIRECTORY "${FullOutputDir}")
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${FullOutputDir}")
 
 include_directories(sources)
+include_directories(include)
+include_directories(shaders)
 
 find_package(SDL2 REQUIRED)
-find_package(GLEW REQUIRED)
 find_package(glm REQUIRED)
 find_package(OpenGL REQUIRED)
 
 include_directories(${SDL2_INCLUDE_DIRS} 
-                    ${GLEW_INCLUDE_DIRS} 
                     ${glm_INCLUDE_DIRS} 
                     ${OPENGL_INCLUDE_DIRS})
 
 set(SOURCES
     Main.cpp
+    sources/glad.c
     sources/Window.cpp
     sources/Context.cpp
     sources/Axes.cpp
     sources/Cube.cpp
     sources/Camera.cpp
+    sources/EventHandling.cpp
+    sources/ShaderHandler.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})

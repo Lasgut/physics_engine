@@ -3,7 +3,6 @@
 
 #pragma once
 #include <SDL2/SDL.h>
-#include <GL/glew.h>
 #include <iostream>
 #include "Window.h"
 
@@ -12,7 +11,7 @@ public:
     Context(Window& window);  
     ~Context();
      
-    void swapBuffers();  
+    void clear();  
 
 private:
     SDL_GLContext   glContext_;  

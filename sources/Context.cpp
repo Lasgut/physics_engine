@@ -1,5 +1,7 @@
 #include "Context.h"
 #include <iostream>
+#include "glad/glad.h"
+#include <GL/gl.h>
 
 Context::Context(Window& window) 
     : window_(window) 
@@ -11,16 +13,18 @@ Context::Context(Window& window)
         exit(1);
     }
 
-    glewExperimental = GL_TRUE;
-    if (glewInit() != GLEW_OK) {
-        std::cerr << "Failed to initialize GLEW" << std::endl;
+    if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
+    {
+        std::cout << "Failed to initialize GLAD" << std::endl;
         exit(1);
-    }
+    } 
+    
+    glViewport(0,0,1000,1000);
 
-    // Enable depth testing for 3D rendering
+    // Enable depth testing
     glEnable(GL_DEPTH_TEST);
 
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 }
 
 Context::~Context() 
@@ -28,7 +32,7 @@ Context::~Context()
     SDL_GL_DeleteContext(glContext_);
 }
 
-void Context::swapBuffers() 
+void Context::clear() 
 {
-    SDL_GL_SwapWindow(window_.getSdlWindow());
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
