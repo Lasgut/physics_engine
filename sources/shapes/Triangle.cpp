@@ -1,6 +1,6 @@
-#include "Triangle2D.h"
+#include "Triangle.h"
 
-Triangle2D::Triangle2D()
+Triangle::Triangle()
 {
     float vertices[] = {
         -0.5f, -0.5f, 0.0f,  
@@ -21,14 +21,14 @@ Triangle2D::Triangle2D()
     glEnableVertexAttribArray(0); 
 }
 
-Triangle2D::~Triangle2D()
+Triangle::~Triangle()
 {
     glDeleteVertexArrays(1, &VAO_);
     glDeleteBuffers(1, &VBO_);
 }
 
 void 
-Triangle2D::draw()
+Triangle::draw()
 {
     glBindVertexArray(VAO_); 
     glDrawArrays(GL_TRIANGLES, 0, 3);

@@ -1,5 +1,5 @@
-#ifndef TRIANGLE2D_H
-#define TRIANGLE2D_H
+#ifndef TRIANGLE_H
+#define TRIANGLE_H
 
 #pragma once
 #include <glad/glad.h>
@@ -7,11 +7,11 @@
 #include <glm/gtc/matrix_transform.hpp> 
 #include <glm/gtc/type_ptr.hpp> 
 
-class Triangle2D
+class Triangle
 {
 public:
-    Triangle2D();
-    ~Triangle2D();
+    Triangle();
+    ~Triangle();
 
     void draw();
 

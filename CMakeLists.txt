@@ -10,7 +10,9 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${FullOutputDir}/static libs")
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY "${FullOutputDir}")
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${FullOutputDir}")
 
-include_directories(sources)
+include_directories(sources/shapes)
+include_directories(sources/tools)
+include_directories(sources/tools_external)
 include_directories(include)
 include_directories(shaders)
 
@@ -24,15 +26,16 @@ include_directories(${SDL2_INCLUDE_DIRS}
 
 set(SOURCES
     Main.cpp
-    sources/glad.c
-    sources/Window.cpp
-    sources/Context.cpp
-    sources/Axes.cpp
-    sources/Cube.cpp
-    sources/Camera.cpp
-    sources/EventHandler.cpp
-    sources/ShaderHandler.cpp
-    sources/Triangle2D.cpp
+    sources/tools_external/glad.c
+    sources/tools/Window.cpp
+    sources/tools/Context.cpp
+    sources/tools/Camera.cpp
+    sources/tools/EventHandler.cpp
+    sources/tools/ShaderHandler.cpp
+    sources/shapes/Axes.cpp
+    sources/shapes/Cube.cpp
+    sources/shapes/Triangle.cpp
+    sources/shapes/Rectangle.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})

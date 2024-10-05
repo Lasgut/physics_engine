@@ -4,7 +4,7 @@
 #include "Axes.h"
 #include "EventHandler.h"
 #include "ShaderHandler.h"
-#include "Triangle2D.h"
+#include "Triangle.h"
 
 int main(int argc, char* argv[]) 
 {
@@ -12,9 +12,9 @@ int main(int argc, char* argv[])
     Context context(window);
     EventState eventState;
     EventHandler eventHandling(eventState);
-    ShaderHandler shaderHandler("/home/lasse/free/ws/physics_engine/shaders/Triangle2D_vertex_shader.glsl", 
-                                "/home/lasse/free/ws/physics_engine/shaders/Triangle2D_fragment_shader.glsl");
-    Triangle2D triangle2D;
+    ShaderHandler shaderHandler("/home/lasse/free/ws/physics_engine/shaders/triangle_vertex_shader.glsl", 
+                                "/home/lasse/free/ws/physics_engine/shaders/triangle_fragment_shader.glsl");
+    Triangle triangle;
     
     // Camera camera(eventState);
     // Axes axes;
@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
         //camera.update(shaderHandler);
         //axes.drawAxes(shaderHandler, camera.getViewMatrix(), camera.getProjectionMatrix());
 
-        triangle2D.draw();
+        triangle.draw();
 
         window.swapBuffers();
     }
