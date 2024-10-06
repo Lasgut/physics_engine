@@ -9,3 +9,7 @@ Rectangle::~Rectangle()
 {
 
 }
+
+void Rectangle::draw()
+{
+}

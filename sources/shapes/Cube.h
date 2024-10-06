@@ -1,4 +1,3 @@
-// Cube.h
 #ifndef CUBE_H
 #define CUBE_H
 
@@ -10,11 +9,12 @@ class Cube
 public:
     Cube();
     ~Cube();
+
     void draw();
 
 private:
-    GLuint VAO, VBO, EBO; // Vertex Array Object, Vertex Buffer Object, Element Buffer Object
-    void setupCube();
+    GLuint VAO_;
+    GLuint VBO_;
 };
 
-#endif // CUBE_H
+#endif
