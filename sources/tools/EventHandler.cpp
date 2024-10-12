@@ -17,6 +17,8 @@ EventHandler::~EventHandler()
 void 
 EventHandler::update()
 {
+    eventState_.mouse.xRel = 0;
+    eventState_.mouse.yRel = 0;
     while (SDL_PollEvent(&sdlEvent_)) 
     {
         quit();
@@ -44,12 +46,10 @@ EventHandler::mouseButton()
         if (sdlEvent_.button.button == SDL_BUTTON_LEFT) 
         {
             eventState_.mouse.leftButtonDown = true;
-            std::cout << "Left mouse button pressed" << std::endl;
         } 
         else if (sdlEvent_.button.button == SDL_BUTTON_RIGHT) 
         {
             eventState_.mouse.rightButtonDown = true;
-            std::cout << "Right mouse button pressed" << std::endl;
         }
     }
 
@@ -69,28 +69,21 @@ EventHandler::mouseButton()
 void 
 EventHandler::mouseMotion()
 {
-    // Handle mouse motion events
     if (sdlEvent_.type == SDL_MOUSEMOTION) 
     {
-        eventState_.mouse.x = sdlEvent_.motion.x; // Current X position
-        eventState_.mouse.y = sdlEvent_.motion.y; // Current Y position
+        eventState_.mouse.x = sdlEvent_.motion.x;
+        eventState_.mouse.y = sdlEvent_.motion.y;
     }
 }
 
-void EventHandler::mouseMotionWhilePressed()
+void 
+EventHandler::mouseMotionWhilePressed()
 {
-    if (eventState_.mouse.leftButtonDown)
+    if (eventState_.mouse.leftButtonDown      &&
+        std::abs(sdlEvent_.motion.xrel) < 100 &&
+        std::abs(sdlEvent_.motion.yrel) < 100)
     {
         eventState_.mouse.xRel = sdlEvent_.motion.xrel;
         eventState_.mouse.yRel = sdlEvent_.motion.yrel;
-        std::cout << "mouse moving while pressed ("
-                  << eventState_.mouse.xRel << ", "
-                  << eventState_.mouse.yRel << ")"
-                  << std::endl;
-    }
-    else
-    {
-        eventState_.mouse.xRel = 0;
-        eventState_.mouse.yRel = 0;
-    }
+    } 
 }

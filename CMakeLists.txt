@@ -32,6 +32,7 @@ set(SOURCES
     sources/tools/Camera.cpp
     sources/tools/EventHandler.cpp
     sources/tools/ShaderHandler.cpp
+    sources/tools/Light.cpp
     sources/shapes/Axes.cpp
     sources/shapes/Cube.cpp
     sources/shapes/Triangle.cpp
