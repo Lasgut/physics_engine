@@ -3,6 +3,7 @@
 
 #pragma once
 #include <glad/glad.h>
+#include "ShaderHandler.h"
 
 class Cube 
 {
@@ -10,7 +11,7 @@ public:
     Cube();
     ~Cube();
 
-    void draw();
+    void draw(ShaderHandler& shader);
 
 private:
     GLuint VAO_;

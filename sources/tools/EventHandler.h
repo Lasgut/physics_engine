@@ -22,6 +22,7 @@ private:
     void mouseButton();
     void mouseMotion();
     void mouseMotionWhilePressed();
+    void ctrlButton();
 
 };
 

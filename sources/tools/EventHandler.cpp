@@ -25,6 +25,7 @@ EventHandler::update()
         mouseButton();
         mouseMotion();
         mouseMotionWhilePressed();
+        ctrlButton();
     }
 }
 
@@ -86,4 +87,22 @@ EventHandler::mouseMotionWhilePressed()
         eventState_.mouse.xRel = sdlEvent_.motion.xrel;
         eventState_.mouse.yRel = sdlEvent_.motion.yrel;
     } 
+}
+
+void EventHandler::ctrlButton()
+{
+    if (sdlEvent_.type == SDL_KEYDOWN) 
+    {
+        if (sdlEvent_.key.keysym.sym == SDLK_LCTRL || sdlEvent_.key.keysym.sym == SDLK_RCTRL) 
+        {
+            eventState_.keyboard.ctrl = true; // Ctrl pressed
+        }
+    } 
+    else if (sdlEvent_.type == SDL_KEYUP) 
+    {
+        if (sdlEvent_.key.keysym.sym == SDLK_LCTRL || sdlEvent_.key.keysym.sym == SDLK_RCTRL) 
+        {
+            eventState_.keyboard.ctrl = false; // Ctrl released
+        }
+    }
 }

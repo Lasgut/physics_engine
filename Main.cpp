@@ -34,17 +34,8 @@ int main(int argc, char* argv[])
 
         //axes.drawAxes(shaderHandler, camera.getViewMatrix(), camera.getProjectionMatrix());
 
-        shaderHandler.setVec3("objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
-        shaderHandler.setVec3("ambient", glm::vec3(0.5f, 0.5f, 0.5f));
-
-        glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-        //model = glm::rotate(model, (float)SDL_GetTicks()/1000, glm::vec3(0.0f, 1.0f, 0.0f));
-
-        shaderHandler.setMat4("model",model);
-
         //triangle.draw();
-        cube.draw();
+        cube.draw(shaderHandler);
 
         window.swapBuffers();
     }

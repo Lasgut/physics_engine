@@ -7,17 +7,22 @@ struct MouseState
 {
     bool leftButtonDown = false;
     bool rightButtonDown = false;
-    int x = 0;  // Current mouse x position
-    int y = 0;  // Current mouse y position
-    int xRel = 0;  // Relative mouse movement in x
-    int yRel = 0;  // Relative mouse movement in y
+    float x = 0;
+    float y = 0; 
+    float xRel = 0; 
+    float yRel = 0;  
+};
+
+struct KeyboardState
+{
+    bool ctrl = false;
 };
 
 struct EventState 
 {
     bool quit = false;
     MouseState mouse;
-    // You can expand this with keyboard states, etc.
+    KeyboardState keyboard;
 };
 
-#endif // EVENT_STATE_H
+#endif

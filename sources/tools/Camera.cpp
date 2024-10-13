@@ -21,39 +21,62 @@ Camera::Camera(EventState& eventState)
 void 
 Camera::update(ShaderHandler& shader)
 { 
+    move();
     view_ = glm::lookAt(position_, target_, orientation_);
-    processMouseMovement();
     shader.setMat4("view", view_);
     shader.setMat4("projection", projection_);
 }
 
 void 
-Camera::processMouseMovement() 
+Camera::move()
+{
+    processMouseMovement();
+}
+
+void Camera::processMouseMovement()
 {
     if (eventState_.mouse.leftButtonDown) 
     {
-        const float sensitivity = 0.3f;
+        float sensitivity = 0.3f;
 
         float xoffset = eventState_.mouse.xRel * sensitivity;
         float yoffset = eventState_.mouse.yRel * sensitivity;
 
-        yaw_   -= xoffset;
-        pitch_ += yoffset;
-
-        if (pitch_ > 89.0f) 
+        if (eventState_.keyboard.ctrl)
         {
-            pitch_ = 89.0f;
+            sensitivity = 0.02f;
+            // Calculate right and up vectors
+            glm::vec3 front = glm::normalize(target_ - position_);
+            glm::vec3 right = glm::normalize(glm::cross(front, glm::vec3(0.0f, 1.0f, 0.0f))); // Right vector
+            glm::vec3 up = glm::cross(right, front); // Up vector
+
+            // Update position based on mouse movement
+            position_ -= right * xoffset * sensitivity;  // Move left/right
+            position_ += up * yoffset * sensitivity;     // Move up/down (inverted for screen coordinates)
+
+            target_ -= right * xoffset * sensitivity;  // Move left/right
+            target_ += up * yoffset * sensitivity; 
         }
-        if (pitch_ < -89.0f) 
+        else
         {
-            pitch_ = -89.0f;
+            yaw_   -= xoffset;
+            pitch_ += yoffset;
+
+            if (pitch_ > 89.0f) 
+            {
+                pitch_ = 89.0f;
+            }
+            if (pitch_ < -89.0f) 
+            {
+                pitch_ = -89.0f;
+            }
+
+            float radius = glm::length(position_ - target_);
+
+            position_.x = target_.x + radius * cos(glm::radians(pitch_)) * sin(glm::radians(yaw_));
+            position_.y = target_.y + radius * sin(glm::radians(pitch_));
+            position_.z = target_.z + radius * cos(glm::radians(pitch_)) * cos(glm::radians(yaw_));
         }
-
-        float radius = glm::length(position_ - target_);
-
-        position_.x = target_.x + radius * cos(glm::radians(pitch_)) * sin(glm::radians(yaw_));
-        position_.y = target_.y + radius * sin(glm::radians(pitch_));
-        position_.z = target_.z + radius * cos(glm::radians(pitch_)) * cos(glm::radians(yaw_));
     }
 }
 

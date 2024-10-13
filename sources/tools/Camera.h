@@ -16,7 +16,6 @@ public:
     Camera(EventState& eventState);
 
     void update(ShaderHandler& shader);
-    void processMouseMovement();
 
     glm::mat4& getViewMatrix();
     glm::mat4& getProjectionMatrix();
@@ -32,6 +31,9 @@ private:
 
     glm::mat4 view_;
     glm::mat4 projection_;
+
+    void move();
+    void processMouseMovement();
 };
 
 #endif // CAMERA_H
