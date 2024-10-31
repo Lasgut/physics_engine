@@ -5,47 +5,47 @@
 Cube::Cube() 
 {
     float vertices[] = {
-        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
-         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
-         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
-        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
-        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
+        -length_, -width_, -height_,  0.0f,  0.0f, -1.0f,
+         length_, -width_, -height_,  0.0f,  0.0f, -1.0f, 
+         length_,  width_, -height_,  0.0f,  0.0f, -1.0f, 
+         length_,  width_, -height_,  0.0f,  0.0f, -1.0f, 
+        -length_,  width_, -height_,  0.0f,  0.0f, -1.0f, 
+        -length_, -width_, -height_,  0.0f,  0.0f, -1.0f, 
 
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+        -length_, -width_,  height_,  0.0f,  0.0f, 1.0f,
+         length_, -width_,  height_,  0.0f,  0.0f, 1.0f,
+         length_,  width_,  height_,  0.0f,  0.0f, 1.0f,
+         length_,  width_,  height_,  0.0f,  0.0f, 1.0f,
+        -length_,  width_,  height_,  0.0f,  0.0f, 1.0f,
+        -length_, -width_,  height_,  0.0f,  0.0f, 1.0f,
 
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+        -length_,  width_,  height_, -1.0f,  0.0f,  0.0f,
+        -length_,  width_, -height_, -1.0f,  0.0f,  0.0f,
+        -length_, -width_, -height_, -1.0f,  0.0f,  0.0f,
+        -length_, -width_, -height_, -1.0f,  0.0f,  0.0f,
+        -length_, -width_,  height_, -1.0f,  0.0f,  0.0f,
+        -length_,  width_,  height_, -1.0f,  0.0f,  0.0f,
 
-         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+         length_,  width_,  height_,  1.0f,  0.0f,  0.0f,
+         length_,  width_, -height_,  1.0f,  0.0f,  0.0f,
+         length_, -width_, -height_,  1.0f,  0.0f,  0.0f,
+         length_, -width_, -height_,  1.0f,  0.0f,  0.0f,
+         length_, -width_,  height_,  1.0f,  0.0f,  0.0f,
+         length_,  width_,  height_,  1.0f,  0.0f,  0.0f,
 
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+        -length_, -width_, -height_,  0.0f, -1.0f,  0.0f,
+         length_, -width_, -height_,  0.0f, -1.0f,  0.0f,
+         length_, -width_,  height_,  0.0f, -1.0f,  0.0f,
+         length_, -width_,  height_,  0.0f, -1.0f,  0.0f,
+        -length_, -width_,  height_,  0.0f, -1.0f,  0.0f,
+        -length_, -width_, -height_,  0.0f, -1.0f,  0.0f,
 
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-         0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
+        -length_,  width_, -height_,  0.0f,  1.0f,  0.0f,
+         length_,  width_, -height_,  0.0f,  1.0f,  0.0f,
+         length_,  width_,  height_,  0.0f,  1.0f,  0.0f,
+         length_,  width_,  height_,  0.0f,  1.0f,  0.0f,
+        -length_,  width_,  height_,  0.0f,  1.0f,  0.0f,
+        -length_,  width_, -height_,  0.0f,  1.0f,  0.0f
     };
 
     glGenVertexArrays(1, &VAO_);
@@ -74,14 +74,29 @@ Cube::~Cube()
 void 
 Cube::draw(ShaderHandler& shaderHandler) 
 {
+    //update(0.1, glm::vec3(0.1f, 0.0f, 0.0f));
     shaderHandler.setVec3("objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
 
     glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+    model = glm::translate(model, position_);
     // model = glm::rotate(model, (float)SDL_GetTicks()/1000, glm::vec3(0.0f, 1.0f, 0.0f));
     shaderHandler.setMat4("model",model);
 
     glBindVertexArray(VAO_); 
     glDrawArrays(GL_TRIANGLES, 0, 36);
     glBindVertexArray(0);
+}
+
+void Cube::update(float deltaTime, glm::vec3 force)
+{
+    glm::vec3 acceleration = force / mass_;
+
+    velocity_ += acceleration * deltaTime;
+
+    position_ += velocity_ * deltaTime;
+}
+
+glm::vec3 Cube::getPosition() const
+{
+    return position_;
 }

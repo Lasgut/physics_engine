@@ -7,6 +7,7 @@
 #include "Triangle.h"
 #include "Cube.h"
 #include "Light.h"
+#include "Rectangle.h"
 
 int main(int argc, char* argv[]) 
 {
@@ -17,6 +18,7 @@ int main(int argc, char* argv[])
     ShaderHandler shaderHandler("/home/lasse/free/ws/physics_engine/shaders/vertex_shader.glsl", 
                                 "/home/lasse/free/ws/physics_engine/shaders/fragment_shader.glsl");
     Triangle triangle;
+    Rectangle floor;
     Cube cube;
     
     Camera camera(eventState);
@@ -32,9 +34,7 @@ int main(int argc, char* argv[])
         camera.update(shaderHandler);
         light.update(shaderHandler, camera);
 
-        //axes.drawAxes(shaderHandler, camera.getViewMatrix(), camera.getProjectionMatrix());
-
-        //triangle.draw();
+        //floor.draw(shaderHandler);
         cube.draw(shaderHandler);
 
         window.swapBuffers();

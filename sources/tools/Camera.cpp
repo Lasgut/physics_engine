@@ -37,7 +37,7 @@ void Camera::processMouseMovement()
 {
     if (eventState_.mouse.leftButtonDown) 
     {
-        float sensitivity = 0.3f;
+        float sensitivity = 0.1f;
 
         float xoffset = eventState_.mouse.xRel * sensitivity;
         float yoffset = eventState_.mouse.yRel * sensitivity;
@@ -58,10 +58,11 @@ void Camera::processMouseMovement()
             target_ += up * yoffset * sensitivity; 
         }
         else
-        {
+        {   
             yaw_   -= xoffset;
             pitch_ += yoffset;
 
+            float roll = 0.0;
             if (pitch_ > 89.0f) 
             {
                 pitch_ = 89.0f;

@@ -26,8 +26,10 @@ private:
     glm::vec3   position_;
     glm::vec3   target_;
     glm::vec3   orientation_;
-    float       yaw_;
+    float       azimuthAngle_;
+    float       polarAngle_;
     float       pitch_;
+    float       yaw_;
 
     glm::mat4 view_;
     glm::mat4 projection_;
