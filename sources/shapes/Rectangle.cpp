@@ -4,48 +4,45 @@
 
 Rectangle::Rectangle()
 {
-    float vertices[] = {
-        -length_, -width_,  height_,  0.0f,  0.0f, 1.0f,
-         length_, -width_,  height_,  0.0f,  0.0f, 1.0f,
-         length_,  width_,  height_,  0.0f,  0.0f, 1.0f,
-         length_,  width_,  height_,  0.0f,  0.0f, 1.0f,
-        -length_,  width_,  height_,  0.0f,  0.0f, 1.0f,
-        -length_, -width_,  height_,  0.0f,  0.0f, 1.0f,
-    };
-
-    glGenVertexArrays(1, &VAO_);
-    glGenBuffers(1, &VBO_);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO_);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glBindVertexArray(VAO_);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6*sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    glBindVertexArray(0);
+    vertices_ = createVertices();
+    glStuff();
 }
 
-Rectangle::~Rectangle()
+Rectangle::Rectangle(float length, float width, float height)
+    : length_(length)
+    , width_(width)
+    , height_(height)
 {
-    glDeleteVertexArrays(1, &VAO_);
-    glDeleteBuffers(1, &VBO_);
+    Rectangle();
 }
 
 void 
-Rectangle::draw(ShaderHandler& shaderHandler)
+Rectangle::draw(const ShaderHandler& shaderHandler, 
+                const glm::vec3&     position,
+                const glm::vec3&     orientation)
 {
-    shaderHandler.setVec3("objectColor", glm::vec3(0.1f, 0.1f, 0.1f));
+    shaderHandler.setVec3("objectColor", glm::vec3(0.3f, 0.3f, 0.3f));
 
     glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+    model = glm::translate(model, fromNEDtoCAMERA(position));
+    model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    
     shaderHandler.setMat4("model",model);
 
     glBindVertexArray(VAO_); 
     glDrawArrays(GL_TRIANGLES, 0, 36);
     glBindVertexArray(0);
+}
+
+std::vector<float>
+Rectangle::createVertices()
+{
+    return {
+        -length_, -width_,  height_,  0.0f,  0.0f, -1.0f,
+         length_, -width_,  height_,  0.0f,  0.0f, -1.0f,
+         length_,  width_,  height_,  0.0f,  0.0f, -1.0f,
+         length_,  width_,  height_,  0.0f,  0.0f, -1.0f,
+        -length_,  width_,  height_,  0.0f,  0.0f, -1.0f,
+        -length_, -width_,  height_,  0.0f,  0.0f, -1.0f,
+    };
 }

@@ -5,9 +5,10 @@
 #include "EventHandler.h"
 #include "ShaderHandler.h"
 #include "Triangle.h"
-#include "Cube.h"
+#include "Drone.h"
 #include "Light.h"
 #include "Rectangle.h"
+#include "Floor.h"
 
 int main(int argc, char* argv[]) 
 {
@@ -18,8 +19,8 @@ int main(int argc, char* argv[])
     ShaderHandler shaderHandler("/home/lasse/free/ws/physics_engine/shaders/vertex_shader.glsl", 
                                 "/home/lasse/free/ws/physics_engine/shaders/fragment_shader.glsl");
     Triangle triangle;
-    Rectangle floor;
-    Cube cube;
+    Floor floor;
+    Drone drone;
     
     Camera camera(eventState);
     Light light;
@@ -34,8 +35,8 @@ int main(int argc, char* argv[])
         camera.update(shaderHandler);
         light.update(shaderHandler, camera);
 
-        //floor.draw(shaderHandler);
-        cube.draw(shaderHandler);
+        floor.update(shaderHandler);
+        drone.update(shaderHandler);
 
         window.swapBuffers();
     }

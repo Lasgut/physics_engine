@@ -4,18 +4,22 @@
 #pragma once
 #include <glad/glad.h>
 #include "ShaderHandler.h"
+#include "Shape.h"
+#include <vector>
 
 class Rectangle
+    : public Shape
 {
 public:
     Rectangle();
-    ~Rectangle();
+    Rectangle(float length, float width, float height);
 
-    void draw(ShaderHandler& shaderHandler);
+    void draw(const ShaderHandler& shaderHandler, 
+              const glm::vec3&     position,
+              const glm::vec3&     orientation);
 
 private:
-    GLuint VAO_;
-    GLuint VBO_;
+    std::vector<float> createVertices();
 
     float length_{1};
     float width_{1};

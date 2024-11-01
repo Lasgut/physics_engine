@@ -3,30 +3,26 @@
 
 #pragma once
 #include <glad/glad.h>
+#include <Shape.h>
 #include "ShaderHandler.h"
 
 class Cube 
+    : public Shape
 {
 public:
     Cube();
-    ~Cube();
+    Cube(float length, float width, float height);
 
-    void draw(ShaderHandler& shader);
-    void update(float deltaTime, glm::vec3 force);
-    glm::vec3 getPosition() const; 
+    void draw(const ShaderHandler& shaderHandler, 
+              const glm::vec3&     position,
+              const glm::vec3&     orientation);
 
 private:
-    GLuint VAO_;
-    GLuint VBO_;
+    std::vector<float> createVertices();
 
-    float mass_{10};
-    float length_{0.1};
-    float width_{0.1};
-    float height_{0.1};
-
-    glm::vec3 position_{0.0f, 0.0f, 0.0f}; 
-    glm::vec3 velocity_;      
-    glm::vec3 force_;         
+    float length_ {0.1};
+    float width_  {0.1};
+    float height_ {0.1};        
 };
 
 #endif
