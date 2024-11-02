@@ -20,9 +20,9 @@ public:
 private:
     std::vector<float> createVertices();
 
-    float length_ {0.1};
-    float width_  {0.1};
-    float height_ {0.1};        
+    float length_{0.1};
+    float width_{0.1};
+    float height_{0.1};        
 };
 
 #endif

@@ -11,7 +11,7 @@ Camera::Camera(EventState& eventState)
       orientation_(glm::vec3(0.0f, 1.0f, 0.0f)) 
 {
     glm::vec3 direction = glm::normalize(position_ - target_);
-    yaw_   = glm::degrees(atan2(direction.z, direction.x));
+    yaw_   = glm::degrees(atan2(direction.x, direction.z));
     pitch_ = glm::degrees(asin(direction.y)); 
 
     view_ = glm::lookAt(position_, target_, orientation_);

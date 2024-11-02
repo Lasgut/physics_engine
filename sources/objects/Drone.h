@@ -14,7 +14,7 @@ public:
     void update(const ShaderHandler& shaderHandler);
 
 private:
-    Cube       shape_;//{0.2,0.2,0.2};
+    Cube       shape_ = Cube(0.2, 0.15, 0.05);
     Kinematics kinematics_;
 
 };

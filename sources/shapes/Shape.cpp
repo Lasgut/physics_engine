@@ -38,3 +38,11 @@ Shape::fromNEDtoCAMERA(const glm::vec3 &vecNED)
     glm::vec4 vecCamera = rotMat*glm::vec4(vecNED, 1);
     return glm::vec3(vecCamera);
 }
+
+glm::mat4
+Shape::fromNEDtoCAMERA(glm::mat4 &modelMat, const glm::vec3& pos)
+{
+    modelMat = glm::translate(modelMat, fromNEDtoCAMERA(pos));
+    modelMat = glm::rotate(modelMat, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    return modelMat;
+}
