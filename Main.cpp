@@ -9,6 +9,7 @@
 #include "Light.h"
 #include "Rectangle.h"
 #include "Floor.h"
+#include "Clock.h"
 
 int main(int argc, char* argv[]) 
 {
@@ -22,12 +23,15 @@ int main(int argc, char* argv[])
     Floor floor;
     Drone drone;
     
+    Clock clock;
     Camera camera(eventState);
     Light light;
     // Axes axes;
 
     while (!eventState.quit) 
     {
+        clock.setPreviousTime();
+
         eventHandler.update();
         context.clear();
         shaderHandler.use();
@@ -36,7 +40,7 @@ int main(int argc, char* argv[])
         light.update(shaderHandler, camera);
 
         floor.update(shaderHandler);
-        drone.update(shaderHandler);
+        drone.update(shaderHandler, clock);
 
         window.swapBuffers();
     }

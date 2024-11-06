@@ -33,7 +33,8 @@ Camera::move()
     processMouseMovement();
 }
 
-void Camera::processMouseMovement()
+void 
+Camera::processMouseMovement()
 {
     if (eventState_.mouse.leftButtonDown) 
     {

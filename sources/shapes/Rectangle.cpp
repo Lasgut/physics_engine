@@ -23,8 +23,7 @@ Rectangle::draw(const ShaderHandler& shaderHandler,
 {
     shaderHandler.setVec3("objectColor", glm::vec3(0.3f, 0.3f, 0.3f));
 
-    glm::mat4 model = glm::mat4(1.0f);
-    model = fromNEDtoCAMERA(model, position);
+    glm::mat4 model = createModelMat(position);
     
     shaderHandler.setMat4("model",model);
 

@@ -16,7 +16,7 @@ public:
 protected:
     void      glStuff();
     glm::vec3 fromNEDtoCAMERA(const glm::vec3& vec);
-    glm::mat4 fromNEDtoCAMERA(glm::mat4& mat, const glm::vec3& pos);
+    glm::mat4 createModelMat(const glm::vec3& pos);
 
     GLuint VAO_;
     GLuint VBO_;

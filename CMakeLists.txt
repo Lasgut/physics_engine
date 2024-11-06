@@ -20,10 +20,12 @@ include_directories(shaders)
 find_package(SDL2 REQUIRED)
 find_package(glm REQUIRED)
 find_package(OpenGL REQUIRED)
+find_package(Eigen3 REQUIRED)
 
 include_directories(${SDL2_INCLUDE_DIRS} 
                     ${glm_INCLUDE_DIRS} 
-                    ${OPENGL_INCLUDE_DIRS})
+                    ${OPENGL_INCLUDE_DIRS}
+                    ${EIGEN3_INCLUDE_DIRS})
 
 set(SOURCES
     Main.cpp
@@ -38,15 +40,16 @@ set(SOURCES
     sources/tools/Window.cpp
     sources/tools/Context.cpp
     sources/tools/Camera.cpp
+    sources/tools/Clock.cpp
     sources/tools/EventHandler.cpp
     sources/tools/ShaderHandler.cpp
     sources/tools/Light.cpp
+    sources/tools/Kinematics.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME} 
                       ${SDL2_LIBRARIES} 
-                      ${GLEW_LIBRARIES} 
                       ${OPENGL_LIBRARIES})
 
