@@ -1,4 +1,5 @@
 #include "ShaderHandler.h"
+#include "Camera.h"
 
 ShaderHandler::ShaderHandler(const char* vertexPath, const char* fragmentPath)
 {
@@ -53,9 +54,11 @@ ShaderHandler::ShaderHandler(const char* vertexPath, const char* fragmentPath)
 }
 
 void 
-ShaderHandler::use() 
+ShaderHandler::use(const Camera& camera) 
 { 
     glUseProgram(ID_); 
+    setMat4("view", camera.getViewMatrix());
+    setMat4("projection", camera.getProjectionMatrix());
 }
 
 void 

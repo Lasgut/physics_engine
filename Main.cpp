@@ -17,16 +17,18 @@ int main(int argc, char* argv[])
     Context context(window);
     EventState eventState;
     EventHandler eventHandler(eventState);
+    ShaderHandler simpleShaderHandler("/home/lasse/free/ws/physics_engine/shaders/vertex_shader_simple.glsl", 
+                                      "/home/lasse/free/ws/physics_engine/shaders/fragment_shader_simple.glsl");
     ShaderHandler shaderHandler("/home/lasse/free/ws/physics_engine/shaders/vertex_shader.glsl", 
                                 "/home/lasse/free/ws/physics_engine/shaders/fragment_shader.glsl");
     Triangle triangle;
     Floor floor;
     Drone drone;
     
-    Clock clock;
+    Clock  clock;
     Camera camera(eventState);
-    Light light;
-    // Axes axes;
+    Light  light;
+    Axes   axes(0.5f);
 
     while (!eventState.quit) 
     {
@@ -34,13 +36,17 @@ int main(int argc, char* argv[])
 
         eventHandler.update();
         context.clear();
-        shaderHandler.use();
-        
-        camera.update(shaderHandler);
+
+        camera.update();
+
+        simpleShaderHandler.use(camera);
+        axes.update(simpleShaderHandler);
+
+        shaderHandler.use(camera);
         light.update(shaderHandler, camera);
 
-        floor.update(shaderHandler);
         drone.update(shaderHandler, clock);
+        floor.update(shaderHandler);
 
         window.swapBuffers();
     }

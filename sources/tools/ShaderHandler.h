@@ -1,8 +1,9 @@
 #ifndef SHADERHANDLER_H
 #define SHADERHANDLER_H
 
+#pragma once
+#include "Camera.h"
 #include <glad/glad.h>
-
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -16,7 +17,7 @@ class ShaderHandler
 public:
     ShaderHandler(const char* vertexPath, const char* fragmentPath);
     
-    void use(); 
+    void use(const Camera& camera);
 
     unsigned int& getID();
 
@@ -38,5 +39,4 @@ private:
 
     void checkCompileErrors(unsigned int shader, std::string type);
 };
-
 #endif

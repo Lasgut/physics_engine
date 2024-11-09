@@ -6,10 +6,15 @@
 
 struct KinematicsData 
 {
-    Eigen::Vector3<float> position   {0.0f, 0.0f, 0.0f};
-    Eigen::Vector3<float> velocity   {0.0f, 0.0f, 0.0f};
-    Eigen::Vector3<float> orientation{0.0f, 0.0f, 0.0f};
-    float     mass;
+    Eigen::Vector<float,3> position             {0.0f, 0.0f, 0.0f};
+    Eigen::Vector<float,3> velocity             {0.0f, 0.0f, 0.0f};
+    Eigen::Vector<float,3> acceleration         {0.0f, 0.0f, 0.0f};
+    Eigen::Vector<float,3> orientation          {0.0f, 0.0f, 0.0f};
+    Eigen::Vector<float,3> angularVelocity      {0.0f, 0.0f, 0.0f};
+    Eigen::Vector<float,3> angularAcceleration  {0.0f, 0.0f, 0.0f};
+    
+    float mass;
+    float gravity{9.81};
 };
 
 #endif

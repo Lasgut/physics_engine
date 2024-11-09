@@ -11,7 +11,7 @@ public:
     ~Clock();
 
     void  setPreviousTime();
-    float getDeltaTime() const;
+    float getDeltaTime()    const;
 
 private:
     std::chrono::steady_clock::time_point previousTime_;

@@ -1,12 +1,11 @@
 #include "Camera.h"
 #include "EventState.h"
-#include "ShaderHandler.h"
 #include <glm/glm.hpp> 
 #include <glm/gtc/matrix_transform.hpp>
 
 Camera::Camera(EventState& eventState)
     : eventState_(eventState), 
-      position_(glm::vec3(0.0f, 2.0f, 2.0f)), 
+      position_(glm::vec3(0.0f, 2.0f, -2.0f)), 
       target_(glm::vec3(0.0f, 0.0f, 0.0f)), 
       orientation_(glm::vec3(0.0f, 1.0f, 0.0f)) 
 {
@@ -19,12 +18,10 @@ Camera::Camera(EventState& eventState)
 }
 
 void 
-Camera::update(ShaderHandler& shader)
+Camera::update()
 { 
     move();
     view_ = glm::lookAt(position_, target_, orientation_);
-    shader.setMat4("view", view_);
-    shader.setMat4("projection", projection_);
 }
 
 void 
@@ -82,20 +79,20 @@ Camera::processMouseMovement()
     }
 }
 
-glm::mat4&
-Camera::getViewMatrix()
+const glm::mat4&
+Camera::getViewMatrix() const
 {
     return view_;
 }
 
-glm::mat4&
-Camera::getProjectionMatrix()
+const glm::mat4&
+Camera::getProjectionMatrix() const 
 {
     return projection_;
 }
 
-glm::vec3& 
-Camera::getPosition()
+const glm::vec3& 
+Camera::getPosition() const
 {
     return position_;
 }

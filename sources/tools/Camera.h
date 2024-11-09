@@ -1,10 +1,8 @@
-// Camera.h
 #ifndef CAMERA_H
 #define CAMERA_H
 
 #pragma once
 #include "EventState.h"
-#include "ShaderHandler.h"
 #include <glad/glad.h>
 #include <glm/glm.hpp> 
 #include <glm/gtc/matrix_transform.hpp>
@@ -15,11 +13,11 @@ class Camera
 public:
     Camera(EventState& eventState);
 
-    void update(ShaderHandler& shader);
+    void update();
 
-    glm::mat4& getViewMatrix();
-    glm::mat4& getProjectionMatrix();
-    glm::vec3& getPosition();
+    const glm::mat4& getViewMatrix()       const;
+    const glm::mat4& getProjectionMatrix() const;
+    const glm::vec3& getPosition()         const;
 
 private:
     EventState& eventState_;
@@ -38,4 +36,4 @@ private:
     void processMouseMovement();
 };
 
-#endif // CAMERA_H
+#endif 

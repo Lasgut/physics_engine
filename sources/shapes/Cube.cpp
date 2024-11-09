@@ -26,7 +26,7 @@ Cube::draw(const ShaderHandler& shaderHandler,
 {
     shaderHandler.setVec3("objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
 
-    glm::mat4 model = createModelMat(position);
+    glm::mat4 model = createModelMat(position, orientation);
     shaderHandler.setMat4("model",model);
 
     glBindVertexArray(VAO_); 

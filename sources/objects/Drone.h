@@ -12,7 +12,7 @@ public:
     Drone();
     ~Drone();
 
-    void update(const ShaderHandler& shaderHandler, const Clock& clock);
+    void update(const ShaderHandler& shaderHandler, Clock& clock);
 
 private:
     void init();

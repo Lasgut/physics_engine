@@ -14,9 +14,10 @@ public:
     ~Shape();
 
 protected:
-    void      glStuff();
-    glm::vec3 fromNEDtoCAMERA(const glm::vec3& vec);
-    glm::mat4 createModelMat(const glm::vec3& pos);
+    void      glStuff(int attributeCount = 6);
+    glm::mat4 fromNED();
+    glm::mat4 createModelMat(const glm::vec3& pos,
+                             const glm::vec3& ori);
 
     GLuint VAO_;
     GLuint VBO_;

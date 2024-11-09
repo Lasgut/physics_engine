@@ -31,7 +31,8 @@ set(SOURCES
     Main.cpp
     sources/objects/Drone.cpp
     sources/objects/Floor.cpp
-    sources/shapes/Axes.cpp
+    sources/objects/Axes.cpp
+    sources/shapes/Line.cpp
     sources/shapes/Cube.cpp
     sources/shapes/Rectangle.cpp
     sources/shapes/Shape.cpp

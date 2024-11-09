@@ -14,20 +14,26 @@ public:
 
     void eulerIntegration(float deltaTime);
 
-    void setPosition(const Eigen::Vector3<float>& pos);
-    void setVelocity(const Eigen::Vector3<float>& vel);
-    void setOrientation(const Eigen::Vector3<float>& orient);
+    void setPosition(   const Eigen::Vector<float,3>& pos);
+    void setVelocity(   const Eigen::Vector<float,3>& vel);
+    void setOrientation(const Eigen::Vector<float,3>& orient);
     void setMass(float mass);
 
-    const Eigen::Vector3<float>& getPosition() const;
-    const Eigen::Vector3<float>& getVelocity() const;
-    const Eigen::Vector3<float>& getOrientation() const;
+    const Eigen::Vector<float,3>& getPosition()    const;
+    const Eigen::Vector<float,3>& getVelocity()    const;
+    const Eigen::Vector<float,3>& getOrientation() const;
     float getMass() const;
 
     const glm::vec3 getPositionAsGlm() const;
     const glm::vec3 getOrientationAsGlm() const;
 
+    void systemMatrices();
+
 private:
+    Eigen::Matrix<float,3,3> skew(const Eigen::Vector<float,3>& v);
+    Eigen::Matrix<float,3,3> Rzyx(float phi, float theta, float psi); 
+    Eigen::Matrix<float,3,3> Tzyx(float phi, float theta); 
+
     KinematicsData data_; 
 };
 
