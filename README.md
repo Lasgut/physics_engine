@@ -4,14 +4,14 @@
 This project presents a physics engine or simulator based on kinematic equations. SDL is used to create the application window, openGL to create 3D image and kinematics alters the position and orientation of objects in the visualizer.
 
 ### Setup Instructions, Linux Ubuntu
-Clone with git submodules
-```bash
-git clone --recurse-submodules https://github.com/Lasgut/physics_engine.git
-```
 Install [dependencies](#system-dependencies)
 ```bash
 sudo apt update
 sudo apt install libsdl2-dev libglm-dev libeigen3-dev libgl1-mesa-dev
+```
+Clone with git submodules
+```bash
+git clone --recurse-submodules https://github.com/Lasgut/physics_engine.git
 ```
 Compile the project
 ```bash
@@ -23,23 +23,21 @@ Each object/entity contains a shape and kinematics. The shape is drawn in the 3D
 Should include a figure of the design structure...
 
 ### System Dependencies
-* libsdl2-dev: Manages application window and input.
-* libglm-dev: Provides mathematics functions for OpenGL.
-* libeigen3-dev: Supports linear algebra operations.
-* libgl1-mesa-dev: Supplies OpenGL for 3D rendering.
+| Name | Description | Library |
+|:---:|:---|:---:|
+| SDL2   | Manages application window and input      | libsdl2-dev     |     
+| GLM    | Provides mathematics functions for OpenGL | libglm-dev      |
+| Eigen3 | Supports linear algebra operations        | libeigen3-dev   |
+| OpenGL | Supplies OpenGL for 3D rendering          | libgl1-mesa-dev |
 
 ### Boundle Dependencies
-The directory third_party includes files from external sources. A description of each source, its origin and usage follows,
-#### glad  
-* interface to openGL
-* generated using https://gen.glad.sh/
-* the generator source code https://github.com/Dav1dde/glad
-#### stb 
-* used to load height maps. For example gray scale .png
-* originates from git repository https://github.com/nothings/stb
-#### imgui (git submodule)
-* used to create GUI within the application window
-* originates from git repository https://github.com/ocornut/imgui
+The directory third_party includes files from external sources
+
+| Name | Description | Source | Git submodule |
+| :---: | :--- | :---: | :---: |
+| GLAD  | Interface to OpenGL. Generated from [here](https://gen.glad.sh/). | [GitHub](https://github.com/Dav1dde/glad)  | no  |
+| STB   | Used to load height maps. For example gray scale png.             | [GitHub](https://github.com/nothings/stb)  | no  |
+| ImGUI | Used to create GUI within the application window.                 | [GitHub](https://github.com/ocornut/imgui) | yes |
 
 ### Usefull documentation
-* OpenGL tutorial https://learnopengl.com/
+* [OpenGL tutorial](https://learnopengl.com/)
