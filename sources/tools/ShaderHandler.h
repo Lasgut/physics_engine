@@ -3,7 +3,7 @@
 
 #pragma once
 #include "Camera.h"
-#include <glad/glad.h>
+#include <glad/gl.h>
 #include <string>
 #include <fstream>
 #include <sstream>

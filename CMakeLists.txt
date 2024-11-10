@@ -16,7 +16,9 @@ include_directories(sources/tools)
 include_directories(include)
 include_directories(shaders)
 include_directories(resources)
-include_directories(third_party)
+include_directories(third_party/glad/include)
+include_directories(third_party/imgui)
+include_directories(third_party/stb)
 
 find_package(SDL2 REQUIRED)
 find_package(glm REQUIRED)
@@ -33,8 +35,7 @@ file(GLOB OBJECT_SOURCES "sources/objects/*.cpp")
 file(GLOB SHAPE_SOURCES "sources/shapes/*.cpp")
 file(GLOB TOOL_SOURCES "sources/tools/*.cpp")
 
-# Add third-party sources (glad, imgui)
-file(GLOB GLAD_SOURCES "third_party/glad/glad.c")
+file(GLOB GLAD_SOURCES "third_party/glad/src/gl.c")
 file(GLOB IMGUI_SOURCES 
     "third_party/imgui/imgui.cpp"
     "third_party/imgui/imgui_draw.cpp"
@@ -48,8 +49,8 @@ set(SOURCES
     ${OBJECT_SOURCES}
     ${SHAPE_SOURCES}
     ${TOOL_SOURCES}
-    ${GLAD_SOURCES}
     ${IMGUI_SOURCES}
+    ${GLAD_SOURCES}
     "Main.cpp"
 )
 

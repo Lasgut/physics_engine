@@ -2,7 +2,7 @@
 #define RECTANGLE_H
 
 #pragma once
-#include <glad/glad.h>
+#include <glad/gl.h>
 #include "ShaderHandler.h"
 #include "Shape.h"
 #include <vector>

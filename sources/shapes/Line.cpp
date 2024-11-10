@@ -1,6 +1,6 @@
 #include "Line.h"
 #include "ShaderHandler.h"
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 Line::Line()
 {

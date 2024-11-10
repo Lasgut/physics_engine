@@ -1,7 +1,7 @@
 #include "Light.h"
 #include "ShaderHandler.h"
 #include "Camera.h"
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 Light::Light()
 {

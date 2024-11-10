@@ -2,7 +2,7 @@
 #define CUBE_H
 
 #pragma once
-#include <glad/glad.h>
+#include <glad/gl.h>
 #include <Shape.h>
 #include "ShaderHandler.h"
 

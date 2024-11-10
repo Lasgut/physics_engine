@@ -1,6 +1,6 @@
 #include "Context.h"
 #include <iostream>
-#include "glad/glad.h"
+#include "glad/gl.h"
 
 Context::Context(Window& window) 
     : window_(window) 
@@ -11,8 +11,7 @@ Context::Context(Window& window)
         std::cerr << "Failed to create OpenGL context: " << SDL_GetError() << std::endl;
         exit(1);
     }
-
-    if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
+    if (!gladLoadGL((GLADloadfunc)SDL_GL_GetProcAddress))
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
         exit(1);

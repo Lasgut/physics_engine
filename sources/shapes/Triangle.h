@@ -2,7 +2,7 @@
 #define TRIANGLE_H
 
 #pragma once
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 class Triangle
 {
