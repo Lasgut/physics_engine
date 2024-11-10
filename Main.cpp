@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
     Clock  clock;
     Camera camera(eventState);
     Light  light;
-    Axes   axes(50.0f);
+    Axes   axes(1.0f);
 
     while (!eventState.quit) 
     {
@@ -43,8 +43,8 @@ int main(int argc, char* argv[])
 
         camera.update();
 
-        terrainShaderHandler.use(camera);
-        terrain.update(terrainShaderHandler);
+        // terrainShaderHandler.use(camera);
+        // terrain.update(terrainShaderHandler);
 
         simpleShaderHandler.use(camera);
         axes.update(simpleShaderHandler);
