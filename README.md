@@ -15,7 +15,10 @@ git clone --recurse-submodules https://github.com/Lasgut/physics_engine.git
 ```
 Compile the project
 ```bash
-mkdir build | cd build | cmake .. | make
+mkdir build
+cd build
+cmake ..
+make
 ```
 Run program
 ```bash
