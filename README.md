@@ -36,10 +36,10 @@ The directory third_party includes files from external sources. A description of
 * the generator source code https://github.com/Dav1dde/glad
 #### stb 
 * used to load height maps. For example gray scale .png
+* originates from git repository https://github.com/nothings/stb
 #### imgui (git submodule)
 * used to create GUI within the application window
 * originates from git repository https://github.com/ocornut/imgui
 
 ### Usefull documentation
 * OpenGL tutorial https://learnopengl.com/
-* originates from git repository https://github.com/nothings/stb
