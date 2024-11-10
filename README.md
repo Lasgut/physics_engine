@@ -1,7 +1,12 @@
-# physics_engine
+# Physics Engine
 
 ## Simple physics engine based on kinematic equations.
 This project presents a physics engine or simulator based on kinematic equations. SDL is used to create the application window, openGL to create 3D image and kinematics alters the position and orientation of objects in the visualizer.
+
+### Setup Instructions, Linux
+\'''bash
+git clone --recurse-submodules https://github.com/Lasgut/physics_engine.git
+\'''
 
 ### Dependencies
 * SDL2
