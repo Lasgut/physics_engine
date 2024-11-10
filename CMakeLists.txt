@@ -16,6 +16,7 @@ include_directories(sources/tools)
 include_directories(sources/tools_external)
 include_directories(include)
 include_directories(shaders)
+include_directories(resources)
 
 find_package(SDL2 REQUIRED)
 find_package(glm REQUIRED)
@@ -32,6 +33,7 @@ set(SOURCES
     sources/objects/Drone.cpp
     sources/objects/Floor.cpp
     sources/objects/Axes.cpp
+    sources/objects/Terrain.cpp
     sources/shapes/Line.cpp
     sources/shapes/Cube.cpp
     sources/shapes/Rectangle.cpp

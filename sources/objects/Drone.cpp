@@ -14,8 +14,6 @@ Drone::~Drone()
 void 
 Drone::update(const ShaderHandler& shaderHandler, Clock& clock)
 {
-    auto pos = kinematics_.getPosition();
-    auto ori = kinematics_.getOrientation();
     shape_.draw(shaderHandler, 
                 kinematics_.getPositionAsGlm(), 
                 kinematics_.getOrientationAsGlm());

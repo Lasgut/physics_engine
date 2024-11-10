@@ -5,7 +5,7 @@
 
 Camera::Camera(EventState& eventState)
     : eventState_(eventState), 
-      position_(glm::vec3(0.0f, 2.0f, -2.0f)), 
+      position_(glm::vec3(0.0f, 400.0f, 0.0f)), 
       target_(glm::vec3(0.0f, 0.0f, 0.0f)), 
       orientation_(glm::vec3(0.0f, 1.0f, 0.0f)) 
 {
@@ -14,7 +14,7 @@ Camera::Camera(EventState& eventState)
     pitch_ = glm::degrees(asin(direction.y)); 
 
     view_ = glm::lookAt(position_, target_, orientation_);
-    projection_ = glm::perspective(glm::radians(45.0f), 1200.0f / 1200.0f, 0.1f, 100.0f); 
+    projection_ = glm::perspective(glm::radians(45.0f), 1200.0f / 1200.0f, 0.1f, 500.0f); 
 }
 
 void 
