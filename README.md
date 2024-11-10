@@ -8,7 +8,7 @@ Clone with git submodules
 ```bash
 git clone --recurse-submodules https://github.com/Lasgut/physics_engine.git
 ```
-Install [dependencies](###system-dependencies)
+Install [dependencies](#system-dependencies)
 ```bash
 sudo apt update
 sudo apt install libsdl2-dev libglm-dev libeigen3-dev libgl1-mesa-dev
