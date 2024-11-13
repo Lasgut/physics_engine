@@ -13,6 +13,8 @@ public:
      
     void clear();  
 
+    SDL_GLContext getGlContext() const;
+
 private:
     SDL_GLContext   glContext_;  
     Window&         window_;  

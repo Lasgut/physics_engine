@@ -19,9 +19,13 @@ private:
 
 private:
     void quit();
+
+    void mouseEvents();
     void mouseButton();
     void mouseMotion();
     void mouseMotionWhilePressed();
+
+    void keyboardEvents();
     void ctrlButton();
 
 };

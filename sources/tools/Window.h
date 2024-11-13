@@ -13,7 +13,6 @@ public:
     void swapBuffers();
 
     SDL_Window* getSdlWindow() const;
-    SDL_Event*  getSdlEvent();
 
 private:
     SDL_Window* sdlWindow_;

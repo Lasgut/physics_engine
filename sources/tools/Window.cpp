@@ -32,7 +32,8 @@ Window::~Window()
     SDL_Quit();
 }
 
-void Window::swapBuffers()
+void 
+Window::swapBuffers()
 {
     SDL_GL_SwapWindow(sdlWindow_);
 }

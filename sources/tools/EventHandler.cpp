@@ -1,5 +1,6 @@
 #include "EventHandler.h"
 #include "EventState.h"
+#include "backends/imgui_impl_sdl2.h"
 #include <SDL2/SDL.h>
 #include <iostream>
 
@@ -22,10 +23,9 @@ EventHandler::update()
     while (SDL_PollEvent(&sdlEvent_)) 
     {
         quit();
-        mouseButton();
-        mouseMotion();
-        mouseMotionWhilePressed();
-        ctrlButton();
+        ImGui_ImplSDL2_ProcessEvent(&sdlEvent_);
+        mouseEvents();
+        keyboardEvents();
     }
 }
 
@@ -36,6 +36,17 @@ EventHandler::quit()
     {
         eventState_.quit = true;
     }
+}
+
+void 
+EventHandler::mouseEvents()
+{
+    if (!ImGui::GetIO().WantCaptureMouse) 
+        { 
+            mouseButton();
+            mouseMotion();
+            mouseMotionWhilePressed();
+        }
 }
 
 void 
@@ -87,6 +98,14 @@ EventHandler::mouseMotionWhilePressed()
         eventState_.mouse.xRel = sdlEvent_.motion.xrel;
         eventState_.mouse.yRel = sdlEvent_.motion.yrel;
     } 
+}
+
+void EventHandler::keyboardEvents()
+{
+    if (!ImGui::GetIO().WantCaptureKeyboard) 
+        {
+        ctrlButton();
+        }
 }
 
 void EventHandler::ctrlButton()

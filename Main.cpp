@@ -11,6 +11,8 @@
 #include "Floor.h"
 #include "Clock.h"
 #include "Terrain.h"
+#include "GuiSettings.h"
+
 
 int main(int argc, char* argv[]) 
 {
@@ -18,6 +20,8 @@ int main(int argc, char* argv[])
     Context context(window);
     EventState eventState;
     EventHandler eventHandler(eventState);
+    GuiSettings guiSettings(window, context);
+
     ShaderHandler simpleShaderHandler("/home/lasse/free/ws/physics_engine/shaders/vertex_shader_simple.glsl", 
                                       "/home/lasse/free/ws/physics_engine/shaders/fragment_shader_simple.glsl");
     ShaderHandler shaderHandler("/home/lasse/free/ws/physics_engine/shaders/vertex_shader.glsl", 
@@ -54,6 +58,8 @@ int main(int argc, char* argv[])
 
         drone.update(shaderHandler, clock);
         floor.update(shaderHandler);
+
+        guiSettings.update();
 
         window.swapBuffers();
     }
