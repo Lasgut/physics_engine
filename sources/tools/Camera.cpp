@@ -1,10 +1,12 @@
 #include "Camera.h"
 #include "EventState.h"
+#include "Settings.h"
 #include <glm/glm.hpp> 
 #include <glm/gtc/matrix_transform.hpp>
 
-Camera::Camera(EventState& eventState)
-    : eventState_(eventState), 
+Camera::Camera(EventState& eventState, Settings& settings)
+    : eventState_(eventState),
+      settings_(settings),
       position_(glm::vec3(0.0f, 2.0f, -2.0f)), 
       target_(glm::vec3(0.0f, 0.0f, 0.0f)), 
       orientation_(glm::vec3(0.0f, 1.0f, 0.0f)) 
@@ -21,6 +23,7 @@ void
 Camera::update()
 { 
     move();
+    zoom();
     view_ = glm::lookAt(position_, target_, orientation_);
 }
 
@@ -30,19 +33,34 @@ Camera::move()
     processMouseMovement();
 }
 
+
+void 
+Camera::zoom()
+{
+    if (eventState_.keyboard.ctrl)
+    {
+        float sensitivity = settings_.camera.sensitivity;
+
+        float wheelOffset = eventState_.mouse.wheelRel * sensitivity;
+        glm::vec3 front = glm::normalize(target_ - position_);
+        position_ += front * wheelOffset;
+    }
+}
+
+
 void 
 Camera::processMouseMovement()
 {
     if (eventState_.mouse.leftButtonDown) 
     {
-        float sensitivity = 0.1f;
+        float sensitivity = settings_.camera.sensitivity;
 
         float xoffset = eventState_.mouse.xRel * sensitivity;
         float yoffset = eventState_.mouse.yRel * sensitivity;
 
         if (eventState_.keyboard.ctrl)
         {
-            sensitivity = 0.02f;
+            sensitivity *= glm::distance(target_, position_)*0.04;
             // Calculate right and up vectors
             glm::vec3 front = glm::normalize(target_ - position_);
             glm::vec3 right = glm::normalize(glm::cross(front, glm::vec3(0.0f, 1.0f, 0.0f))); // Right vector

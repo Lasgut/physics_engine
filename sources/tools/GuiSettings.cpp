@@ -2,8 +2,10 @@
 #include "imgui.h"
 #include "backends/imgui_impl_sdl2.h"
 #include "backends/imgui_impl_opengl3.h"
+#include "Settings.h"
 
-GuiSettings::GuiSettings(const Window& window, const Context& context)
+GuiSettings::GuiSettings(const Window& window, const Context& context, Settings& settings)
+    : settings_(settings)
 {
     ImGui::CreateContext();
     ImGui_ImplSDL2_InitForOpenGL(window.getSdlWindow(), context.getGlContext());
@@ -28,8 +30,7 @@ GuiSettings::update()
     // Render GUI settings
     ImGui::Begin("Settings");
     // Add ImGui widgets for each setting, e.g., sliders, checkboxes
-    ImGui::Checkbox("Enable Feature X", &a_);
-    ImGui::SliderFloat("Sensitivity", &b_, 0.0f, 1.0f);
+    ImGui::SliderFloat("Sensitivity", &settings_.camera.sensitivity, 0.0f, 1.0f);
     //ImGui::Combo("Camera Mode", &c, "Spherical\0Flying\0");
     ImGui::End();
 

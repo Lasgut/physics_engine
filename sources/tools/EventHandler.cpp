@@ -20,6 +20,7 @@ EventHandler::update()
 {
     eventState_.mouse.xRel = 0;
     eventState_.mouse.yRel = 0;
+    eventState_.mouse.wheelRel = 0;
     while (SDL_PollEvent(&sdlEvent_)) 
     {
         quit();
@@ -41,11 +42,13 @@ EventHandler::quit()
 void 
 EventHandler::mouseEvents()
 {
+    std::cout << eventState_.mouse.wheelRel << std::endl;
     if (!ImGui::GetIO().WantCaptureMouse) 
         { 
             mouseButton();
             mouseMotion();
             mouseMotionWhilePressed();
+            mouseWheel();
         }
 }
 
@@ -99,6 +102,17 @@ EventHandler::mouseMotionWhilePressed()
         eventState_.mouse.yRel = sdlEvent_.motion.yrel;
     } 
 }
+
+
+void 
+EventHandler::mouseWheel()
+{
+    if (sdlEvent_.type == SDL_MOUSEWHEEL)
+    {
+        eventState_.mouse.wheelRel = sdlEvent_.wheel.y;
+    }
+}
+
 
 void EventHandler::keyboardEvents()
 {

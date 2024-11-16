@@ -20,7 +20,8 @@ int main(int argc, char* argv[])
     Context context(window);
     EventState eventState;
     EventHandler eventHandler(eventState);
-    GuiSettings guiSettings(window, context);
+    Settings settings;
+    GuiSettings guiSettings(window, context, settings);
 
     ShaderHandler simpleShaderHandler("/home/lasse/free/ws/physics_engine/shaders/vertex_shader_simple.glsl", 
                                       "/home/lasse/free/ws/physics_engine/shaders/fragment_shader_simple.glsl");
@@ -34,7 +35,7 @@ int main(int argc, char* argv[])
     Terrain terrain;
     
     Clock  clock;
-    Camera camera(eventState);
+    Camera camera(eventState, settings);
     Light  light;
     Axes   axes(1.0f);
 

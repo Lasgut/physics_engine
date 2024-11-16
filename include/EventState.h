@@ -5,12 +5,13 @@
 
 struct MouseState 
 {
-    bool leftButtonDown = false;
+    bool leftButtonDown  = false;
     bool rightButtonDown = false;
-    float x = 0;
-    float y = 0; 
-    float xRel = 0; 
-    float yRel = 0;  
+    float x              = 0;
+    float y              = 0; 
+    float xRel           = 0; 
+    float yRel           = 0;  
+    float wheelRel       = 0;
 };
 
 struct KeyboardState

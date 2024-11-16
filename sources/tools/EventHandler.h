@@ -24,6 +24,7 @@ private:
     void mouseButton();
     void mouseMotion();
     void mouseMotionWhilePressed();
+    void mouseWheel();
 
     void keyboardEvents();
     void ctrlButton();

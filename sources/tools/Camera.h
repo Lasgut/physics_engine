@@ -3,6 +3,7 @@
 
 #pragma once
 #include "EventState.h"
+#include "Settings.h"
 #include <glad/gl.h>
 #include <glm/glm.hpp> 
 #include <glm/gtc/matrix_transform.hpp>
@@ -11,7 +12,8 @@
 class Camera 
 {
 public:
-    Camera(EventState& eventState);
+    Camera(EventState& eventState,
+           Settings&   settings);
 
     void update();
 
@@ -20,7 +22,12 @@ public:
     const glm::vec3& getPosition()         const;
 
 private:
+    void move();
+    void zoom();
+    void processMouseMovement();
+
     EventState& eventState_;
+    Settings&   settings_;
     glm::vec3   position_;
     glm::vec3   target_;
     glm::vec3   orientation_;
@@ -31,9 +38,6 @@ private:
 
     glm::mat4 view_;
     glm::mat4 projection_;
-
-    void move();
-    void processMouseMovement();
 };
 
 #endif 

@@ -4,15 +4,15 @@
 #pragma once
 #include <string>
 
-struct Camera 
+struct CameraSettings 
 {
     std::string mode        = "spherical";
-    float       sensitivity = 1.0;
+    float       sensitivity = 0.5;
 };
 
 struct Settings 
 {
-    Camera camera;
+    CameraSettings camera;
 };
 
 #endif
