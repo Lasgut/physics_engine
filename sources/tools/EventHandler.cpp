@@ -42,7 +42,7 @@ EventHandler::quit()
 void 
 EventHandler::mouseEvents()
 {
-    std::cout << eventState_.mouse.wheelRel << std::endl;
+    //std::cout << eventState_.mouse.wheelRel << std::endl;
     if (!ImGui::GetIO().WantCaptureMouse) 
         { 
             mouseButton();

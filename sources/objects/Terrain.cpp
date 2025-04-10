@@ -5,11 +5,11 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-Terrain::Terrain()
+Terrain::Terrain(char const *mapFile)
 {
     stbi_set_flip_vertically_on_load(true);
     int width, height, nrChannels;
-    unsigned char *data = stbi_load("/home/lasse/free/ws/physics_engine/resources/height_maps/iceland_heightmap.png", &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load(mapFile, &width, &height, &nrChannels, 0);
     if (data)
     {
         std::cout << "Loaded heightmap of size " << height << " x " << width << std::endl;

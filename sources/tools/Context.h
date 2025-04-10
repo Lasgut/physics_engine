@@ -6,18 +6,19 @@
 #include <iostream>
 #include "Window.h"
 
-class Context {
-public:
-    Context(Window& window);  
-    ~Context();
-     
-    void clear();  
+class Context 
+{
+    public:
+        Context(Window& window);  
+        ~Context();
+        
+        void clear();  
 
-    SDL_GLContext getGlContext() const;
+        SDL_GLContext getGlContext() const;
 
-private:
-    SDL_GLContext   glContext_;  
-    Window&         window_;  
+    private:
+        SDL_GLContext   glContext_;  
+        Window&         window_;  
 };
 
 #endif

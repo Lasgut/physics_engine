@@ -7,7 +7,7 @@
 class Terrain
 {
 public:
-    Terrain();
+    Terrain(char const *mapFile);
     ~Terrain();
 
     void update(const ShaderHandler&);

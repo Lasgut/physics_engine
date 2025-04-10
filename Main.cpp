@@ -12,57 +12,70 @@
 #include "Clock.h"
 #include "Terrain.h"
 #include "GuiSettings.h"
-
+#include "ResourceHandler.h"
 
 int main(int argc, char* argv[]) 
 {
-    Window window("Physics Engine", 900, 900);
-    Context context(window);
-    EventState eventState;
-    EventHandler eventHandler(eventState);
-    Settings settings;
-    GuiSettings guiSettings(window, context, settings);
-
-    ShaderHandler simpleShaderHandler("/home/lasse/free/ws/physics_engine/shaders/vertex_shader_simple.glsl", 
-                                      "/home/lasse/free/ws/physics_engine/shaders/fragment_shader_simple.glsl");
-    ShaderHandler shaderHandler("/home/lasse/free/ws/physics_engine/shaders/vertex_shader.glsl", 
-                                "/home/lasse/free/ws/physics_engine/shaders/fragment_shader.glsl");
-    ShaderHandler terrainShaderHandler("/home/lasse/free/ws/physics_engine/shaders/terrain.vs", 
-                                      "/home/lasse/free/ws/physics_engine/shaders/terrain.fs");
-    Triangle triangle;
-    Floor floor;
-    Drone drone;
-    Terrain terrain;
-    
-    Clock  clock;
-    Camera camera(eventState, settings);
-    Light  light;
-    Axes   axes(1.0f);
-
-    while (!eventState.quit) 
+    try 
     {
-        clock.setPreviousTime();
+        // Extracting file paths in resources
+        ResourceHandler resourceHandler(std::filesystem::path(argv[0]).parent_path());
+        auto shaders    = resourceHandler.getFiles().shaders;
+        auto heightMaps = resourceHandler.getFiles().heightMaps;
 
-        eventHandler.update();
-        context.clear();
+        // GUI stuff
+        Window        window("Physics Engine", 900, 900);
+        Context       context(window);
+        EventState    eventState;
+        EventHandler  eventHandler(eventState);
+        Settings      settings;
+        GuiSettings   guiSettings(window, context, settings);
+        Clock         clock;
+        Camera        camera(eventState, settings);
+        Light         light;
 
-        camera.update();
+        // Shaders
+        ShaderHandler simpleShaderHandler(shaders.simpleVertexShaderPath.c_str(), shaders.simpleFragmentShaderPath.c_str());
+        ShaderHandler shaderHandler(shaders.vertexShaderPath.c_str(), shaders.fragmentShaderPath.c_str());
+        ShaderHandler terrainShaderHandler(shaders.terrainVertexShaderPath.c_str(), shaders.terrainFragmentShaderPath.c_str());
 
-        // terrainShaderHandler.use(camera);
-        // terrain.update(terrainShaderHandler);
+        // Objects
+        Triangle      triangle;
+        Floor         floor;
+        Drone         drone;
+        Terrain       terrain(heightMaps.icelandHeightMapPath.c_str());
+        Axes          axes(1.0f);
 
-        simpleShaderHandler.use(camera);
-        axes.update(simpleShaderHandler);
+        while (!eventState.quit) 
+        {
+            clock.setPreviousTime();
 
-        shaderHandler.use(camera);
-        light.update(shaderHandler, camera);
+            eventHandler.update();
+            context.clear();
 
-        drone.update(shaderHandler, clock);
-        floor.update(shaderHandler);
+            camera.update();
 
-        guiSettings.update();
+            terrainShaderHandler.use(camera);
+            terrain.update(terrainShaderHandler);
 
-        window.swapBuffers();
+            simpleShaderHandler.use(camera);
+            axes.update(simpleShaderHandler);
+
+            shaderHandler.use(camera);
+            light.update(shaderHandler, camera);
+
+            drone.update(shaderHandler, clock);
+            floor.update(shaderHandler);
+
+            guiSettings.update();
+
+            window.swapBuffers();
+        }
+    } 
+    catch (const std::exception& e) 
+    {
+        std::cerr << e.what() << std::endl;
+        return EXIT_FAILURE;
     }
 
     return 0;
