@@ -43,9 +43,10 @@ The directory third_party includes files from external sources
 
 | Name | Description | Source | Git submodule | Version |
 | :---: | :--- | :---: | :---: | :---: |
-| GLAD  | Interface to OpenGL. Generated from [here](https://gen.glad.sh/). | [GitHub](https://github.com/Dav1dde/glad)  | no  | gl 4.6 |
-| STB   | Used to load height maps. For example gray scale png.             | [GitHub](https://github.com/nothings/stb)  | no  | |
-| ImGUI | Used to create GUI within the application window.                 | [GitHub](https://github.com/ocornut/imgui) | yes | |
+| GLAD       | Interface to OpenGL. Generated from [here](https://gen.glad.sh/). | [GitHub](https://github.com/Dav1dde/glad)       | no  | gl 4.6 |
+| STB        | Used to load height maps. For example gray scale png.             | [GitHub](https://github.com/nothings/stb)       | no  |        |
+| ImGUI      | Used to create GUI within the application window.                 | [GitHub](https://github.com/ocornut/imgui)      | yes |        |
+| STL Reader | Used to convert .stl to openGL vertices to render 3D models       | [GitHub](https://github.com/sreiter/stl_reader) | no  |        |
 
 ### Usefull documentation
 * [OpenGL tutorial](https://learnopengl.com/)
