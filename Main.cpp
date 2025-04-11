@@ -22,6 +22,7 @@ int main(int argc, char* argv[])
         ResourceHandler resourceHandler(std::filesystem::path(argv[0]).parent_path());
         auto shaders    = resourceHandler.getFiles().shaders;
         auto heightMaps = resourceHandler.getFiles().heightMaps;
+        auto meshes     = resourceHandler.getFiles().meshes; 
 
         // Initialize Data Structs
         EventState    eventState;
@@ -44,7 +45,7 @@ int main(int argc, char* argv[])
         // Objects
         Triangle      triangle;
         Floor         floor;
-        Drone         drone;
+        Drone         drone(meshes.blueRov2HeavyPath);
         Terrain       terrain(heightMaps.icelandHeightMapPath.c_str());
         Axes          axes(1.0f);
 
@@ -57,8 +58,8 @@ int main(int argc, char* argv[])
 
             camera.update();
 
-            terrainShaderHandler.use(camera);
-            terrain.update(terrainShaderHandler);
+            //terrainShaderHandler.use(camera);
+            //terrain.update(terrainShaderHandler);
 
             simpleShaderHandler.use(camera);
             axes.update(simpleShaderHandler);

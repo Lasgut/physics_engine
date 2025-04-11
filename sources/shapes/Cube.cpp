@@ -29,9 +29,7 @@ Cube::draw(const ShaderHandler& shaderHandler,
     glm::mat4 model = createModelMat(position, orientation);
     shaderHandler.setMat4("model",model);
 
-    glBindVertexArray(VAO_); 
-    glDrawArrays(GL_TRIANGLES, 0, 36);
-    glBindVertexArray(0);
+    glDraw();
 }
 
 

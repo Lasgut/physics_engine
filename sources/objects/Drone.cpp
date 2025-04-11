@@ -2,7 +2,8 @@
 #include "Clock.h"
 
 
-Drone::Drone()
+Drone::Drone(const std::string& meshPath)
+    : shape_(meshPath)
 {
     init();
 }

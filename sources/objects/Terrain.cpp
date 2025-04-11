@@ -37,9 +37,7 @@ Terrain::Terrain(char const *mapFile)
             vertices.push_back( -width/2.0f + width*j/(float)width );   // vz
         }
     }
-    std::cout << "Loaded " << vertices.size() / 3 << " vertices" << std::endl;
     stbi_image_free(data);
-
     std::vector<unsigned> indices;
     for(unsigned i = 0; i < height-1; i += rez)
     {
@@ -52,12 +50,8 @@ Terrain::Terrain(char const *mapFile)
         }
     }
 
-    std::cout << "Loaded " << indices.size() << " indices" << std::endl;
-
     numStrips = (height-1)/rez;
     numTrisPerStrip = (width/rez)*2-2;
-    std::cout << "Created lattice of " << numStrips << " strips with " << numTrisPerStrip << " triangles each" << std::endl;
-    std::cout << "Created " << numStrips * numTrisPerStrip << " triangles total" << std::endl;
 
     // first, configure the cube's VAO (and terrainVBO + terrainIBO)
     glGenVertexArrays(1, &terrainVAO);
@@ -76,6 +70,7 @@ Terrain::Terrain(char const *mapFile)
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned), &indices[0], GL_STATIC_DRAW);
 }
 
+
 Terrain::~Terrain()
 {
     glDeleteVertexArrays(1, &terrainVAO);
@@ -83,7 +78,9 @@ Terrain::~Terrain()
     glDeleteBuffers(1, &terrainIBO);
 }
 
-void Terrain::update(const ShaderHandler& shaderHandler)
+
+void 
+Terrain::update(const ShaderHandler& shaderHandler)
 {
         // world transformation
         glm::mat4 model = glm::mat4(1.0f);

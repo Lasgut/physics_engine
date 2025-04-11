@@ -23,6 +23,10 @@ struct Files
     {
         std::string icelandHeightMapPath;
     } heightMaps;
+    struct Meshes
+    {
+        std::string blueRov2HeavyPath;
+    } meshes;
 }; 
 
 class ResourceHandler 
@@ -35,6 +39,9 @@ class ResourceHandler
     private:
         std::filesystem::path findProgramRoot(const std::filesystem::path& startPath);
         void loadFiles(const std::filesystem::path& physicsEngineRoot);
+        void loadShaders(const std::filesystem::path& shadersDir);
+        void loadHeightMaps(const std::filesystem::path& heightMapsDir);
+        void loadMeshes(const std::filesystem::path& meshesDir);
 
         Files files_;
 };

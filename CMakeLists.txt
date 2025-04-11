@@ -19,6 +19,7 @@ include_directories(resources)
 include_directories(third_party/glad/include)
 include_directories(third_party/imgui)
 include_directories(third_party/stb)
+include_directories(third_party/stl_reader)
 
 find_package(SDL2 REQUIRED)
 find_package(glm REQUIRED)
