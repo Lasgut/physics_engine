@@ -21,8 +21,8 @@ struct KeyboardState
 
 struct EventState 
 {
-    bool quit = false;
-    MouseState mouse;
+    bool          quit = false;
+    MouseState    mouse;
     KeyboardState keyboard;
 };
 

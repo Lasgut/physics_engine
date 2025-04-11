@@ -9,8 +9,7 @@
 class Kinematics
 {
 public:
-    Kinematics();
-    ~Kinematics();
+    Kinematics() = default;
 
     void eulerIntegration(float deltaTime);
 

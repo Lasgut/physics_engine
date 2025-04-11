@@ -1,15 +1,12 @@
 #include "Drone.h"
 #include "Clock.h"
 
+
 Drone::Drone()
 {
     init();
 }
 
-Drone::~Drone()
-{
-
-}
 
 void 
 Drone::update(const ShaderHandler& shaderHandler, Clock& clock)
@@ -21,6 +18,7 @@ Drone::update(const ShaderHandler& shaderHandler, Clock& clock)
     kinematics_.eulerIntegration(clock.getDeltaTime());
     kinematics_.systemMatrices();
 }
+
 
 void Drone::init()
 {

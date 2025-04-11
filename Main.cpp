@@ -23,12 +23,14 @@ int main(int argc, char* argv[])
         auto shaders    = resourceHandler.getFiles().shaders;
         auto heightMaps = resourceHandler.getFiles().heightMaps;
 
+        // Initialize Data Structs
+        EventState    eventState;
+        Settings      settings;
+
         // GUI stuff
         Window        window("Physics Engine", 900, 900);
         Context       context(window);
-        EventState    eventState;
         EventHandler  eventHandler(eventState);
-        Settings      settings;
         GuiSettings   guiSettings(window, context, settings);
         Clock         clock;
         Camera        camera(eventState, settings);

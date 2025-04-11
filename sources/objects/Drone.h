@@ -10,7 +10,6 @@ class Drone
 {
 public:
     Drone();
-    ~Drone();
 
     void update(const ShaderHandler& shaderHandler, Clock& clock);
 

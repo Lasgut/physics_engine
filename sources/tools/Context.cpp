@@ -9,19 +9,19 @@ Context::Context(Window& window)
     SDL_GL_SetSwapInterval(0); // disable vsync because of issues with AMD...
     
     if (!glContext_) {
-        std::cerr << "Failed to create OpenGL context: " << SDL_GetError() << std::endl;
+        std::cerr << "ERROR: Failed to create OpenGL context: " << SDL_GetError() << std::endl;
         exit(1);
     }
     if (!gladLoadGL((GLADloadfunc)SDL_GL_GetProcAddress))
     {
-        std::cout << "Failed to initialize GLAD" << std::endl;
+        std::cerr << "ERROR: Failed to initialize GLAD" << std::endl;
         exit(1);
     } 
     const char* glVersion = (const char*)glGetString(GL_VERSION);
     if (glVersion == nullptr) 
     {
         std::cerr << "ERROR: OpenGL context is not initialized or active!" << std::endl;
-        return;
+        exit(1);
     }
     std::cout << "OpenGL Version: " << glVersion << std::endl;
     

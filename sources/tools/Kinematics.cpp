@@ -4,13 +4,6 @@
 #include <glm/glm.hpp>
 #include <iostream>
 
-Kinematics::Kinematics()
-{
-}
-
-Kinematics::~Kinematics()
-{
-}
 
 void 
 Kinematics::eulerIntegration(float deltaTime) 
