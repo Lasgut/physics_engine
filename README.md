@@ -11,7 +11,7 @@ sudo apt install cmake libsdl2-dev libglm-dev libeigen3-dev libgl1-mesa-dev g++
 ```
 Navigate to desired location and clone with git submodules
 ```bash
-git clone --recurse-submodules https://github.com/Lasgut/physics_engine.git
+git clone --recurse-submodules git@github.com:Lasgut/physics_engine.git
 ```
 Compile the project
 ```bash
