@@ -26,6 +26,7 @@ struct Files
     struct Meshes
     {
         std::string blueRov2HeavyPath;
+        std::string fpvDrone;
     } meshes;
 }; 
 

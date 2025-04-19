@@ -95,6 +95,8 @@ ResourceHandler::loadMeshes(const std::filesystem::path &meshesDir)
     }
 
     std::string blueRov2Heavy = (meshesDir / "BlueROV2Heavy.stl").string();
+    std::string fpv_drone     = (meshesDir / "drone-Frame.stl").string();
 
     files_.meshes.blueRov2HeavyPath = blueRov2Heavy;
+    files_.meshes.fpvDrone          = fpv_drone;
 }

@@ -15,17 +15,21 @@ Camera::Camera(EventState& eventState, Settings& settings)
     yaw_   = glm::degrees(atan2(direction.x, direction.z));
     pitch_ = glm::degrees(asin(direction.y)); 
 
-    view_ = glm::lookAt(position_, target_, orientation_);
-    projection_ = glm::perspective(glm::radians(45.0f), 1200.0f / 1200.0f, 0.1f, 100.0f); 
+    view_          = glm::lookAt(position_, target_, orientation_);
+    projection_    = glm::perspective(glm::radians(45.0f), 1200.0f / 1200.0f, 0.1f, 100.0f); 
+    viewDirection_ = glm::normalize(target_ - position_);
 }
+
 
 void 
 Camera::update()
 { 
     move();
     zoom();
-    view_ = glm::lookAt(position_, target_, orientation_);
+    view_          = glm::lookAt(position_, target_, orientation_);
+    viewDirection_ = glm::normalize(target_ - position_);
 }
+
 
 void 
 Camera::move()
@@ -97,11 +101,13 @@ Camera::processMouseMovement()
     }
 }
 
+
 const glm::mat4&
 Camera::getViewMatrix() const
 {
     return view_;
 }
+
 
 const glm::mat4&
 Camera::getProjectionMatrix() const 
@@ -109,8 +115,16 @@ Camera::getProjectionMatrix() const
     return projection_;
 }
 
+
 const glm::vec3& 
 Camera::getPosition() const
 {
     return position_;
+}
+
+
+const glm::vec3 
+&Camera::getViewDirection() const
+{
+    return viewDirection_;
 }

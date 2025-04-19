@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
         // Objects
         Triangle      triangle;
         Floor         floor;
-        Drone         drone(meshes.blueRov2HeavyPath);
+        Drone         drone(meshes.fpvDrone);
         Terrain       terrain(heightMaps.icelandHeightMapPath.c_str());
         Axes          axes(1.0f);
 

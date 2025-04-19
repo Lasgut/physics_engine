@@ -10,7 +10,7 @@
 class Light
 {
     public:
-        Light();
+        Light() = default;
 
         void update(ShaderHandler& shaderHandler, Camera& camera);
 };

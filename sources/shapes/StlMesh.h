@@ -19,6 +19,7 @@ class StlMesh
     private:
         void readStl(const std::string& meshPath);
         void dispModelDimensions();
+        const glm::vec3 rotateToNed(const glm::vec3& orientation);
 
     private:
         std::vector<unsigned int> triangleIndices_;

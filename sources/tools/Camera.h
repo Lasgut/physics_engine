@@ -20,6 +20,7 @@ public:
     const glm::mat4& getViewMatrix()       const;
     const glm::mat4& getProjectionMatrix() const;
     const glm::vec3& getPosition()         const;
+    const glm::vec3& getViewDirection()    const;
 
 private:
     void move();
@@ -31,6 +32,7 @@ private:
     glm::vec3   position_;
     glm::vec3   target_;
     glm::vec3   orientation_;
+    glm::vec3   viewDirection_;
     float       azimuthAngle_;
     float       polarAngle_;
     float       pitch_;
