@@ -16,7 +16,7 @@ Camera::Camera()
     pitch_ = glm::degrees(asin(direction.y)); 
 
     view_          = glm::lookAt(position_, target_, orientation_);
-    projection_    = glm::perspective(glm::radians(45.0f), 1200.0f / 1200.0f, 0.1f, 100.0f); 
+    projection_    = glm::perspective(glm::radians(45.0f), 1200.0f / 1200.0f, 0.1f, 2000.0f); 
     viewDirection_ = glm::normalize(target_ - position_);
 }
 

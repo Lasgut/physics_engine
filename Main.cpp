@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
         Triangle      triangle;
         Floor         floor;
         Drone         drone(meshes.fpvDrone);
-        Terrain       terrain(heightMaps.simple_landscapePath.c_str());
+        Terrain       terrain(heightMaps.icelandHeightMapPath.c_str());
         Axes          axes(1.0f);
 
         while (!EventState::getInstance().quit) 
