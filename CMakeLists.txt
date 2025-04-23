@@ -10,12 +10,12 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${FullOutputDir}/static libs")
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY "${FullOutputDir}")
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${FullOutputDir}")
 
+include_directories(include/data_containers)
+include_directories(include/data_types)
+include_directories(sources/application)
 include_directories(sources/objects)
 include_directories(sources/shapes)
 include_directories(sources/tools)
-include_directories(include)
-include_directories(shaders)
-include_directories(resources)
 include_directories(third_party/glad/include)
 include_directories(third_party/imgui)
 include_directories(third_party/stb)
@@ -32,6 +32,7 @@ include_directories(${SDL2_INCLUDE_DIRS}
                     ${EIGEN3_INCLUDE_DIRS})
 
 # Gather all .cpp files in the sources/objects and sources/shapes directories
+file(GLOB APPLICATION_SOURCES "sources/application/*.cpp")
 file(GLOB OBJECT_SOURCES "sources/objects/*.cpp")
 file(GLOB SHAPE_SOURCES "sources/shapes/*.cpp")
 file(GLOB TOOL_SOURCES "sources/tools/*.cpp")
@@ -47,6 +48,7 @@ file(GLOB IMGUI_SOURCES
 )
 
 set(SOURCES
+    ${APPLICATION_SOURCES}
     ${OBJECT_SOURCES}
     ${SHAPE_SOURCES}
     ${TOOL_SOURCES}

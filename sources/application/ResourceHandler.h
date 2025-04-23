@@ -18,10 +18,12 @@ struct Files
         std::string simpleFragmentShaderPath;
         std::string terrainVertexShaderPath;
         std::string terrainFragmentShaderPath;
+        std::string terrainGeometryShaderPath;
     } shaders;
     struct HeightMaps
     {
         std::string icelandHeightMapPath;
+        std::string simple_landscapePath;
     } heightMaps;
     struct Meshes
     {

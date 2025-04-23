@@ -56,12 +56,13 @@ ResourceHandler::loadShaders(const std::filesystem::path &shadersDir)
         throw std::runtime_error("ERROR: Shaders directory does not exist: " + shadersDir.string());
     }
 
-    std::string vertexShaderPath          = (shadersDir / "vertex_shader.glsl").string();
-    std::string fragmentShaderPath        = (shadersDir / "fragment_shader.glsl").string();
-    std::string simpleVertexShaderPath    = (shadersDir / "vertex_shader_simple.glsl").string();
-    std::string simpleFragmentShaderPath  = (shadersDir / "fragment_shader_simple.glsl").string();
-    std::string terrainVertexShaderPath   = (shadersDir / "terrain.vs").string();
-    std::string terrainFragmentShaderPath = (shadersDir / "terrain.fs").string();
+    std::string vertexShaderPath          = (shadersDir / "object_vertex_shader.glsl").string();
+    std::string fragmentShaderPath        = (shadersDir / "object_fragment_shader.glsl").string();
+    std::string simpleVertexShaderPath    = (shadersDir / "simple_vertex_shader.glsl").string();
+    std::string simpleFragmentShaderPath  = (shadersDir / "simple_fragment_shader.glsl").string();
+    std::string terrainVertexShaderPath   = (shadersDir / "terrain_vertex_shader.glsl").string();
+    std::string terrainFragmentShaderPath = (shadersDir / "terrain_fragment_shader.glsl").string();
+    std::string terrainGeometryShaderPath = (shadersDir / "terrain_geometry_shader.glsl").string();
 
     files_.shaders.vertexShaderPath          = vertexShaderPath;
     files_.shaders.fragmentShaderPath        = fragmentShaderPath;
@@ -69,6 +70,7 @@ ResourceHandler::loadShaders(const std::filesystem::path &shadersDir)
     files_.shaders.simpleFragmentShaderPath  = simpleFragmentShaderPath;
     files_.shaders.terrainVertexShaderPath   = terrainVertexShaderPath;
     files_.shaders.terrainFragmentShaderPath = terrainFragmentShaderPath;
+    files_.shaders.terrainGeometryShaderPath = terrainGeometryShaderPath;
 }
 
 
@@ -80,9 +82,8 @@ ResourceHandler::loadHeightMaps(const std::filesystem::path &heightMapsDir)
         throw std::runtime_error("ERROR: Height maps directory does not exist: " + heightMapsDir.string());
     }
 
-    std::string icelandHeightMapPath    = (heightMapsDir / "iceland_heightmap.png").string();
-
-    files_.heightMaps.icelandHeightMapPath   = icelandHeightMapPath;
+    files_.heightMaps.icelandHeightMapPath = (heightMapsDir / "iceland_heightmap.png").string();
+    files_.heightMaps.simple_landscapePath = (heightMapsDir / "simple_landscape.png").string();
 }
 
 

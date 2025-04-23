@@ -6,14 +6,14 @@
 
 class Floor
 {
-public:
-    Floor();
-    ~Floor();
+    public:
+        Floor();
+        ~Floor();
 
-    void update(const ShaderHandler& shaderHandler);
+        void update(const ShaderHandler& shaderHandler);
 
-private:
-    Rectangle shape_;
+    private:
+        Rectangle shape_;
 };
 
 #endif

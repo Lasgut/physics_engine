@@ -29,16 +29,20 @@ Context::Context(Window& window)
     glEnable(GL_DEPTH_TEST);
 }
 
+
 Context::~Context() 
 {
     SDL_GL_DeleteContext(glContext_);
 }
 
-void Context::clear() 
+
+void 
+Context::clear() 
 {
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
+
 
 SDL_GLContext
 Context::getGlContext() const

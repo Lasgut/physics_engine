@@ -25,6 +25,7 @@ Window::Window(const char* title, int width, int height)
     }
 }
 
+
 Window::~Window() 
 {
     SDL_DestroyWindow(sdlWindow_);
@@ -32,11 +33,13 @@ Window::~Window()
     SDL_Quit();
 }
 
+
 void 
 Window::swapBuffers()
 {
     SDL_GL_SwapWindow(sdlWindow_);
 }
+
 
 SDL_Window*
 Window::getSdlWindow() const 

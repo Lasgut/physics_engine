@@ -4,8 +4,8 @@
 #include "backends/imgui_impl_opengl3.h"
 #include "Settings.h"
 
-GuiSettings::GuiSettings(const Window& window, const Context& context, Settings& settings)
-    : settings_(settings)
+GuiSettings::GuiSettings(const Window& window, const Context& context)
+    : settings_(Settings::getInstance())
 {
     ImGui::CreateContext();
     ImGui_ImplSDL2_InitForOpenGL(window.getSdlWindow(), context.getGlContext());
@@ -13,12 +13,14 @@ GuiSettings::GuiSettings(const Window& window, const Context& context, Settings&
     ImGui::StyleColorsDark(); // Sets the default style to dark mode
 }
 
+
 GuiSettings::~GuiSettings()
 {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplSDL2_Shutdown();
     ImGui::DestroyContext();
 }
+
 
 void 
 GuiSettings::update()
@@ -36,6 +38,7 @@ GuiSettings::update()
 
     render();
 }
+
 
 void 
 GuiSettings::render()

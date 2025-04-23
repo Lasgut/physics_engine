@@ -58,7 +58,7 @@ StlMesh::readStl(const std::string &meshPath)
         glm::vec3 faceNormal = glm::normalize(glm::cross(v1 - v0, v2 - v0));
 
         // Check if the face normal is similar for all three vertices (flat surface)
-        auto epsilon = 1.5f;
+        auto epsilon = 2.0f;
         bool isFlatSurface = 
             glm::epsilonEqual(normals[i0 * 3 + 0], normals[i1 * 3 + 0], epsilon) &&
             glm::epsilonEqual(normals[i0 * 3 + 1], normals[i1 * 3 + 1], epsilon) &&

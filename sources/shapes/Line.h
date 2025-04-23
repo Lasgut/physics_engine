@@ -12,19 +12,19 @@
 class Line
     : public Shape
 {
-public:
-    Line();
-    Line(float length, const glm::vec3& color);
+    public:
+        Line();
+        Line(float length, const glm::vec3& color);
 
-    void draw(const ShaderHandler& shaderHandler, 
-              const glm::vec3&     position,
-              const glm::vec3&     orientation);
+        void draw(const ShaderHandler& shaderHandler, 
+                const glm::vec3&     position,
+                const glm::vec3&     orientation);
 
-private:
-    void createVertices();
+    private:
+        void createVertices();
 
-    float length_{1.0};
-    glm::vec3 color_{0.5,0.5,0.5};
+        float length_{1.0};
+        glm::vec3 color_{0.5,0.5,0.5};
 };
 
 #endif // AXES_H

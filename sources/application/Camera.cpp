@@ -4,9 +4,9 @@
 #include <glm/glm.hpp> 
 #include <glm/gtc/matrix_transform.hpp>
 
-Camera::Camera(EventState& eventState, Settings& settings)
-    : eventState_(eventState),
-      settings_(settings),
+Camera::Camera()
+    : eventState_(EventState::getInstance()),
+      settings_(Settings::getInstance()),
       position_(glm::vec3(0.0f, 2.0f, -2.0f)), 
       target_(glm::vec3(0.0f, 0.0f, 0.0f)), 
       orientation_(glm::vec3(0.0f, 1.0f, 0.0f)) 

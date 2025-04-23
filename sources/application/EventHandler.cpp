@@ -4,16 +4,11 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
-EventHandler::EventHandler(EventState& eventState)
-    : eventState_(eventState)
+EventHandler::EventHandler()
+    : eventState_(EventState::getInstance())
 {
-    SDL_Event sdlEvent_;
 }
 
-EventHandler::~EventHandler()
-{
-
-}
 
 void 
 EventHandler::update()
@@ -30,6 +25,7 @@ EventHandler::update()
     }
 }
 
+
 void 
 EventHandler::quit()
 {
@@ -38,6 +34,7 @@ EventHandler::quit()
         eventState_.quit = true;
     }
 }
+
 
 void 
 EventHandler::mouseEvents()
@@ -51,6 +48,7 @@ EventHandler::mouseEvents()
             mouseWheel();
         }
 }
+
 
 void 
 EventHandler::mouseButton()
@@ -81,6 +79,7 @@ EventHandler::mouseButton()
     }
 }
 
+
 void 
 EventHandler::mouseMotion()
 {
@@ -90,6 +89,7 @@ EventHandler::mouseMotion()
         eventState_.mouse.y = sdlEvent_.motion.y;
     }
 }
+
 
 void 
 EventHandler::mouseMotionWhilePressed()
@@ -114,7 +114,8 @@ EventHandler::mouseWheel()
 }
 
 
-void EventHandler::keyboardEvents()
+void 
+EventHandler::keyboardEvents()
 {
     if (!ImGui::GetIO().WantCaptureKeyboard) 
         {
@@ -122,7 +123,9 @@ void EventHandler::keyboardEvents()
         }
 }
 
-void EventHandler::ctrlButton()
+
+void 
+EventHandler::ctrlButton()
 {
     if (sdlEvent_.type == SDL_KEYDOWN) 
     {

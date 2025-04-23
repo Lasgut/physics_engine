@@ -8,16 +8,16 @@
 
 class Drone
 {
-public:
-    Drone(const std::string& meshPath);
+    public:
+        Drone(const std::string& meshPath);
 
-    void update(const ShaderHandler& shaderHandler, Clock& clock);
+        void update(const ShaderHandler& shaderHandler, Clock& clock);
 
-private:
-    void init();
+    private:
+        void init();
 
-    StlMesh    shape_;
-    Kinematics kinematics_;
+        StlMesh    shape_;
+        Kinematics kinematics_;
 };
 
 #endif

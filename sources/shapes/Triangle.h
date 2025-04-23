@@ -6,16 +6,15 @@
 
 class Triangle
 {
-public:
-    Triangle();
-    ~Triangle();
+    public:
+        Triangle();
+        ~Triangle();
 
-    void draw();
+        void draw();
 
-private:
-    unsigned int VBO_;
-    unsigned int VAO_;
-
+    private:
+        unsigned int VBO_;
+        unsigned int VAO_;
 };
 
 #endif
