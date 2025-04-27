@@ -9,10 +9,6 @@ Axes::Axes(float length)
 {
 }
 
-Axes::~Axes()
-{
-}
-
 void 
 Axes::update(const ShaderHandler &shaderHandler)
 {
