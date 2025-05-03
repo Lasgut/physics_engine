@@ -7,7 +7,7 @@ This project presents a physics engine or simulator based on kinematic equations
 Install [system dependencies](#system-dependencies)
 ```bash
 sudo apt update
-sudo apt install cmake libsdl2-dev libglm-dev libeigen3-dev libgl1-mesa-dev g++
+sudo apt install cmake libsdl2-dev libglm-dev libeigen3-dev libgl1-mesa-dev g++ nlohmann-json3-dev
 ```
 Navigate to desired location and clone with git submodules
 ```bash
