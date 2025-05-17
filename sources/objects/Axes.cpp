@@ -41,9 +41,16 @@ Axes::setPosition(const Eigen::Vector3<double>& position)
 void 
 Axes::setOrientation(const Eigen::Quaterniond& orientation)
 {
-    glm::quat orientationGlm(orientation.w(), orientation.x(), orientation.y(), orientation.z());
+    glm::quat orientationGlm;
+    orientationGlm.x = orientation.x();
+    orientationGlm.y = orientation.y();
+    orientationGlm.z = orientation.z();
+    orientationGlm.w = orientation.w();
 
-    xOrientation_ = orientationGlm * xOrientation_;
-    yOrientation_ = orientationGlm * yOrientation_;
-    zOrientation_ = orientationGlm * zOrientation_;
+    glm::quat qZ90 = glm::angleAxis(glm::radians(90.0f),  glm::vec3(0.0f, 0.0f, 1.0f));
+    glm::quat qY90 = glm::angleAxis(glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+    xOrientation_ = orientationGlm;                      
+    yOrientation_ = orientationGlm * qZ90;                
+    zOrientation_ = orientationGlm * qY90;                
 }

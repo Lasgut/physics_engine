@@ -24,8 +24,8 @@ Terrain::~Terrain()
 void 
 Terrain::update(const ShaderHandler& shaderHandler)
 {
-        // world transformation
-        glm::mat4 model = glm::mat4(1.0f);
+        // world transformation (NED)
+        glm::mat4 model = glm::rotate(glm::mat4(1.0f), glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
         shaderHandler.setMat4("model", model);
         
         // render the cube
