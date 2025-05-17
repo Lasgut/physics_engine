@@ -20,12 +20,12 @@ class Shape
         void      glDrawStl(const std::vector<unsigned int>& triangleIndicies);
         glm::mat4 fromNED();
         glm::mat4 createModelMat(const glm::vec3& pos,
-                                const glm::vec3& ori);
+                                 const glm::quat& ori);
 
         GLuint VAO_;
         GLuint VBO_;
         GLuint EBO_;
-        std::vector<float> vertices_;
+        std::vector<double> vertices_;
 };
 
 #endif

@@ -45,10 +45,10 @@ void
 Terrain::loadHeightMap(char const *mapFile)
 {
     stbi_set_flip_vertically_on_load(true);
-    data_ = stbi_load(mapFile, &width_, &height_, &nrChannels_, 0);
+    data_ = stbi_load(mapFile, &width_, &length_, &nrChannels_, 0);
     if (data_)
     {
-        std::cout << "Loaded height_map of size " << height_ << " x " << width_ << std::endl;
+        std::cout << "Loaded height_map of size " << length_ << " x " << width_ << std::endl;
     }
     else
     {
@@ -70,7 +70,7 @@ Terrain::createVertices()
     float minHeight = std::numeric_limits<float>::max();
     float maxHeight = std::numeric_limits<float>::lowest();
 
-    for(int i = 0; i < height_; i++)
+    for(int i = 0; i < length_; i++)
     {
         for(int j = 0; j < width_; j++)
         {
@@ -85,9 +85,9 @@ Terrain::createVertices()
             if (heightValue > maxHeight) maxHeight = heightValue;
 
             // vertex
-            vertices_.push_back( -height_/2.0f + height_*i/(float)height_ );   // vx
-            vertices_.push_back( (int) y * yScale - yShift);   // vy
-            vertices_.push_back( -width_/2.0f + width_*j/(float)width_ );   // vz
+            vertices_.push_back( -length_/2.0f + length_*i/(float)length_ );   // vx
+            vertices_.push_back( -width_/2.0f + width_*j/(float)width_ );   // vy
+            vertices_.push_back( (int) y * yScale - yShift);   // vz
         }
     }
 
@@ -96,7 +96,7 @@ Terrain::createVertices()
     std::cout << "Highest height: " << maxHeight << std::endl;
 
     stbi_image_free(data_);
-    for(unsigned i = 0; i < height_-1; i += rez)
+    for(unsigned i = 0; i < length_-1; i += rez)
     {
         for(unsigned j = 0; j < width_; j += rez)
         {
@@ -107,7 +107,7 @@ Terrain::createVertices()
         }
     }
 
-    numStrips_ = (height_-1)/rez;
+    numStrips_ = (length_-1)/rez;
     numTrisPerStrip_ = (width_/rez)*2-2;
 }
 

@@ -11,18 +11,18 @@ class Cube
 {
     public:
         Cube();
-        Cube(float length, float width, float height);
+        Cube(double length, double width, double height);
 
         void draw(const ShaderHandler& shaderHandler, 
                 const glm::vec3&     position,
                 const glm::vec3&     orientation);
 
     private:
-        std::vector<float> createVertices();
+        std::vector<double> createVertices();
 
-        float length_{0.1};
-        float width_{0.1};
-        float height_{0.1};        
+        double length_{0.1};
+        double width_{0.1};
+        double height_{0.1};        
 };
 
 #endif

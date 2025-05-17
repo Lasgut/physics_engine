@@ -10,6 +10,11 @@ struct CameraSettings
     float       sensitivity = 0.5;
 };
 
+struct SimulationSettings 
+{
+    bool isRunning = false;
+};
+
 struct Settings 
 {
     public: 
@@ -19,7 +24,8 @@ struct Settings
             return instance;
         };
 
-        CameraSettings camera;
+        CameraSettings     camera;
+        SimulationSettings simulation;
 
     private:
         Settings()                           = default;

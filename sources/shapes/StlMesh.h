@@ -14,12 +14,12 @@ class StlMesh
 
         void draw(const ShaderHandler& shaderHandler, 
                   const glm::vec3&     position,
-                  const glm::vec3&     orientation);
+                  const glm::quat&     orientation);
           
     private:
         void readStl(const std::string& meshPath);
         void dispModelDimensions();
-        const glm::vec3 rotateToNed(const glm::vec3& orientation);
+        glm::quat rotateToNed(const glm::quat& orientation);
 
     private:
         std::vector<unsigned int> triangleIndices_;

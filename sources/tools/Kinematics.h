@@ -3,37 +3,55 @@
 
 #pragma once
 #include "KinematicsData.h"
+#include "Clock.h"
+#include "Settings.h"
 #include <Eigen/Dense>
 #include <glm/glm.hpp>
+#include <optional>
 
 class Kinematics
 {
 public:
     Kinematics() = default;
 
-    void eulerIntegration(float deltaTime);
+    void loadKinematicsData(const std::string& filePath);
 
-    void setPosition(   const Eigen::Vector<float,3>& pos);
-    void setVelocity(   const Eigen::Vector<float,3>& vel);
-    void setOrientation(const Eigen::Vector<float,3>& orient);
-    void setMass(float mass);
+    void eulerIntegration(const double deltaTime);
 
-    const Eigen::Vector<float,3>& getPosition()    const;
-    const Eigen::Vector<float,3>& getVelocity()    const;
-    const Eigen::Vector<float,3>& getOrientation() const;
-    float getMass() const;
+    void setPosition    (const Eigen::Vector3<double>& pos);
+    void setVelocity    (const Eigen::Vector3<double>& vel);
+    void setOrientation (const Eigen::Quaterniond&     orient);
+    void setMass        (double mass);
+    void setFrequency   (double frequency);
 
-    const glm::vec3 getPositionAsGlm() const;
-    const glm::vec3 getOrientationAsGlm() const;
+    Eigen::Vector<double,3>  getPosition()    const;
+    Eigen::Vector<double,3>  getVelocity()    const;
+    Eigen::Quaterniond       getOrientation() const;
+    double                   getMass()        const;
 
-    void systemMatrices();
+    glm::vec3 getPositionAsGlm()    const;
+    glm::quat getOrientationAsGlm() const;
+
+    void update(Eigen::Vector<double,6> controlForces);
 
 private:
-    Eigen::Matrix<float,3,3> skew(const Eigen::Vector<float,3>& v);
-    Eigen::Matrix<float,3,3> Rzyx(float phi, float theta, float psi); 
-    Eigen::Matrix<float,3,3> Tzyx(float phi, float theta); 
+    void updateSystemMatrices();
+    void updateMassMatrix();
+    void updateCoriolisMatrix();
+    void updateDampingMatrix();
+
+    Eigen::Matrix<double,3,3> skew(const Eigen::Vector<double,3>& v);
+    Eigen::Matrix<double,3,3> Rzyx(double phi, double theta, double psi); 
+    Eigen::Matrix<double,3,3> Tzyx(double phi, double theta); 
+    Eigen::Matrix<double,3,3> Rquat(const Eigen::Quaterniond& q);
+    Eigen::Matrix<double,4,3> Tquat(const Eigen::Quaterniond& q);
+
+    double frequency_{200};
 
     KinematicsData data_; 
+    Clock          clock_;
+    Clock          clockDebug_;
+    Settings&      settings_ = Settings::getInstance();
 };
 
 #endif

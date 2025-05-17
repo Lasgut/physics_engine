@@ -9,7 +9,7 @@ Cube::Cube()
 }
 
 
-Cube::Cube(float length, float width, float height)
+Cube::Cube(double length, double width, double height)
     : length_(length)
     , width_ (width)
     , height_(height)
@@ -33,7 +33,7 @@ Cube::draw(const ShaderHandler& shaderHandler,
 }
 
 
-std::vector<float> 
+std::vector<double> 
 Cube::createVertices()
 {
     return {

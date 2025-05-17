@@ -8,10 +8,10 @@ class Clock
 {
 public:
     Clock();
-    ~Clock();
 
+    float getDeltaTime();
+    bool  rateLimit(const float frequency);
     void  setPreviousTime();
-    float getDeltaTime()    const;
 
 private:
     std::chrono::steady_clock::time_point previousTime_;

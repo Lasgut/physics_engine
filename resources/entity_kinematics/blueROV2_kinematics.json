@@ -1,0 +1,36 @@
+{
+    "gravity": 9.81,
+    "mass": 11.5,
+    "buoyancy": 112.81,
+    "centerOfGravity": [0, 0, 0.02],
+    "centerOfBuoyancy": [0, 0, 0],
+    "inertia": {
+        "I_xx": 0.16,
+        "I_yy": 0.16,
+        "I_zz": 0.16
+    },
+    "added_mass": {
+        "Xudot": -5.5,
+        "Yvdot": -12.7,
+        "Zwdot": -14.57,
+        "Kpdot": -0.12,
+        "Mqdot": -0.12,
+        "Nrdot": -0.12
+    },
+    "linear_damping": {
+        "Xu": -4.03,
+        "Yv": -6.22,
+        "Zw": -5.18,
+        "Kp": -0.07,
+        "Mq": -0.07,
+        "Nr": -0.07
+    },
+    "quadratic_damping": {
+        "Xuu": -18.18,
+        "Yvv": -21.66,
+        "Zww": -36.99,
+        "Kpp": -1.55,
+        "Mqq": -1.55,
+        "Nrr": -1.55
+    }
+}

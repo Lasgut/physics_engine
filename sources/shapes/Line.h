@@ -14,16 +14,16 @@ class Line
 {
     public:
         Line();
-        Line(float length, const glm::vec3& color);
+        Line(double length, const glm::vec3& color);
 
         void draw(const ShaderHandler& shaderHandler, 
-                const glm::vec3&     position,
-                const glm::vec3&     orientation);
+                  const glm::vec3&     position,
+                  const glm::quat&     orientation);
 
     private:
         void createVertices();
 
-        float length_{1.0};
+        double length_{1.0};
         glm::vec3 color_{0.5,0.5,0.5};
 };
 

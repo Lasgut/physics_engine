@@ -1,6 +1,8 @@
 #include "Shape.h"
 #include <glad/gl.h>
 #include <iostream>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/quaternion.hpp> 
 
 Shape::~Shape()
 {
@@ -18,14 +20,14 @@ Shape::glStuff(int attributeCount)
     glBindVertexArray(VAO_);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO_);
-    glBufferData(GL_ARRAY_BUFFER, vertices_.size() * sizeof(float), vertices_.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices_.size() * sizeof(double), vertices_.data(), GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, attributeCount * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, attributeCount * sizeof(double), (void*)0);
     glEnableVertexAttribArray(0);
 
     if (attributeCount > 3) 
     {
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, attributeCount * sizeof(float), (void*)(3 * sizeof(float)));
+        glVertexAttribPointer(1, 3, GL_DOUBLE, GL_FALSE, attributeCount * sizeof(double), (void*)(3 * sizeof(double)));
         glEnableVertexAttribArray(1);
     }
 
@@ -43,17 +45,17 @@ Shape::glStuffStl(int attributeCount, const std::vector<unsigned int>& triangleI
     glBindVertexArray(VAO_);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO_);
-    glBufferData(GL_ARRAY_BUFFER, vertices_.size() * sizeof(float), vertices_.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices_.size() * sizeof(double), vertices_.data(), GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO_);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangleIndicies.size() * sizeof(unsigned int), triangleIndicies.data(), GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, attributeCount * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, attributeCount * sizeof(double), (void*)0);
     glEnableVertexAttribArray(0);
 
     if (attributeCount > 3) 
     {
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, attributeCount * sizeof(float), (void*)(3 * sizeof(float)));
+        glVertexAttribPointer(1, 3, GL_DOUBLE, GL_FALSE, attributeCount * sizeof(double), (void*)(3 * sizeof(double)));
         glEnableVertexAttribArray(1);
     }
 
@@ -89,19 +91,19 @@ Shape::fromNED()
 }
 
 
-glm::mat4
-Shape::createModelMat(const glm::vec3& pos,
-                      const glm::vec3& ori)
+glm::mat4 
+Shape::createModelMat(const glm::vec3& position, 
+                      const glm::quat& orientation)
 {
-    auto modelMat = fromNED();
+    // Start with an identity matrix
+    glm::mat4 model = glm::mat4(1.0f);
 
-    modelMat = glm::translate(modelMat, pos);
+    // Apply translation
+    model = glm::translate(model, position);
 
-    glm::mat4 rotationMat = glm::mat4(1.0f);
-    rotationMat = glm::rotate(rotationMat, ori.z, glm::vec3(0.0f, 0.0f, 1.0f));
-    rotationMat = glm::rotate(rotationMat, ori.y, glm::vec3(0.0f, 1.0f, 0.0f));
-    rotationMat = glm::rotate(rotationMat, ori.x, glm::vec3(1.0f, 0.0f, 0.0f));
-    modelMat *= rotationMat;
-
-    return modelMat;
+    // Convert quaternion to rotation matrix and apply it
+    glm::mat4 rotationMat = glm::mat4_cast(orientation);
+    model *= rotationMat;
+    
+    return model;
 }

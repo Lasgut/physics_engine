@@ -2,7 +2,16 @@
 #include <iostream>
 
 Window::Window(const char* title, int width, int height) 
+    : width_(width)
+    , height_(height)
+    , sdlWindow_(nullptr)
 {
+    rightMouseButtonDown_ = false;
+    leftMouseButtonDown_  = false;
+
+    // Initialize SDL with OpenGL
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
@@ -45,4 +54,18 @@ SDL_Window*
 Window::getSdlWindow() const 
 {
     return sdlWindow_;
+}
+
+
+float 
+Window::getWidth() const
+{
+    return width_;
+}
+
+
+float 
+Window::getHeight() const
+{
+    return height_;
 }

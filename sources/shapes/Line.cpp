@@ -8,7 +8,7 @@ Line::Line()
     glStuff(3);
 }
 
-Line::Line(float length, const glm::vec3 &color)
+Line::Line(double length, const glm::vec3 &color)
     : length_(length)
     , color_(color)
 {
@@ -29,7 +29,7 @@ Line::createVertices()
 void 
 Line::draw(const ShaderHandler& shaderHandler, 
            const glm::vec3&     position,
-           const glm::vec3&     orientation)
+           const glm::quat&     orientation)
 {
     shaderHandler.setVec3("color", color_);
     auto model = createModelMat(position, orientation);
@@ -39,5 +39,4 @@ Line::draw(const ShaderHandler& shaderHandler,
     glBindVertexArray(VAO_);
     glDrawArrays(GL_LINES, 0, 2);
     glBindVertexArray(0);
-
 }

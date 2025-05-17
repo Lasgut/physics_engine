@@ -27,6 +27,7 @@ class EventHandler
 
         void keyboardEvents();
         void ctrlButton();
+        void arrowButtons();
 };
 
 #endif

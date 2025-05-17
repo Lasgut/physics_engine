@@ -14,12 +14,13 @@ StlMesh::StlMesh(const std::string& meshPath)
 void 
 StlMesh::draw(const ShaderHandler& shaderHandler, 
               const glm::vec3&     position,
-              const glm::vec3&     orientation)
+              const glm::quat&     orientation)
 {
-    const glm::vec3 orientationRotated = rotateToNed(orientation);
+    //glm::quat orientationRotated = rotateToNed(orientation);
     shaderHandler.setVec3("objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
 
-    glm::mat4 model = createModelMat(position, orientationRotated);
+    //orientationRotated = glm::quat(1,0,0,0);
+    glm::mat4 model = createModelMat(position, orientation);
     shaderHandler.setMat4("model",model);
     glDrawStl(triangleIndices_);
 }
@@ -28,12 +29,12 @@ StlMesh::draw(const ShaderHandler& shaderHandler,
 void 
 StlMesh::readStl(const std::string &meshPath)
 {
-    std::vector<float>        normals;
+    std::vector<double>        normals;
     std::vector<unsigned int> solidRangesDummy;
-    std::vector<float>        vertexPositions;
+    std::vector<double>        vertexPositions;
     try 
     {
-        stl_reader::ReadStlFile<std::vector<float>, std::vector<float>, std::vector<unsigned int>, std::vector<unsigned int>>(
+        stl_reader::ReadStlFile<std::vector<double>, std::vector<double>, std::vector<unsigned int>, std::vector<unsigned int>>(
             meshPath.c_str(), vertexPositions, normals, triangleIndices_, solidRangesDummy);
     }
     catch (std::exception& e)
@@ -58,7 +59,7 @@ StlMesh::readStl(const std::string &meshPath)
         glm::vec3 faceNormal = glm::normalize(glm::cross(v1 - v0, v2 - v0));
 
         // Check if the face normal is similar for all three vertices (flat surface)
-        auto epsilon = 2.0f;
+        double epsilon = 2.0;
         bool isFlatSurface = 
             glm::epsilonEqual(normals[i0 * 3 + 0], normals[i1 * 3 + 0], epsilon) &&
             glm::epsilonEqual(normals[i0 * 3 + 1], normals[i1 * 3 + 1], epsilon) &&
@@ -107,17 +108,17 @@ StlMesh::readStl(const std::string &meshPath)
 void 
 StlMesh::dispModelDimensions()
 {
-    float minX = std::numeric_limits<float>::max();
-    float minY = std::numeric_limits<float>::max();
-    float minZ = std::numeric_limits<float>::max();
-    float maxX = std::numeric_limits<float>::lowest();
-    float maxY = std::numeric_limits<float>::lowest();
-    float maxZ = std::numeric_limits<float>::lowest();
+    double minX = std::numeric_limits<double>::max();
+    double minY = std::numeric_limits<double>::max();
+    double minZ = std::numeric_limits<double>::max();
+    double maxX = std::numeric_limits<double>::lowest();
+    double maxY = std::numeric_limits<double>::lowest();
+    double maxZ = std::numeric_limits<double>::lowest();
 
     for (size_t i = 0; i < vertices_.size() / 3; ++i) {
-        float x = vertices_[i * 3 + 0];
-        float y = vertices_[i * 3 + 1];
-        float z = vertices_[i * 3 + 2];
+        double x = vertices_[i * 3 + 0];
+        double y = vertices_[i * 3 + 1];
+        double z = vertices_[i * 3 + 2];
 
         minX = std::min(minX, x);
         minY = std::min(minY, y);
@@ -127,19 +128,19 @@ StlMesh::dispModelDimensions()
         maxZ = std::max(maxZ, z);
     }
 
-    float width  = maxX - minX;
-    float height = maxY - minY;
-    float depth  = maxZ - minZ;
+    double width  = maxX - minX;
+    double height = maxY - minY;
+    double depth  = maxZ - minZ;
 
     std::cout << "Model dimensions: " 
             << "Width: " << width << ", Height: " << height << ", Depth: " << depth << std::endl;
 }
 
 
-const glm::vec3
-StlMesh::rotateToNed(const glm::vec3 &orientation)
+glm::quat 
+StlMesh::rotateToNed(const glm::quat& orientation)
 {
-    auto rotatedOrientation = orientation;
-    rotatedOrientation.x = orientation.x + 3.14f;
-    return rotatedOrientation;
+    // Example: Rotate the quaternion by 180 degrees around the X-axis
+    glm::quat nedRotation = glm::angleAxis(glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    return nedRotation * orientation;
 }

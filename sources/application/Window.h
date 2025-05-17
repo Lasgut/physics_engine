@@ -13,10 +13,15 @@ class Window
         void swapBuffers();
 
         SDL_Window* getSdlWindow() const;
+        float getWidth()  const;
+        float getHeight() const;
 
     private:
         SDL_Window* sdlWindow_;
         SDL_Event   sdlEvent_;
+
+        float width_;
+        float height_;
 
         bool rightMouseButtonDown_;
         bool leftMouseButtonDown_;

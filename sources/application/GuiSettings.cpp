@@ -33,6 +33,12 @@ GuiSettings::update()
     ImGui::Begin("Settings");
     // Add ImGui widgets for each setting, e.g., sliders, checkboxes
     ImGui::SliderFloat("Sensitivity", &settings_.camera.sensitivity, 0.0f, 1.0f);
+  
+    if (ImGui::Button("Simulation On/Off")) 
+    {
+        std::cout << "Simulation On/Off" << std::endl;
+        settings_.simulation.isRunning = !settings_.simulation.isRunning;
+    }
     //ImGui::Combo("Camera Mode", &c, "Spherical\0Flying\0");
     ImGui::End();
 

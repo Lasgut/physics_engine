@@ -12,18 +12,18 @@ class Rectangle
 {
     public:
         Rectangle();
-        Rectangle(float length, float width, float height);
+        Rectangle(double length, double width, double height);
 
         void draw(const ShaderHandler& shaderHandler, 
-                const glm::vec3&     position,
-                const glm::vec3&     orientation);
+                  const glm::vec3&     position,
+                  const glm::vec3&     orientation);
 
     private:
-        std::vector<float> createVertices();
+        std::vector<double> createVertices();
 
-        float length_{1};
-        float width_{1};
-        float height_{1};
+        double length_{1};
+        double width_{1};
+        double height_{1};
 };
 
 #endif

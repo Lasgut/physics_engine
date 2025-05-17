@@ -4,22 +4,25 @@
 #pragma once
 #include "ShaderHandler.h"
 #include "Line.h"
+#include <Eigen/Dense>
 
 class Axes
 {
     public:
         Axes();
-        Axes(float length);
+        Axes(double length);
 
         void update(const ShaderHandler& shaderHandler);
+        void setPosition(const Eigen::Vector3<double>&  position);
+        void setOrientation(const Eigen::Quaterniond&  orientation);
 
     private:
         glm::vec3 position_    {0.0f, 0.0f, 0.0f};
-        glm::vec3 xOrientation_{0.0f, 0.0f, 0.0f};
-        glm::vec3 yOrientation_{0.0f, 0.0f, glm::radians(90.0f)};
-        glm::vec3 zOrientation_{0.0f, glm::radians(-90.0f), 0.0f};
-        float     length_      {1.0};
-        float     brightness_  {0.8};
+        glm::quat xOrientation_{glm::vec3(0.0f, 0.0f, 0.0f)}; // roll, pitch, yaw
+        glm::quat yOrientation_{glm::vec3(0.0f, 0.0f, glm::radians(90.0f))};
+        glm::quat zOrientation_{glm::vec3(0.0f, glm::radians(-90.0f), 0.0f)};
+        double     length_      {1.0};
+        double     brightness_  {0.8};
 
         Line xAxis_{length_, glm::vec3(brightness_, 0.0f, 0.0f)};
         Line yAxis_{length_, glm::vec3(0.0f, brightness_, 0.0f)};

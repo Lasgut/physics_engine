@@ -25,7 +25,7 @@ Context::Context(Window& window)
     }
     std::cout << "OpenGL Version: " << glVersion << std::endl;
     
-    glViewport(0,0,1000,1000);
+    glViewport(0,0, window.getWidth(), window.getHeight());
     glEnable(GL_DEPTH_TEST);
 }
 

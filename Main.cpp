@@ -5,7 +5,7 @@
 #include "EventHandler.h"
 #include "ShaderHandler.h"
 #include "Triangle.h"
-#include "Drone.h"
+#include "Entity.h"
 #include "Light.h"
 #include "Rectangle.h"
 #include "Floor.h"
@@ -20,12 +20,13 @@ int main(int argc, char* argv[])
     {
         // Extracting file paths in resources
         ResourceHandler resourceHandler(std::filesystem::path(argv[0]).parent_path());
-        auto shaders    = resourceHandler.getFiles().shaders;
-        auto heightMaps = resourceHandler.getFiles().heightMaps;
-        auto meshes     = resourceHandler.getFiles().meshes; 
+        auto& shaders          = resourceHandler.getFiles().shaders;
+        auto& heightMaps       = resourceHandler.getFiles().heightMaps;
+        auto& meshes           = resourceHandler.getFiles().meshes; 
+        auto& entityKinematics = resourceHandler.getFiles().entityKinematics;
 
         // GUI stuff
-        Window        window("Physics Engine", 900, 900);
+        Window        window("Physics Engine", 1200, 1200);
         Context       context(window);
         EventHandler  eventHandler;
         GuiSettings   guiSettings(window, context);
@@ -43,31 +44,33 @@ int main(int argc, char* argv[])
         );
 
         // Objects
-        Triangle      triangle;
         Floor         floor;
-        Drone         drone(meshes.fpvDrone);
+        Entity        drone(meshes.fpvDrone, entityKinematics.blueRov2KinematicsPath);
         Terrain       terrain(heightMaps.icelandHeightMapPath.c_str());
-        Axes          axes(1.0f);
+        Axes          axes(1.0f); // Axes for the world, z uppwards
+        Axes          droneCenterAxes(0.1f);
 
         while (!EventState::getInstance().quit) 
         {
-            clock.setPreviousTime();
-
             eventHandler.update();
             context.clear();
 
             camera.update();
 
-            terrainShaderHandler.use(camera);
-            terrain.update(terrainShaderHandler);
-
-            simpleShaderHandler.use(camera);
-            axes.update(simpleShaderHandler);
+            //terrainShaderHandler.use(camera);
+            //terrain.update(terrainShaderHandler);
 
             shaderHandler.use(camera);
             light.update(shaderHandler, camera);
-            drone.update(shaderHandler, clock);
+            drone.update(shaderHandler);
             floor.update(shaderHandler);
+
+            simpleShaderHandler.use(camera);
+            axes.update(simpleShaderHandler);
+            
+            // droneCenterAxes.setPosition(drone.getPosition());
+            // droneCenterAxes.setOrientation(drone.getOrientation());
+            // droneCenterAxes.update(simpleShaderHandler);
 
             guiSettings.update();
 

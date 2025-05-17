@@ -8,7 +8,7 @@ Rectangle::Rectangle()
     glStuff();
 }
 
-Rectangle::Rectangle(float length, float width, float height)
+Rectangle::Rectangle(double length, double width, double height)
     : length_(length)
     , width_(width)
     , height_(height)
@@ -32,15 +32,15 @@ Rectangle::draw(const ShaderHandler& shaderHandler,
     glBindVertexArray(0);
 }
 
-std::vector<float>
+std::vector<double>
 Rectangle::createVertices()
 {
     return {
-        -length_, -width_,  height_,  0.0f,  0.0f, -1.0f,
-         length_, -width_,  height_,  0.0f,  0.0f, -1.0f,
-         length_,  width_,  height_,  0.0f,  0.0f, -1.0f,
-         length_,  width_,  height_,  0.0f,  0.0f, -1.0f,
-        -length_,  width_,  height_,  0.0f,  0.0f, -1.0f,
-        -length_, -width_,  height_,  0.0f,  0.0f, -1.0f,
+        -length_ / 2.0f, -width_ / 2.0f,  height_,  0.0f,  0.0f,  -1.0f, // Bottom-left
+         length_ / 2.0f, -width_ / 2.0f,  height_,  0.0f,  0.0f,  -1.0f, // Bottom-right
+         length_ / 2.0f,  width_ / 2.0f,  height_,  0.0f,  0.0f,  -1.0f, // Top-right
+         length_ / 2.0f,  width_ / 2.0f,  height_,  0.0f,  0.0f,  -1.0f, // Top-right
+        -length_ / 2.0f,  width_ / 2.0f,  height_,  0.0f,  0.0f,  -1.0f, // Top-left
+        -length_ / 2.0f, -width_ / 2.0f,  height_,  0.0f,  0.0f,  -1.0f, // Bottom-left
     };
 }

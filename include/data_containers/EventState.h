@@ -17,6 +17,11 @@ struct MouseState
 struct KeyboardState
 {
     bool ctrl = false;
+    bool up   = false;
+    bool down = false;
+    bool left = false;
+    bool right = false;
+    bool space = false;
 };
 
 struct EventState 

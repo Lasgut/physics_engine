@@ -39,12 +39,14 @@ ResourceHandler::findProgramRoot(const std::filesystem::path &startPath)
 void 
 ResourceHandler::loadFiles(const std::filesystem::path& physicsEngineRoot)
 {
-    std::filesystem::path shadersDir    = physicsEngineRoot / "resources/shaders";
-    std::filesystem::path heightMapsDir = physicsEngineRoot / "resources/height_maps";
-    std::filesystem::path meshesDir     = physicsEngineRoot / "resources/meshes";
-    loadShaders   (shadersDir);
-    loadHeightMaps(heightMapsDir);
-    loadMeshes    (meshesDir);
+    std::filesystem::path shadersDir          = physicsEngineRoot / "resources/shaders";
+    std::filesystem::path heightMapsDir       = physicsEngineRoot / "resources/height_maps";
+    std::filesystem::path meshesDir           = physicsEngineRoot / "resources/meshes";
+    std::filesystem::path entityKinematicsDir = physicsEngineRoot / "resources/entity_kinematics";
+    loadShaders         (shadersDir);
+    loadHeightMaps      (heightMapsDir);
+    loadMeshes          (meshesDir);
+    loadEntityKinematics(entityKinematicsDir);
 }
 
 
@@ -100,4 +102,16 @@ ResourceHandler::loadMeshes(const std::filesystem::path &meshesDir)
 
     files_.meshes.blueRov2HeavyPath = blueRov2Heavy;
     files_.meshes.fpvDrone          = fpv_drone;
+}
+
+
+void 
+ResourceHandler::loadEntityKinematics(const std::filesystem::path &entityKinematicsDir)
+{
+    if (!std::filesystem::exists(entityKinematicsDir)) 
+    {
+        throw std::runtime_error("ERROR: Entity kinematics directory does not exist: " + entityKinematicsDir.string());
+    }
+
+    files_.entityKinematics.blueRov2KinematicsPath = (entityKinematicsDir / "blueROV2_kinematics.json").string();
 }

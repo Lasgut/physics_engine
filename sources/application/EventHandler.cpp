@@ -120,6 +120,7 @@ EventHandler::keyboardEvents()
     if (!ImGui::GetIO().WantCaptureKeyboard) 
         {
         ctrlButton();
+        arrowButtons();
         }
 }
 
@@ -139,6 +140,58 @@ EventHandler::ctrlButton()
         if (sdlEvent_.key.keysym.sym == SDLK_LCTRL || sdlEvent_.key.keysym.sym == SDLK_RCTRL) 
         {
             eventState_.keyboard.ctrl = false; // Ctrl released
+        }
+    }
+}
+
+
+void 
+EventHandler::arrowButtons()
+{
+    if (sdlEvent_.type == SDL_KEYDOWN) 
+    {
+        if (sdlEvent_.key.keysym.sym == SDLK_UP) 
+        {
+            eventState_.keyboard.up = true;
+        } 
+        else if (sdlEvent_.key.keysym.sym == SDLK_DOWN) 
+        {
+            eventState_.keyboard.down = true;
+        } 
+        else if (sdlEvent_.key.keysym.sym == SDLK_LEFT) 
+        {
+            eventState_.keyboard.left = true;
+        } 
+        else if (sdlEvent_.key.keysym.sym == SDLK_RIGHT) 
+        {
+            eventState_.keyboard.right = true;
+        }
+        else if (sdlEvent_.key.keysym.sym == SDLK_SPACE) 
+        {
+            eventState_.keyboard.space = true;
+        }
+    }
+    else if (sdlEvent_.type == SDL_KEYUP) 
+    {
+        if (sdlEvent_.key.keysym.sym == SDLK_UP) 
+        {
+            eventState_.keyboard.up = false; // Up arrow released
+        } 
+        else if (sdlEvent_.key.keysym.sym == SDLK_DOWN) 
+        {
+            eventState_.keyboard.down = false; // Down arrow released
+        } 
+        else if (sdlEvent_.key.keysym.sym == SDLK_LEFT) 
+        {
+            eventState_.keyboard.left = false; // Left arrow released
+        } 
+        else if (sdlEvent_.key.keysym.sym == SDLK_RIGHT) 
+        {
+            eventState_.keyboard.right = false; // Right arrow released
+        }
+        else if (sdlEvent_.key.keysym.sym == SDLK_SPACE) 
+        {
+            eventState_.keyboard.space = false; // Space released
         }
     }
 }
