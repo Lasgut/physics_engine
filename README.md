@@ -50,3 +50,5 @@ The directory third_party includes files from external sources
 
 ### Usefull documentation
 * [OpenGL tutorial](https://learnopengl.com/)
+* [UAV sim](https://github.com/byu-magicc/mavsim_public?tab=readme-ov-file)
+* [MSS toolbox](https://github.com/cybergalactic/MSS)
