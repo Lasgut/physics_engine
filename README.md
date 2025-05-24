@@ -1,7 +1,7 @@
 # Physics Engine
 
 ## Simple physics engine based on kinematic equations.
-This project presents a physics engine or simulator based on kinematic equations. SDL is used to create the application window, openGL to create 3D image and kinematics alters the position and orientation of objects in the visualizer.
+This project presents a physics engine/simulator, based on kinematic equations. SDL is used to create the application window and openGL is used to create the 3D visualization. The kinematic/dynamic equations used is inspired by multiple [sources](#sources). See also [Usefull Documentation](#usefull-documentation) for more details. 
 
 ### Setup Instructions, Linux Ubuntu
 Install [system dependencies](#system-dependencies)
@@ -26,7 +26,7 @@ Run program
 ```
 
 ### Structure
-Each object/entity contains a shape and kinematics. The shape is drawn in the 3D visualizer based on the calculated position and orientation. The kinematics is stored in a struct available for drawing and computation. 
+Each object/entity contains a shape and kinematics. The shape is drawn in the 3D visualizer based on the calculated position and orientation. The kinematics is stored in a data container available for drawing and computation. 
 Should include a figure of the design structure...
 
 ### System Dependencies
@@ -48,7 +48,11 @@ The directory third_party includes files from external sources
 | ImGUI      | Used to create GUI within the application window.                 | [GitHub](https://github.com/ocornut/imgui)      | yes |        |
 | STL Reader | Used to convert .stl to openGL vertices to render 3D models       | [GitHub](https://github.com/sreiter/stl_reader) | no  |        |
 
-### Usefull documentation
+### Usefull Documentation
 * [OpenGL tutorial](https://learnopengl.com/)
 * [UAV sim](https://github.com/byu-magicc/mavsim_public?tab=readme-ov-file)
 * [MSS toolbox](https://github.com/cybergalactic/MSS)
+
+### Sources
+* Thor I. Fossen, _Handbook of marine craft hydrodynamics and motion control_, 2nd ed, Hoboken, NJ: Wiley, 2021.
+* Randal W. Beard and Timothy W. McLain, _Small Unmanned Aircraft_, Princeton University Press, November 27, 2024.
