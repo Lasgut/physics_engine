@@ -16,8 +16,6 @@ public:
 
     void loadKinematicsData(const std::string& filePath);
 
-    void eulerIntegration(const double deltaTime);
-
     void setPosition    (const Eigen::Vector3<double>& pos);
     void setVelocity    (const Eigen::Vector3<double>& vel);
     void setOrientation (const Eigen::Quaterniond&     orient);
@@ -40,13 +38,21 @@ private:
     void updateCoriolisMatrix();
     void updateDampingMatrix();
 
+    void underwaterDynamics(const double deltaTime);
+    void aircraftDynamics(const double deltaTime);
+
+    void eulerIntegration(const double deltaTime);
+
+    double deg2rad(double degrees) const;
+    double rad2deg(double radians) const;
+
     Eigen::Matrix<double,3,3> skew(const Eigen::Vector<double,3>& v);
     Eigen::Matrix<double,3,3> Rzyx(double phi, double theta, double psi); 
     Eigen::Matrix<double,3,3> Tzyx(double phi, double theta); 
     Eigen::Matrix<double,3,3> Rquat(const Eigen::Quaterniond& q);
     Eigen::Matrix<double,4,3> Tquat(const Eigen::Quaterniond& q);
 
-    double frequency_{200};
+    double frequency_{400};
 
     KinematicsData data_; 
     Clock          clock_;

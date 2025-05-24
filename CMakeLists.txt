@@ -37,9 +37,9 @@ include_directories(${SDL2_INCLUDE_DIRS}
 
 # Gather all .cpp files in the sources/objects and sources/shapes directories
 file(GLOB APPLICATION_SOURCES "sources/application/*.cpp")
-file(GLOB OBJECT_SOURCES "sources/objects/*.cpp")
-file(GLOB SHAPE_SOURCES "sources/shapes/*.cpp")
-file(GLOB TOOL_SOURCES "sources/tools/*.cpp")
+file(GLOB OBJECT_SOURCES      "sources/objects/*.cpp")
+file(GLOB SHAPE_SOURCES       "sources/shapes/*.cpp")
+file(GLOB TOOL_SOURCES        "sources/tools/*.cpp")
 
 file(GLOB GLAD_SOURCES "third_party/glad/src/gl.c")
 file(GLOB IMGUI_SOURCES 

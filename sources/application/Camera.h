@@ -14,7 +14,9 @@ class Camera
     public:
         Camera();
 
-        void update();
+        void update(const glm::vec3& targetPosition, const glm::quat& targetOrientation);
+
+        void setLookAt(const glm::vec3& target);
 
         const glm::mat4& getViewMatrix()       const;
         const glm::mat4& getProjectionMatrix() const;

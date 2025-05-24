@@ -23,12 +23,50 @@ Camera::Camera()
 
 
 void 
-Camera::update()
+Camera::update(const glm::vec3& targetPosition, const glm::quat& targetOrientation)
 {
-    move();
-    zoom();
-    view_          = glm::lookAt(position_, target_, orientation_);
-    viewDirection_ = glm::normalize(target_ - position_);
+    if (settings_.camera.mode == CameraMode::Spherical)
+    {
+        move();
+        zoom();
+        view_          = glm::lookAt(position_, target_, orientation_);
+        viewDirection_ = glm::normalize(target_ - position_);
+    }
+    if (settings_.camera.mode == CameraMode::FirstPerson)
+    {
+        float distanceBehind = -0.1f;   // distance back from target
+        float distanceAhead  = 1.0f; 
+        float cameraHeight   = -0.05f;  // higher up in NED = negative Z
+    
+        // Get the target's forward direction (yaw-based)
+        glm::vec3 forward = glm::normalize(targetOrientation * glm::vec3(1.0f, 0.0f, 0.0f));
+    
+        glm::vec3 behindOffset = -forward * distanceBehind;
+        glm::vec3 heightOffset = glm::vec3(0.0f, 0.0f, cameraHeight);
+    
+        position_ = targetPosition + behindOffset + heightOffset;
+        target_   = targetPosition;
+    
+        view_ = glm::lookAt(position_, target_+forward*distanceAhead, glm::vec3(0.0f, 0.0f, -1.0f)); // Up in NED
+        viewDirection_ = glm::normalize(target_ - position_);
+    }
+    if (settings_.camera.mode == CameraMode::ThirdPerson)
+    {
+        float distanceBehind = 2.0f;   // distance back from target
+        float cameraHeight   = -0.5f;  // higher up in NED = negative Z
+    
+        // Get the target's forward direction (yaw-based)
+        glm::vec3 forward = glm::normalize(targetOrientation * glm::vec3(1.0f, 0.0f, 0.0f));
+    
+        glm::vec3 behindOffset = -forward * distanceBehind;
+        glm::vec3 heightOffset = glm::vec3(0.0f, 0.0f, cameraHeight);
+    
+        position_ = targetPosition + behindOffset + heightOffset;
+        target_   = targetPosition;
+    
+        view_ = glm::lookAt(position_, target_, glm::vec3(0.0f, 0.0f, -1.0f)); // Up in NED
+        viewDirection_ = glm::normalize(target_ - position_);
+    }
 }
 
 
@@ -112,6 +150,13 @@ const glm::mat4&
 Camera::getViewMatrix() const
 {
     return view_;
+}
+
+
+void 
+Camera::setLookAt(const glm::vec3 &target)
+{
+    target_ = target;
 }
 
 

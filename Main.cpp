@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
 
         // Objects
         Floor         floor;
-        Entity        drone(meshes.fpvDrone, entityKinematics.blueRov2KinematicsPath);
+        Entity        drone(meshes.fpvDrone, entityKinematics.generalAircraftKinematicsPath);
         Terrain       terrain(heightMaps.icelandHeightMapPath.c_str());
         Axes          axes(1.0f);
         Axes          droneCenterAxes(0.1f);
@@ -55,22 +55,23 @@ int main(int argc, char* argv[])
             eventHandler.update();
             context.clear();
 
-            camera.update();
+            camera.update(drone.getPositionAsGlm(), drone.getOrientationAsGlm());
 
             terrainShaderHandler.use(camera);
             terrain.update(terrainShaderHandler);
 
             shaderHandler.use(camera);
             light.update(shaderHandler, camera);
-            drone.update(shaderHandler);
-            floor.update(shaderHandler);
 
-            simpleShaderHandler.use(camera);
-            axes.update(simpleShaderHandler);
-            
             droneCenterAxes.setPosition(drone.getPosition());
             droneCenterAxes.setOrientation(drone.getOrientation());
             droneCenterAxes.update(simpleShaderHandler);
+            drone.update(shaderHandler);
+            floor.update(shaderHandler);
+            camera.setLookAt(drone.getPositionAsGlm());
+
+            simpleShaderHandler.use(camera);
+            axes.update(simpleShaderHandler);
 
             guiSettings.update();
 

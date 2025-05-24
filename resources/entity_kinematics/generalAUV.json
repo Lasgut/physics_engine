@@ -1,5 +1,5 @@
 {
-    "type": "ROV",
+    "type": "AUV",
     "gravity": 9.81,
     "mass": 11.5,
     "buoyancy": 112.81,

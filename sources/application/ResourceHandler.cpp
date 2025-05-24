@@ -113,5 +113,7 @@ ResourceHandler::loadEntityKinematics(const std::filesystem::path &entityKinemat
         throw std::runtime_error("ERROR: Entity kinematics directory does not exist: " + entityKinematicsDir.string());
     }
 
-    files_.entityKinematics.blueRov2KinematicsPath = (entityKinematicsDir / "blueROV2_kinematics.json").string();
+    files_.entityKinematics.blueRov2HeavyKinematicsPath   = (entityKinematicsDir / "blueROV2_kinematics.json").string();
+    files_.entityKinematics.aerosondeKinematicsPath       = (entityKinematicsDir / "aerosonde_kinematics.json").string();
+    files_.entityKinematics.generalAircraftKinematicsPath = (entityKinematicsDir / "generalAircraft.json").string();
 }

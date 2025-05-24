@@ -4,10 +4,17 @@
 #pragma once
 #include <string>
 
+enum class CameraMode
+{
+    Spherical,
+    ThirdPerson,
+    FirstPerson
+};
+
 struct CameraSettings 
 {
-    std::string mode        = "spherical";
-    float       sensitivity = 0.5;
+    CameraMode mode        = CameraMode::Spherical;
+    float      sensitivity = 0.5;
 };
 
 struct SimulationSettings 

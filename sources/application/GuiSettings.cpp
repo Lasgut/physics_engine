@@ -39,7 +39,15 @@ GuiSettings::update()
         std::cout << "Simulation On/Off" << std::endl;
         settings_.simulation.isRunning = !settings_.simulation.isRunning;
     }
+    
     //ImGui::Combo("Camera Mode", &c, "Spherical\0Flying\0");
+    const char* cameraModes[] = { "Spherical", "Third Person", "First Person" };
+    int currentMode = static_cast<int>(settings_.camera.mode);
+    if (ImGui::Combo("Camera Mode", &currentMode, cameraModes, IM_ARRAYSIZE(cameraModes)))
+    {
+        settings_.camera.mode = static_cast<CameraMode>(currentMode);
+    }
+
     ImGui::End();
 
     render();

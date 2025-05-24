@@ -16,6 +16,9 @@ class Entity
         Eigen::Vector3<double> getPosition();
         Eigen::Quaterniond     getOrientation();
 
+        glm::vec3 getPositionAsGlm()    const;
+        glm::quat getOrientationAsGlm() const;
+
     private:
         void init(const std::string& kinematicsFilePath);
 

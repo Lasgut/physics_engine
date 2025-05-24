@@ -12,7 +12,9 @@ struct Files
 {
     struct entity_kinematics
     {
-        std::string blueRov2KinematicsPath;
+        std::string blueRov2HeavyKinematicsPath;
+        std::string aerosondeKinematicsPath;
+        std::string generalAircraftKinematicsPath;
     } entityKinematics;
     struct HeightMaps
     {
