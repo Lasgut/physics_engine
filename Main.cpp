@@ -63,9 +63,12 @@ int main(int argc, char* argv[])
             shaderHandler.use(camera);
             light.update(shaderHandler, camera);
 
+            simpleShaderHandler.use(camera);
             droneCenterAxes.setPosition(drone.getPosition());
             droneCenterAxes.setOrientation(drone.getOrientation());
             droneCenterAxes.update(simpleShaderHandler);
+
+            shaderHandler.use(camera);
             drone.update(shaderHandler);
             floor.update(shaderHandler);
             camera.setLookAt(drone.getPositionAsGlm());

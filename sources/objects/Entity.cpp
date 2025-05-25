@@ -1,5 +1,6 @@
 #include "Entity.h"
 #include "Clock.h"
+#include "PidController.h"
 
 
 Entity::Entity(const std::string& meshPath, const std::string& kinematicsFilePath)
@@ -16,30 +17,82 @@ Entity::update(const ShaderHandler& shaderHandler)
                 kinematics_.getPositionAsGlm(), 
                 kinematics_.getOrientationAsGlm());
 
+    auto controlForces = computeControlForces();
+
+    kinematics_.update(controlForces);
+}
+
+
+Eigen::Vector3<double>
+Entity::getPosition() const
+{
+    return kinematics_.getPosition();
+}
+
+
+Eigen::Quaterniond
+Entity::getOrientation() const
+{
+    return kinematics_.getOrientation();
+}
+
+
+glm::vec3 
+Entity::getPositionAsGlm() const
+{
+    return kinematics_.getPositionAsGlm();
+}
+
+
+glm::quat 
+Entity::getOrientationAsGlm() const
+{
+    return kinematics_.getOrientationAsGlm();
+}
+
+
+void 
+Entity::init(const std::string& kinematicsFilePath)
+{
+    kinematics_.setPosition(Eigen::Vector3<double>   (0.0, 0.0, -100.0));
+    kinematics_.setVelocity(Eigen::Vector3<double>   (7,0,0));
+
+    glm::quat orientationGlm{glm::vec3(glm::radians(0.0), 0.0f, glm::radians(0.0))}; // roll, pitch, yaw
+    Eigen::Quaterniond orientation;
+    orientation.x() = orientationGlm.x;
+    orientation.y() = orientationGlm.y;
+    orientation.z() = orientationGlm.z;
+    orientation.w() = orientationGlm.w;
+
+    kinematics_.setOrientation(orientation);
+
+    kinematics_.loadKinematicsData(kinematicsFilePath);
+}
+
+Eigen::Vector<double, 6> Entity::computeControlForces()
+{
     //Aircraft 
-    double force = 2.0;
-    double factor = 0.2;
     Eigen::Vector<double,6> controlForces(0,0,0,0,0,0);
+    Eigen::Vector3d         desiredRates(0, 0, 0); // [p_ref, q_ref, r_ref] (roll, pitch, yaw rates)
+
     if (EventState::getInstance().keyboard.up)
-    {
-        controlForces[4] = -factor*force;
-    }
+        desiredRates[1] = -0.5; // Pitch down
     if (EventState::getInstance().keyboard.down)
-    {
-        controlForces[4] = factor*force;
-    }
+        desiredRates[1] = 0.5;  // Pitch up
     if (EventState::getInstance().keyboard.left)
-    {
-        controlForces[3] = -factor*force;
-    }
+        desiredRates[0] = -0.5; // Roll left
     if (EventState::getInstance().keyboard.right)
-    {
-        controlForces[3] = factor*force;
-    }
+        desiredRates[0] = 0.5;  // Roll right
     if (EventState::getInstance().keyboard.space)
-    {
-        controlForces[0] = force;
-    }
+        controlForces[0] = 2.0; // Thrust (optional for now)
+    else
+        controlForces[0] = velocityController_.control(12, kinematics_.getVelocity()[0]);
+
+    if (desiredRates[1] == 0)
+        desiredRates[1]= pitchController_.control(0.0, kinematics_.getEulerAngles()[1]);
+
+    controlForces[3] = rollRateController_.control(desiredRates[0], kinematics_.getAngularVelocity()[0]);
+    controlForces[4] = pitchRateController_.control(desiredRates[1], kinematics_.getAngularVelocity()[1]);
 
     // underwater
     // double force = 0.3;
@@ -64,53 +117,5 @@ Entity::update(const ShaderHandler& shaderHandler)
     // {
     //     controlForces[2] = force;
     // }
-
-    kinematics_.update(controlForces);
-}
-
-
-Eigen::Vector3<double>
-Entity::getPosition()
-{
-    return kinematics_.getPosition();
-}
-
-
-Eigen::Quaterniond
-Entity::getOrientation()
-{
-    return kinematics_.getOrientation();
-}
-
-
-glm::vec3 
-Entity::getPositionAsGlm() const
-{
-    return kinematics_.getPositionAsGlm();
-}
-
-
-glm::quat 
-Entity::getOrientationAsGlm() const
-{
-    return kinematics_.getOrientationAsGlm();
-}
-
-
-void 
-Entity::init(const std::string& kinematicsFilePath)
-{
-    kinematics_.setPosition(Eigen::Vector3<double>   (0.0, 0.0, -100.0));
-    kinematics_.setVelocity(Eigen::Vector3<double>   (12,0,0));
-
-    glm::quat orientationGlm{glm::vec3(glm::radians(0.0), 0.0f, glm::radians(0.0))}; // roll, pitch, yaw
-    Eigen::Quaterniond orientation;
-    orientation.x() = orientationGlm.x;
-    orientation.y() = orientationGlm.y;
-    orientation.z() = orientationGlm.z;
-    orientation.w() = orientationGlm.w;
-
-    kinematics_.setOrientation(orientation);
-
-    kinematics_.loadKinematicsData(kinematicsFilePath);
+    return controlForces;
 }

@@ -1,0 +1,37 @@
+{
+  "type": "aircraft",
+  "mass": 0.5,
+  "centerOfGravity": [0, 0, -0.02],
+  "inertia": {
+    "I_xx": 0.02,
+    "I_yy": 0.025,
+    "I_zz": 0.03,
+    "I_xz": 0.0
+  },
+  "aero": {
+    "wingArea": 0.25,
+    "span": 1.2,
+    "chord": 0.2,
+    "CL_0": 0.3,
+    "CL_alpha": 4.8,
+    "CL_q": 5.0,
+    "CY_0": 0.0,
+    "CY_beta": -0.05,
+    "CY_p": 0.0,
+    "CY_r": 0.0,
+    "CD_0": 0.04,
+    "CD_alpha": 0.025,
+    "CD_q": 0.0,
+    "Cm_0": 0.01,
+    "Cm_alpha": -1.2,
+    "Cm_q": -22.0,
+    "Cl_0": 0.0,
+    "Cl_beta": -0.05,
+    "Cl_p": -3.0,
+    "Cl_r": 0.04,
+    "Cn_0": 0.0,
+    "Cn_beta": 0.04,
+    "Cn_p": -0.15,
+    "Cn_r": -0.15
+  }
+}

@@ -4,6 +4,7 @@
 #pragma once
 #include "StlMesh.h"
 #include "Kinematics.h"
+#include "PidController.h"
 #include "Clock.h"
 #include "Axes.h"
 
@@ -13,8 +14,8 @@ class Entity
         Entity(const std::string& meshPath, const std::string& kinematicsFilePath);
 
         void update(const ShaderHandler& shaderHandler);
-        Eigen::Vector3<double> getPosition();
-        Eigen::Quaterniond     getOrientation();
+        Eigen::Vector3<double> getPosition()        const;
+        Eigen::Quaterniond     getOrientation()     const;
 
         glm::vec3 getPositionAsGlm()    const;
         glm::quat getOrientationAsGlm() const;
@@ -22,8 +23,14 @@ class Entity
     private:
         void init(const std::string& kinematicsFilePath);
 
-        StlMesh    shape_;
-        Kinematics kinematics_;
+        Eigen::Vector<double,6> computeControlForces();
+
+        StlMesh       shape_;
+        Kinematics    kinematics_;
+        PidController pitchController_{1,0,0,7};
+        PidController pitchRateController_{1,0,0,20};
+        PidController rollRateController_{1,0,0,20};
+        PidController velocityController_{1,0,0,20};
 };
 
 #endif

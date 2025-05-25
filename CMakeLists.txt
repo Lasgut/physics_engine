@@ -16,6 +16,7 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${FullOutputDir}")
 
 include_directories(include/data_containers)
 include_directories(include/data_types)
+include_directories(include/libraries)
 include_directories(sources/application)
 include_directories(sources/objects)
 include_directories(sources/shapes)
