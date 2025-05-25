@@ -28,6 +28,7 @@ Run program
 ### Structure
 Each object/entity contains a shape and kinematics. The shape is drawn in the 3D visualizer based on the calculated position and orientation. The kinematics is stored in a data container available for drawing and computation. 
 Should include a figure of the design structure...
+![](./architecture/architecture.png)
 
 ### System Dependencies
 | Name | Description | Library | Version |
