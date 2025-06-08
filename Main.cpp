@@ -1,18 +1,11 @@
 #include "Window.h"
 #include "Context.h"
-#include "Camera.h"
-#include "Axes.h"
-#include "EventHandler.h"
-#include "ShaderHandler.h"
-#include "Triangle.h"
-#include "Entity.h"
-#include "Light.h"
-#include "Rectangle.h"
-#include "Floor.h"
-#include "Clock.h"
-#include "Terrain.h"
 #include "GuiSettings.h"
+#include "Visualizer.h"
+#include "Entity.h"
+#include "Clock.h"
 #include "ResourceHandler.h"
+#include "EventHandler.h"
 
 int main(int argc, char* argv[]) 
 {
@@ -30,7 +23,6 @@ int main(int argc, char* argv[])
         Context       context(window);
         EventHandler  eventHandler;
         GuiSettings   guiSettings(window, context);
-        Clock         clock;
         Camera        camera;
         Light         light;
 

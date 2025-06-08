@@ -2,11 +2,10 @@
 #define ENTITY_H
 
 #pragma once
-#include "StlMesh.h"
-#include "Kinematics.h"
-#include "PidController.h"
+#include "shapes/StlMesh.h"
+#include "entity_utilities/Kinematics.h"
+#include "entity_utilities/PidController.h"
 #include "Clock.h"
-#include "Axes.h"
 
 class Entity
 {

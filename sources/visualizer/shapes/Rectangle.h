@@ -3,8 +3,8 @@
 
 #pragma once
 #include <glad/gl.h>
-#include "ShaderHandler.h"
-#include "Shape.h"
+#include "visualizer_utilities/ShaderHandler.h"
+#include "shapes/Shape.h"
 #include <vector>
 
 class Rectangle

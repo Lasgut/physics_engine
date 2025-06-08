@@ -17,10 +17,9 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${FullOutputDir}")
 include_directories(include/data_containers)
 include_directories(include/data_types)
 include_directories(include/libraries)
-include_directories(sources/application)
-include_directories(sources/objects)
-include_directories(sources/shapes)
-include_directories(sources/tools)
+include_directories(sources/visualizer)
+include_directories(sources/entity)
+include_directories(sources/application_utilities)
 include_directories(third_party/glad/include)
 include_directories(third_party/imgui)
 include_directories(third_party/stb)
@@ -37,10 +36,9 @@ include_directories(${SDL2_INCLUDE_DIRS}
                     ${EIGEN3_INCLUDE_DIRS})
 
 # Gather all .cpp files in the sources/objects and sources/shapes directories
-file(GLOB APPLICATION_SOURCES "sources/application/*.cpp")
-file(GLOB OBJECT_SOURCES      "sources/objects/*.cpp")
-file(GLOB SHAPE_SOURCES       "sources/shapes/*.cpp")
-file(GLOB TOOL_SOURCES        "sources/tools/*.cpp")
+file(GLOB_RECURSE VISUALIZER_SOURCES        "sources/visualizer/*.cpp")
+file(GLOB_RECURSE ENTITY_SOURCES            "sources/entity/*.cpp")
+file(GLOB_RECURSE APPLICATION_UTILS_SOURCES "sources/application_utilities/*.cpp")
 
 file(GLOB GLAD_SOURCES "third_party/glad/src/gl.c")
 file(GLOB IMGUI_SOURCES 
@@ -53,10 +51,9 @@ file(GLOB IMGUI_SOURCES
 )
 
 set(SOURCES
-    ${APPLICATION_SOURCES}
-    ${OBJECT_SOURCES}
-    ${SHAPE_SOURCES}
-    ${TOOL_SOURCES}
+    ${APPLICATION_UTILS_SOURCES}
+    ${VISUALIZER_SOURCES}
+    ${ENTITY_SOURCES}
     ${IMGUI_SOURCES}
     ${GLAD_SOURCES}
     "Main.cpp"

@@ -2,7 +2,7 @@
 #define TERRAIN_H
 
 #pragma once
-#include "ShaderHandler.h"
+#include "visualizer_utilities/ShaderHandler.h"
 #include <vector>
 
 class Terrain

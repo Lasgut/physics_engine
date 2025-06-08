@@ -3,8 +3,8 @@
 
 #pragma once
 #include <glad/gl.h>
-#include <Shape.h>
-#include "ShaderHandler.h"
+#include "shapes/Shape.h"
+#include "visualizer_utilities/ShaderHandler.h"
 
 class Cube 
     : public Shape

@@ -1,6 +1,6 @@
 #include "Cube.h"
 #include <glad/gl.h>
-#include "ShaderHandler.h"
+#include "visualizer_utilities/ShaderHandler.h"
 
 Cube::Cube() 
 {

@@ -2,7 +2,7 @@
 #define LINE_H
 
 #pragma once
-#include "ShaderHandler.h"
+#include "visualizer_utilities/ShaderHandler.h"
 #include "Shape.h"
 #include <glad/gl.h>
 #include <glm/glm.hpp> 

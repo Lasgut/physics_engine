@@ -1,6 +1,6 @@
 #include "Entity.h"
 #include "Clock.h"
-#include "PidController.h"
+#include "entity_utilities/PidController.h"
 
 
 Entity::Entity(const std::string& meshPath, const std::string& kinematicsFilePath)
@@ -88,8 +88,8 @@ Eigen::Vector<double, 6> Entity::computeControlForces()
     else
         controlForces[0] = velocityController_.control(12, kinematics_.getVelocity()[0]);
 
-    if (desiredRates[1] == 0)
-        desiredRates[1]= pitchController_.control(0.0, kinematics_.getEulerAngles()[1]);
+    // if (desiredRates[1] == 0)
+    //     desiredRates[1]= pitchController_.control(0.0, kinematics_.getEulerAngles()[1]);
 
     controlForces[3] = rollRateController_.control(desiredRates[0], kinematics_.getAngularVelocity()[0]);
     controlForces[4] = pitchRateController_.control(desiredRates[1], kinematics_.getAngularVelocity()[1]);

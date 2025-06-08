@@ -4,7 +4,7 @@
 #pragma once
 #include <glad/gl.h>
 #include "Shape.h"
-#include "ShaderHandler.h"
+#include "visualizer_utilities/ShaderHandler.h"
 
 class StlMesh 
     : public Shape

@@ -1,5 +1,5 @@
 #include "Line.h"
-#include "ShaderHandler.h"
+#include "visualizer_utilities/ShaderHandler.h"
 #include <glad/gl.h>
 
 Line::Line()

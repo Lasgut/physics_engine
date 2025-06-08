@@ -2,8 +2,8 @@
 #define AXES_H
 
 #pragma once
-#include "ShaderHandler.h"
-#include "Line.h"
+#include "visualizer_utilities/ShaderHandler.h"
+#include "shapes/Line.h"
 #include <Eigen/Dense>
 
 class Axes

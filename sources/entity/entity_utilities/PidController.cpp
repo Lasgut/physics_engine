@@ -10,11 +10,11 @@ PidController::PidController(const double P, const double I, const double D, con
 
 double PidController::control(const double ref, const double feedback)
 {
-    if (!clock_.rateLimit(frequency_)) 
-    {
-        return effort_;
-    }
-    clock_.setPreviousTime();
+    // if (!clock_.rateLimit(frequency_)) 
+    // {
+    //     return effort_;
+    // }
+    // clock_.setPreviousTime();
 
     double effort_ = (ref - feedback)*P_;
     return effort_;
