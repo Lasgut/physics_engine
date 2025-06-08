@@ -1,5 +1,5 @@
 /.vscode
-/build
+**/build
 /bin
 
 # This file is used to ignore files which are generated

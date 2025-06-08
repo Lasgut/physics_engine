@@ -2,8 +2,11 @@
 #include "MainWindow.h"
 #include "Visualizer.h"
 #include "ResourceHandler.h"
+#include "QtSignalMapper.h"
 
 #include <QApplication>
+#include <QPushButton>
+#include <QObject>
 
 int main(int argc, char *argv[])
 {
@@ -16,8 +19,11 @@ int main(int argc, char *argv[])
 
     visualizer->setResourceHandler(&resourceHandler);
 
-
     window.setVisualizerWidget(visualizer);
+
+    // setup signal connections
+    QtSignalMapper signalMapper;
+    QObject::connect(qobject_cast<QPushButton*>(window.getPlayButton()), &QPushButton::clicked, &signalMapper, &QtSignalMapper::playButtonClicked);
 
     window.show();
     return application.exec();

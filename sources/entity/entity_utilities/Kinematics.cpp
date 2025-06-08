@@ -248,8 +248,8 @@ Kinematics::update(Eigen::Vector<double,6> tau)
     {
         return;
     }
-    //auto deltaTime = clock_.getDeltaTime();
-    auto deltaTime = 1.0f / frequency_;
+    auto deltaTime = clock_.getDeltaTime();
+    //auto deltaTime = 1.0f / frequency_;
 
     data_.tau = tau;
     if (data_.type == "aircraft" || data_.type == "UAV")

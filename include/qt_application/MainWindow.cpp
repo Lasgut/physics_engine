@@ -43,3 +43,10 @@ MainWindow::setVisualizerWidget(QWidget *widget)
     // Show the new widget explicitly
     widget->show();
 }
+
+
+QWidget*
+MainWindow::getPlayButton()
+{
+    return ui_->PlayButton;
+}

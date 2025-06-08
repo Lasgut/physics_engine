@@ -19,6 +19,8 @@ public:
 
     void setVisualizerWidget(QWidget* widget);
 
+    QWidget* getPlayButton();
+
 private:
     Ui::MainWindow *ui_;
 };
