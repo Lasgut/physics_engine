@@ -65,6 +65,17 @@ install(TARGETS qt_application
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(qt_application)
-endif()
+
+#### Make it a library ####
+# Create a static library (no main.cpp!)
+add_library(qt_application_lib STATIC ${PROJECT_SOURCES})
+
+# Link the library to Qt Widgets
+target_link_libraries(qt_application_lib PRIVATE
+    Qt${QT_VERSION_MAJOR}::Widgets
+)
+
+# If you need to export include directories for this library
+target_include_directories(qt_application_lib PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
