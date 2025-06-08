@@ -21,5 +21,25 @@ MainWindow::~MainWindow()
 void
 MainWindow::setVisualizerWidget(QWidget *widget)
 {
-    ui_->VisualizerGLWidget->layout()->replaceWidget(ui_->VisualizerGLWidget, widget);
+    if (!widget) return;
+
+    // Get the parent widget and layout of the placeholder openGLWidget
+    QWidget* placeholder = ui_->VisualizerGLWidget;
+    if (!placeholder) return;
+
+    QWidget* parentWidget = placeholder->parentWidget();
+    if (!parentWidget) return;
+
+    QLayout* layout = parentWidget->layout();
+    if (!layout) return;
+
+    // Replace the placeholder widget with the new widget
+    layout->replaceWidget(placeholder, widget);
+
+    // Hide and optionally delete the placeholder widget
+    placeholder->hide();
+    // placeholder->deleteLater();  // Optional if you want to delete it
+
+    // Show the new widget explicitly
+    widget->show();
 }

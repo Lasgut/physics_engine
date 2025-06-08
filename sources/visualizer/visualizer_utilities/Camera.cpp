@@ -88,6 +88,7 @@ Camera::zoom()
         glm::vec3 front = glm::normalize(target_ - position_);
         position_ += front * wheelOffset;
     }
+    eventState_.mouse.wheelRel = 0.0f; // Reset wheel offset after processing
 }
 
 
@@ -143,6 +144,8 @@ Camera::processMouseMovement()
             position_ = target_ + direction * radius;
         }
     }
+    eventState_.mouse.xRel = 0.0f; // Reset relative mouse movement after processing
+    eventState_.mouse.yRel = 0.0f; // Reset relative mouse movement after processing
 }
 
 

@@ -10,6 +10,7 @@
 #include "objects/Axes.h"
 #include "objects/Terrain.h"
 #include "shapes/Rectangle.h"
+#include "ResourceHandler.h"
 
 class Visualizer
     : public QOpenGLWidget
@@ -22,6 +23,28 @@ public:
     void initializeGL() override;
     void paintGL() override;
     void resizeGL(int width, int height) override;
+
+    void setResourceHandler(ResourceHandler* resourceHandler) { resourceHandler_ = resourceHandler; }
+
+    void mousePressEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
+    void wheelEvent(QWheelEvent* event) override;
+    void keyPressEvent(QKeyEvent* event) override;
+    void keyReleaseEvent(QKeyEvent* event) override;
+
+private:
+    ResourceHandler* resourceHandler_;
+    ShaderHandler    simpleShaderHandler_;
+    ShaderHandler    shaderHandler_;
+    ShaderHandler    terrainShaderHandler_;
+    Camera*          camera_{nullptr};
+    Light*           light_{nullptr};
+    Axes*            axes_{nullptr};
+    Terrain*         terrain_{nullptr};
+
+    EventState& eventState_ = EventState::getInstance();
+    QPoint lastMousePos_;
 };
 
 #endif // VISUALIZER_H

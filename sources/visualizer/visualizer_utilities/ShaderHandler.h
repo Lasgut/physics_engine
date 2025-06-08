@@ -15,7 +15,9 @@
 class ShaderHandler
 {
     public:
-        ShaderHandler(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
+        ShaderHandler() = default;
+
+        void init(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
         
         void use(const Camera& camera);
 

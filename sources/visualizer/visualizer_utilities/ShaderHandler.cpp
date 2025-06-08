@@ -1,8 +1,9 @@
 #include "ShaderHandler.h"
 #include "Camera.h"
 
-ShaderHandler::ShaderHandler(const char* vertexPath, const char* fragmentPath, const char* geometryPath)
-{   
+void 
+ShaderHandler::init(const char *vertexPath, const char *fragmentPath, const char *geometryPath)
+{
     try 
     {
         ID_ = glCreateProgram();
@@ -41,8 +42,7 @@ ShaderHandler::ShaderHandler(const char* vertexPath, const char* fragmentPath, c
 }
 
 
-void 
-ShaderHandler::use(const Camera& camera) 
+void ShaderHandler::use(const Camera &camera)
 { 
     glUseProgram(ID_); 
     setMat4("view", camera.getViewMatrix());
