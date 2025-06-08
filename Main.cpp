@@ -1,4 +1,6 @@
+#include "glad/gl.h"
 #include "MainWindow.h"
+#include "Visualizer.h"
 
 #include <QApplication>
 

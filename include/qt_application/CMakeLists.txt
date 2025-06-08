@@ -10,19 +10,23 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets OpenGL)
 
-set(PROJECT_SOURCES
-        main.cpp
+set(LIB_SOURCES
         MainWindow.cpp
         MainWindow.h
         MainWindow.ui
 )
 
+set(EXECUTABLE_SOURCES
+    main.cpp
+)
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(qt_application
         MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
+        ${EXECUTABLE_SOURCES}
+        ${LIB_SOURCES}
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET qt_application APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -31,18 +35,23 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 else()
     if(ANDROID)
         add_library(qt_application SHARED
-            ${PROJECT_SOURCES}
+            ${EXECUTABLE_SOURCES}
+            ${LIB_SOURCES}
         )
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
         add_executable(qt_application
-            ${PROJECT_SOURCES}
+            ${EXECUTABLE_SOURCES}
+            ${LIB_SOURCES}
         )
     endif()
 endif()
 
-target_link_libraries(qt_application PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(qt_application PUBLIC 
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::OpenGL
+)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -68,11 +77,12 @@ install(TARGETS qt_application
 
 #### Make it a library ####
 # Create a static library (no main.cpp!)
-add_library(qt_application_lib STATIC ${PROJECT_SOURCES})
+add_library(qt_application_lib STATIC ${LIB_SOURCES})
 
 # Link the library to Qt Widgets
-target_link_libraries(qt_application_lib PRIVATE
+target_link_libraries(qt_application_lib PUBLIC
     Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::OpenGL
 )
 
 # If you need to export include directories for this library
