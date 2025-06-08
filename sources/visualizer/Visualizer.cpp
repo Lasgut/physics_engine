@@ -45,13 +45,17 @@ Visualizer::initializeGL()
     glEnable(GL_DEPTH_TEST);
 
     // TODO: Initialize other resources (shaders, buffers, etc.)
-    auto& shaders    = resourceHandler_->getFiles().shaders;
-    auto& heightMaps = resourceHandler_->getFiles().heightMaps;
+    auto& shaders          = resourceHandler_->getFiles().shaders;
+    auto& heightMaps       = resourceHandler_->getFiles().heightMaps;
+    auto& meshes           = resourceHandler_->getFiles().meshes; 
+    auto& entityKinematics = resourceHandler_->getFiles().entityKinematics;
 
-    camera_  = new Camera();
-    light_   = new Light();
-    axes_    = new Axes();
-    terrain_ = new Terrain(heightMaps.icelandHeightMapPath.c_str());
+    camera_          = new Camera();
+    light_           = new Light();
+    axes_            = new Axes();
+    terrain_         = new Terrain(heightMaps.icelandHeightMapPath.c_str());
+    drone_           = new Entity(meshes.fpvDrone, entityKinematics.generalAircraftKinematicsPath);
+    droneCenterAxes_ = new Axes(0.1f);
 
     simpleShaderHandler_.init(shaders.simpleVertexShaderPath.c_str(), shaders.simpleFragmentShaderPath.c_str());
     shaderHandler_.init(shaders.vertexShaderPath.c_str(), shaders.fragmentShaderPath.c_str());
@@ -68,13 +72,23 @@ Visualizer::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    camera_->update(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
+    camera_->update(drone_->getPositionAsGlm(), drone_->getOrientationAsGlm());
 
     terrainShaderHandler_.use(*camera_);
     terrain_->update(terrainShaderHandler_);
 
     shaderHandler_.use(*camera_);
     light_->update(shaderHandler_, *camera_);
+
+    simpleShaderHandler_.use(*camera_);
+    droneCenterAxes_->setPosition(drone_->getPosition());
+    droneCenterAxes_->setOrientation(drone_->getOrientation());
+    droneCenterAxes_->update(simpleShaderHandler_);
+
+    shaderHandler_.use(*camera_);
+    drone_->update(shaderHandler_);
+
+    camera_->setLookAt(drone_->getPositionAsGlm());
 
     simpleShaderHandler_.use(*camera_);
     axes_->update(simpleShaderHandler_);
@@ -140,7 +154,6 @@ Visualizer::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Control)
     {
-        std::cout << "Control key pressed" << std::endl;
         eventState_.keyboard.ctrl = true;
     }
 }

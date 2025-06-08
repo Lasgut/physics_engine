@@ -11,6 +11,8 @@
 #include "objects/Terrain.h"
 #include "shapes/Rectangle.h"
 #include "ResourceHandler.h"
+#include "EventState.h"
+#include "Entity.h"
 
 class Visualizer
     : public QOpenGLWidget
@@ -42,6 +44,8 @@ private:
     Light*           light_{nullptr};
     Axes*            axes_{nullptr};
     Terrain*         terrain_{nullptr};
+    Entity*          drone_{nullptr};
+    Axes*            droneCenterAxes_{nullptr};
 
     EventState& eventState_ = EventState::getInstance();
     QPoint lastMousePos_;
