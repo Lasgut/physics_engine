@@ -23,7 +23,6 @@ MainWindow::setVisualizerWidget(QWidget *widget)
 {
     if (!widget) return;
 
-    // Get the parent widget and layout of the placeholder openGLWidget
     QWidget* placeholder = ui_->VisualizerGLWidget;
     if (!placeholder) return;
 
@@ -33,14 +32,8 @@ MainWindow::setVisualizerWidget(QWidget *widget)
     QLayout* layout = parentWidget->layout();
     if (!layout) return;
 
-    // Replace the placeholder widget with the new widget
     layout->replaceWidget(placeholder, widget);
-
-    // Hide and optionally delete the placeholder widget
-    placeholder->hide();
-    // placeholder->deleteLater();  // Optional if you want to delete it
-
-    // Show the new widget explicitly
+    placeholder->deleteLater();
     widget->show();
 }
 
@@ -49,4 +42,11 @@ QWidget*
 MainWindow::getPlayButton()
 {
     return ui_->PlayButton;
+}
+
+
+QWidget*
+MainWindow::getCameraModeBox()
+{
+    return ui_->CameraModeBox;
 }

@@ -13,7 +13,8 @@ public:
     QtSignalMapper(QObject* parent = nullptr);
 
 public slots:
-    void playButtonClicked(bool checked = false);
+    void playButtonClicked();
+    void cameraModeChanged(int index);
 
 private:
    Settings& settings_ = Settings::getInstance();

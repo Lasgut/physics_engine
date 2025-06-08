@@ -7,8 +7,8 @@
 enum class CameraMode
 {
     Spherical,
-    ThirdPerson,
-    FirstPerson
+    FirstPerson,
+    ThirdPerson
 };
 
 struct CameraSettings 

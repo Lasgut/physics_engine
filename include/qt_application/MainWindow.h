@@ -20,6 +20,7 @@ public:
     void setVisualizerWidget(QWidget* widget);
 
     QWidget* getPlayButton();
+    QWidget* getCameraModeBox();
 
 private:
     Ui::MainWindow *ui_;

@@ -7,6 +7,7 @@
 #include <QApplication>
 #include <QPushButton>
 #include <QObject>
+#include <QComboBox>
 
 int main(int argc, char *argv[])
 {
@@ -23,7 +24,17 @@ int main(int argc, char *argv[])
 
     // setup signal connections
     QtSignalMapper signalMapper;
-    QObject::connect(qobject_cast<QPushButton*>(window.getPlayButton()), &QPushButton::clicked, &signalMapper, &QtSignalMapper::playButtonClicked);
+    QObject::connect(
+        qobject_cast<QPushButton*>(window.getPlayButton()), 
+        &QPushButton::clicked,  
+        &signalMapper, 
+        &QtSignalMapper::playButtonClicked);
+
+    QObject::connect(
+        qobject_cast<QComboBox*>(window.getCameraModeBox()), 
+        static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), 
+        &signalMapper, 
+        &QtSignalMapper::cameraModeChanged);
 
     window.show();
     return application.exec();
