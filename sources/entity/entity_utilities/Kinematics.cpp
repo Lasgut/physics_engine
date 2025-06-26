@@ -267,10 +267,11 @@ Kinematics::update(Eigen::Vector<double,6> tau)
     if (clockDebug_.rateLimit(2))
     {
         clockDebug_.setPreviousTime();
+        std::cout << "#########################################" << std::endl;
         std::cout << "Control Forces:  " << data_.tau.transpose() << std::endl;
         std::cout << "Position:        " << data_.getPosition().transpose() << std::endl;
-        std::cout << "Orientation:     " << eulerAngles.transpose() << std::endl;
         std::cout << "velocity:        " << data_.getVelocity().transpose() << std::endl;
+        std::cout << "Orientation:     " << eulerAngles.transpose() << std::endl;
         std::cout << "angularVelocity: " << data_.getAngularVelocity().transpose() << std::endl;
         std::cout << "eta:             " << data_.eta.transpose() << std::endl;
         std::cout << "nu:              " << data_.nu.transpose() << std::endl;

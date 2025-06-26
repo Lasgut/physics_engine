@@ -32,3 +32,10 @@ Clock::setPreviousTime()
 {
     previousTime_ = std::chrono::steady_clock::now();
 }
+
+
+float
+Clock::now()
+{
+    return std::chrono::steady_clock::now().time_since_epoch().count();
+}

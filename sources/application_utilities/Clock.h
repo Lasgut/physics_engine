@@ -12,6 +12,7 @@ public:
     float getDeltaTime();
     bool  rateLimit(const float frequency);
     void  setPreviousTime();
+    float now();
 
 private:
     std::chrono::steady_clock::time_point previousTime_;

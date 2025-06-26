@@ -156,6 +156,26 @@ Visualizer::keyPressEvent(QKeyEvent *event)
     {
         eventState_.keyboard.ctrl = true;
     }
+    if (event->key() == Qt::Key_Up)
+    {
+        eventState_.keyboard.up = true;
+    }
+    if (event->key() == Qt::Key_Down)
+    {
+        eventState_.keyboard.down = true;
+    }
+    if (event->key() == Qt::Key_Left)
+    {
+        eventState_.keyboard.left = true;
+    }
+    if (event->key() == Qt::Key_Right)
+    {
+        eventState_.keyboard.right = true;
+    }
+    if (event->key() == Qt::Key_Space)
+    {
+        eventState_.keyboard.space = true;
+    }
 }
 
 
@@ -165,5 +185,25 @@ Visualizer::keyReleaseEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_Control)
     {
         eventState_.keyboard.ctrl = false;
+    }
+    if (event->key() == Qt::Key_Up)
+    {
+        eventState_.keyboard.up = false;
+    }
+    if (event->key() == Qt::Key_Down)
+    {
+        eventState_.keyboard.down = false;
+    }
+    if (event->key() == Qt::Key_Left)
+    {
+        eventState_.keyboard.left = false;
+    }
+    if (event->key() == Qt::Key_Right)
+    {
+        eventState_.keyboard.right = false;
+    }
+    if (event->key() == Qt::Key_Space)
+    {
+        eventState_.keyboard.space = false;
     }
 }
