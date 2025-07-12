@@ -49,6 +49,9 @@ private:
 
     EventState& eventState_ = EventState::getInstance();
     QPoint lastMousePos_;
+
+signals:
+    void newData(const double x, const double y);
 };
 
 #endif // VISUALIZER_H

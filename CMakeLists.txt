@@ -15,24 +15,24 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${FullOutputDir}/static libs")
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY "${FullOutputDir}")
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${FullOutputDir}")
 
+find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGL Charts)
+find_package(glm REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package(Eigen3 REQUIRED)
+
 include_directories(include/data_containers)
 include_directories(include/data_types)
 include_directories(include/libraries)
 include_directories(include/qt_application)
 include_directories(sources/visualizer)
 include_directories(sources/entity)
+include_directories(sources/data_plotter)
 include_directories(sources/application_utilities)
 include_directories(third_party/glad/include)
 include_directories(third_party/stb)
 include_directories(third_party/stl_reader)
 
 add_subdirectory(include/qt_application)
-
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets OpenGL)
-find_package(glm REQUIRED)
-find_package(OpenGL REQUIRED)
-find_package(Eigen3 REQUIRED)
 
 include_directories(${glm_INCLUDE_DIRS} 
                     ${OPENGL_INCLUDE_DIRS}
@@ -42,6 +42,7 @@ include_directories(${glm_INCLUDE_DIRS}
 file(GLOB_RECURSE VISUALIZER_SOURCES        "sources/visualizer/*.cpp")
 file(GLOB_RECURSE ENTITY_SOURCES            "sources/entity/*.cpp")
 file(GLOB_RECURSE APPLICATION_UTILS_SOURCES "sources/application_utilities/*.cpp")
+file(GLOB_RECURSE DATA_PLOTTER_SOURCES      "sources/data_plotter/*.cpp")
 
 file(GLOB GLAD_SOURCES "third_party/glad/src/gl.c")
 
@@ -50,6 +51,7 @@ set(SOURCES
     ${VISUALIZER_SOURCES}
     ${ENTITY_SOURCES}
     ${GLAD_SOURCES}
+    ${DATA_PLOTTER_SOURCES}
     "Main.cpp"
 )
 

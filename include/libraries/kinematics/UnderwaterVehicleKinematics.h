@@ -6,7 +6,7 @@
 
 namespace Lib::Kinematics::Underwater
 {
-    void 
+    inline void 
     computeMassMatrix(KinematicsData& data)
     {
         auto& m     = data.general.mass;
@@ -37,7 +37,7 @@ namespace Lib::Kinematics::Underwater
         M   = M_RB + M_A;
     }
 
-    void 
+    inline void 
     computeCoriolisMatrix(KinematicsData& data)
     {
         auto& C     = data.underwater.C;
@@ -56,7 +56,7 @@ namespace Lib::Kinematics::Underwater
         C.block<3,3>(3,3) = -Lib::Kinematics::Utils::skew(M_21*vel + M_22*omega);
     }
 
-    void 
+    inline void 
     computeDampingMatrix(KinematicsData& data)
     {
         auto& uw = data.underwater;
@@ -85,7 +85,7 @@ namespace Lib::Kinematics::Underwater
         D = (-1*D_lin) + (-1*D_quad);
     }
     
-    void 
+    inline void 
     computeSystemMatrices(KinematicsData& data)
     {
         computeMassMatrix(data);
@@ -93,7 +93,7 @@ namespace Lib::Kinematics::Underwater
         computeDampingMatrix(data);
     }
 
-    void computeUnderwaterVehicleDynamics(KinematicsData& data)
+    inline void computeUnderwaterVehicleDynamics(KinematicsData& data)
     {
         // using the dynamic equation:
         // M_RB*nu_dot + C_RB(nu) + D*nu + g(eta) = tau_R

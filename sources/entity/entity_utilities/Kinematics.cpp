@@ -122,20 +122,6 @@ Kinematics::eulerIntegration(const double deltaTime)
 }
 
 
-double 
-Kinematics::deg2rad(double degrees) const
-{
-    return degrees * M_PI / 180.0;
-}
-
-
-double 
-Kinematics::rad2deg(double radians) const
-{
-    return radians * 180.0 / M_PI;
-}
-
-
 void 
 Kinematics::setPosition(const Eigen::Vector3<double>& pos) 
 {
@@ -151,7 +137,7 @@ Kinematics::setVelocity(const Eigen::Vector3<double>& vel)
 
 
 void 
-Kinematics::setOrientation(const Eigen::Quaterniond& orient) 
+Kinematics::setOrientation(const Eigen::Quaterniond& orient, const double heading) 
 {
     data_.setOrientationQuat(orient);
 }
@@ -195,7 +181,11 @@ Kinematics::getOrientation() const
 Eigen::Vector3d 
 Kinematics::getEulerAngles() const
 {
-    return data_.getOrientationEuler();
+    auto   R     = data_.getOrientationQuat().toRotationMatrix();
+    double yaw   = std::atan2(R(1,0), R(0,0));
+    double pitch = std::asin(-R(2,0));
+    double roll  = std::atan2(R(2,1), R(2,2));
+    return Eigen::Vector3d(roll, pitch, yaw); // roll, pitch, yaw
 }
 
 
@@ -263,18 +253,18 @@ Kinematics::update(Eigen::Vector<double,6> tau)
 
     eulerIntegration(deltaTime);
 
-    Eigen::Vector3d eulerAngles = data_.getOrientationEuler();
-    if (clockDebug_.rateLimit(2))
-    {
-        clockDebug_.setPreviousTime();
-        std::cout << "#########################################" << std::endl;
-        std::cout << "Control Forces:  " << data_.tau.transpose() << std::endl;
-        std::cout << "Position:        " << data_.getPosition().transpose() << std::endl;
-        std::cout << "velocity:        " << data_.getVelocity().transpose() << std::endl;
-        std::cout << "Orientation:     " << eulerAngles.transpose() << std::endl;
-        std::cout << "angularVelocity: " << data_.getAngularVelocity().transpose() << std::endl;
-        std::cout << "eta:             " << data_.eta.transpose() << std::endl;
-        std::cout << "nu:              " << data_.nu.transpose() << std::endl;
-        std::cout << "nuDot:           " << data_.nuDot.transpose() << std::endl;
-    }
+    // Eigen::Vector3d eulerAngles = data_.getOrientationEuler();
+    // if (clockDebug_.rateLimit(2))
+    // {
+    //     clockDebug_.setPreviousTime();
+    //     std::cout << "#########################################" << std::endl;
+    //     std::cout << "Control Forces:  " << data_.tau.transpose() << std::endl;
+    //     std::cout << "Position:        " << data_.getPosition().transpose() << std::endl;
+    //     std::cout << "velocity:        " << data_.getVelocity().transpose() << std::endl;
+    //     std::cout << "Orientation:     " << eulerAngles.transpose() << std::endl;
+    //     std::cout << "angularVelocity: " << data_.getAngularVelocity().transpose() << std::endl;
+    //     std::cout << "eta:             " << data_.eta.transpose() << std::endl;
+    //     std::cout << "nu:              " << data_.nu.transpose() << std::endl;
+    //     std::cout << "nuDot:           " << data_.nuDot.transpose() << std::endl;
+    // }
 }

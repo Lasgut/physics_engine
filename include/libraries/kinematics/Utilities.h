@@ -6,7 +6,7 @@
 
 namespace Lib::Kinematics::Utils
 {
-    Eigen::Matrix<double,3,3>
+    inline Eigen::Matrix<double,3,3>
     skew(const Eigen::Vector<double,3>& v) 
     {
         Eigen::Matrix<double,3,3> skewMat;
@@ -16,7 +16,8 @@ namespace Lib::Kinematics::Utils
         return skewMat;
     }
 
-    Eigen::Matrix<double,3,3>
+
+    inline Eigen::Matrix<double,3,3>
     Rzyx(double phi, double theta, double psi) 
     {
         // Compute trigonometric functions
@@ -37,7 +38,7 @@ namespace Lib::Kinematics::Utils
     }
 
 
-    Eigen::Matrix<double,3,3>
+    inline Eigen::Matrix<double,3,3>
     Tzyx(double phi, double theta) 
     {
         // Compute trigonometric functions
@@ -60,7 +61,8 @@ namespace Lib::Kinematics::Utils
         return T;
     }
 
-    Eigen::Matrix<double, 3, 3> 
+
+    inline Eigen::Matrix<double, 3, 3> 
     Rquat(const Eigen::Quaterniond &q)
     {
         constexpr double tol = 1e-2;
@@ -80,7 +82,8 @@ namespace Lib::Kinematics::Utils
         return R;
     }
 
-    Eigen::Matrix<double, 4, 3> 
+
+    inline Eigen::Matrix<double, 4, 3> 
     Tquat(const Eigen::Quaterniond &q)
     {
         double eta  = q.w();
@@ -95,5 +98,19 @@ namespace Lib::Kinematics::Utils
              -eps2,  eps1,  eta;
     
         return 0.5 * T;
+    }
+
+
+    inline double 
+    deg2rad(const double degrees)
+    {
+        return degrees * M_PI / 180.0;
+    }
+
+
+    inline double 
+    rad2deg(const double radians)
+    {
+        return radians * 180.0 / M_PI;
     }
 }

@@ -24,7 +24,6 @@ struct KinematicsData
 
     Eigen::Vector3d    getPosition()            const { return eta.head<3>();   }
     Eigen::Quaterniond getOrientationQuat()     const { return {eta(3),eta(4),eta(5),eta(6)}; }
-    Eigen::Vector3d    getOrientationEuler()    const { return getOrientationQuat().toRotationMatrix().eulerAngles(0, 1, 2); }
     Eigen::Vector3d    getVelocity()            const { return nu.head<3>();    }
     Eigen::Vector3d    getAngularVelocity()     const { return nu.tail<3>();    }
     Eigen::Vector3d    getAcceleration()        const { return nuDot.head<3>(); }

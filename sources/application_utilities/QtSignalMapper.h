@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "Settings.h"
+#include "MainWindow.h"
 
 class QtSignalMapper
     : public QObject
@@ -17,7 +18,8 @@ public slots:
     void cameraModeChanged(int index);
 
 private:
-   Settings& settings_ = Settings::getInstance();
+   Settings&   settings_ = Settings::getInstance();
+   MainWindow* window_;
 };
 
 #endif // QT_SIGNAL_MAPPER_H

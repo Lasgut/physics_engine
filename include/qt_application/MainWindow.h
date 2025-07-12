@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtCharts/QLineSeries>
+#include <QtCharts/QChart>
+#include <QtCharts/QChartView>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,7 +25,14 @@ public:
     QWidget* getPlayButton();
     QWidget* getCameraModeBox();
 
+    QLineSeries* getRollData();
+    QChart* getRollChart();
+
 private:
     Ui::MainWindow *ui_;
+
+    QLineSeries* rollData_;
+    QChart*      rollChart_;
+    QChartView*  rollChartView_;
 };
 #endif // MAINWINDOW_H

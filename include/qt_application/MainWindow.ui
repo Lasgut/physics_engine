@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>2108</width>
+    <width>2254</width>
     <height>1002</height>
    </rect>
   </property>
@@ -14,31 +14,16 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>710</x>
-      <y>10</y>
-      <width>1381</width>
-      <height>951</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QOpenGLWidget" name="VisualizerGLWidget"/>
-     </item>
-    </layout>
-   </widget>
    <widget class="QWidget" name="gridLayoutWidget_2">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>20</y>
-      <width>671</width>
-      <height>921</height>
+      <y>10</y>
+      <width>331</width>
+      <height>931</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout_2">
+    <layout class="QGridLayout" name="gridLayout_settings">
      <item row="0" column="0">
       <widget class="QPushButton" name="PlayButton">
        <property name="text">
@@ -51,13 +36,35 @@
      </item>
     </layout>
    </widget>
+   <widget class="QWidget" name="gridLayoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>1790</x>
+      <y>10</y>
+      <width>431</width>
+      <height>949</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_data"/>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>10</y>
+      <width>1401</width>
+      <height>941</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_visualizer"/>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>2108</width>
+     <width>2254</width>
      <height>23</height>
     </rect>
    </property>

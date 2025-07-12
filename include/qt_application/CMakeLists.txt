@@ -9,64 +9,33 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets OpenGL)
+# Find Qt6 components
+find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGL Charts)
 
 set(LIB_SOURCES
-        MainWindow.cpp
-        MainWindow.h
-        MainWindow.ui
+    MainWindow.cpp
+    MainWindow.h
+    MainWindow.ui
 )
 
 set(EXECUTABLE_SOURCES
     main.cpp
 )
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(qt_application
-        MANUAL_FINALIZATION
-        ${EXECUTABLE_SOURCES}
-        ${LIB_SOURCES}
-    )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET qt_application APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-else()
-    if(ANDROID)
-        add_library(qt_application SHARED
-            ${EXECUTABLE_SOURCES}
-            ${LIB_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-        add_executable(qt_application
-            ${EXECUTABLE_SOURCES}
-            ${LIB_SOURCES}
-        )
-    endif()
-endif()
-
-target_link_libraries(qt_application PUBLIC 
-    Qt${QT_VERSION_MAJOR}::Widgets
-    Qt${QT_VERSION_MAJOR}::OpenGL
+# Application target
+qt_add_executable(qt_application
+    MANUAL_FINALIZATION
+    ${EXECUTABLE_SOURCES}
+    ${LIB_SOURCES}
 )
 
-# Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
-# If you are developing for iOS or macOS you should consider setting an
-# explicit, fixed bundle identifier manually though.
-if(${QT_VERSION} VERSION_LESS 6.1.0)
-  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.qt_application)
-endif()
-set_target_properties(qt_application PROPERTIES
-    ${BUNDLE_ID_OPTION}
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
-    WIN32_EXECUTABLE TRUE
+target_link_libraries(qt_application PUBLIC
+    Qt6::Widgets
+    Qt6::OpenGL
+    Qt6::Charts
 )
 
+# Install
 include(GNUInstallDirs)
 install(TARGETS qt_application
     BUNDLE DESTINATION .
@@ -74,18 +43,16 @@ install(TARGETS qt_application
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-
-#### Make it a library ####
-# Create a static library (no main.cpp!)
+#### Make it a library too ####
 add_library(qt_application_lib STATIC ${LIB_SOURCES})
 
-# Link the library to Qt Widgets
 target_link_libraries(qt_application_lib PUBLIC
-    Qt${QT_VERSION_MAJOR}::Widgets
-    Qt${QT_VERSION_MAJOR}::OpenGL
+    Qt6::Widgets
+    Qt6::OpenGL
+    Qt6::Charts
 )
 
-# If you need to export include directories for this library
 target_include_directories(qt_application_lib PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
+

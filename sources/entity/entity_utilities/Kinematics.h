@@ -18,7 +18,7 @@ public:
 
     void setPosition    (const Eigen::Vector3<double>& pos);
     void setVelocity    (const Eigen::Vector3<double>& vel);
-    void setOrientation (const Eigen::Quaterniond&     orient);
+    void setOrientation (const Eigen::Quaterniond&     orient, const double heading);
     void setMass        (double mass);
     void setFrequency   (double frequency);
 
@@ -36,9 +36,6 @@ public:
 
 private:
     void eulerIntegration(const double deltaTime);
-
-    double deg2rad(double degrees) const;
-    double rad2deg(double radians) const;
 
     double frequency_{400};
 

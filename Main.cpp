@@ -3,11 +3,9 @@
 #include "Visualizer.h"
 #include "ResourceHandler.h"
 #include "QtSignalMapper.h"
+#include "DataPlotter.h"
 
 #include <QApplication>
-#include <QPushButton>
-#include <QObject>
-#include <QComboBox>
 
 int main(int argc, char *argv[])
 {
@@ -22,19 +20,13 @@ int main(int argc, char *argv[])
 
     window.setVisualizerWidget(visualizer);
 
-    // setup signal connections
-    QtSignalMapper signalMapper;
-    QObject::connect(
-        qobject_cast<QPushButton*>(window.getPlayButton()), 
-        &QPushButton::clicked,  
-        &signalMapper, 
-        &QtSignalMapper::playButtonClicked);
+    DataPlotter dataPlotter(&window);
 
-    QObject::connect(
-        qobject_cast<QComboBox*>(window.getCameraModeBox()), 
-        static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), 
-        &signalMapper, 
-        &QtSignalMapper::cameraModeChanged);
+    // setup signal connections
+    QObject::connect(visualizer,  &Visualizer::newData,
+                     &dataPlotter, &DataPlotter::newData);
+
+    QtSignalMapper signalMapper(&window);
 
     window.show();
     return application.exec();

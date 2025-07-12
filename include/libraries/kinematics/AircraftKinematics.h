@@ -6,7 +6,7 @@
 
 namespace Lib::Kinematics::Aircraft
 {
-    void 
+    inline void 
     computeMassMatrix(KinematicsData& data)
     {
         auto& m     = data.general.mass;
@@ -26,7 +26,7 @@ namespace Lib::Kinematics::Aircraft
         M.block<3,3>(3,3) =  I;
     }
 
-    void 
+    inline void 
     computeAircraftDynamics(KinematicsData& data)
     {
         double g   = 9.81;

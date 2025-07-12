@@ -15,6 +15,7 @@ class Entity
         void update(const ShaderHandler& shaderHandler);
         Eigen::Vector3<double> getPosition()        const;
         Eigen::Quaterniond     getOrientation()     const;
+        Eigen::Vector3<double> getEulerAngles()     const;
 
         glm::vec3 getPositionAsGlm()    const;
         glm::quat getOrientationAsGlm() const;

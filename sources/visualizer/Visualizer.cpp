@@ -92,6 +92,8 @@ Visualizer::paintGL()
 
     simpleShaderHandler_.use(*camera_);
     axes_->update(simpleShaderHandler_);
+
+    emit newData(static_cast<float>(std::chrono::steady_clock::now().time_since_epoch().count()), drone_->getEulerAngles().x());
 }
 
 
