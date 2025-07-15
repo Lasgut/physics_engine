@@ -20,13 +20,11 @@ class Visualizer
     Q_OBJECT
 
 public:
-    Visualizer(QWidget *parent = nullptr);
+    Visualizer(QWidget *parent = nullptr, ResourceHandler* resourceHandler = nullptr);
     
     void initializeGL() override;
     void paintGL() override;
     void resizeGL(int width, int height) override;
-
-    void setResourceHandler(ResourceHandler* resourceHandler) { resourceHandler_ = resourceHandler; }
 
     void mousePressEvent(QMouseEvent* event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
@@ -34,6 +32,8 @@ public:
     void wheelEvent(QWheelEvent* event) override;
     void keyPressEvent(QKeyEvent* event) override;
     void keyReleaseEvent(QKeyEvent* event) override;
+
+    void entityKinematicsUpdated(int entityId, Eigen::Vector3d position, Eigen::Quaterniond orientation);
 
 private:
     ResourceHandler* resourceHandler_;
@@ -44,14 +44,13 @@ private:
     Light*           light_{nullptr};
     Axes*            axes_{nullptr};
     Terrain*         terrain_{nullptr};
-    Entity*          drone_{nullptr};
+    StlMesh*         droneMesh_{nullptr};
     Axes*            droneCenterAxes_{nullptr};
+    glm::vec3        dronePosition_{0.0f, 0.0f, 0.0f};
+    glm::quat        droneOrientation_{glm::vec3(0.0f, 0.0f, 0.0f)}; // roll, pitch, yaw
 
     EventState& eventState_ = EventState::getInstance();
     QPoint lastMousePos_;
-
-signals:
-    void newData(const double x, const double y);
 };
 
 #endif // VISUALIZER_H

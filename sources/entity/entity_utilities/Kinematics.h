@@ -32,7 +32,7 @@ public:
     glm::vec3 getPositionAsGlm()    const;
     glm::quat getOrientationAsGlm() const;
 
-    void update(Eigen::Vector<double,6> controlForces);
+    bool update(Eigen::Vector<double,6> controlForces);
 
 private:
     void eulerIntegration(const double deltaTime);

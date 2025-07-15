@@ -226,17 +226,17 @@ Kinematics::getOrientationAsGlm() const
 }
 
 
-void
+bool
 Kinematics::update(Eigen::Vector<double,6> tau)
 {
     if (!settings_.simulation.isRunning) 
     {
         clock_.setPreviousTime();
-        return;
+        return false;
     }
     if (!clock_.rateLimit(frequency_)) 
     {
-        return;
+        return false;
     }
     auto deltaTime = clock_.getDeltaTime();
     //auto deltaTime = 1.0f / frequency_;
@@ -252,6 +252,8 @@ Kinematics::update(Eigen::Vector<double,6> tau)
     }
 
     eulerIntegration(deltaTime);
+
+    return true;
 
     // Eigen::Vector3d eulerAngles = data_.getOrientationEuler();
     // if (clockDebug_.rateLimit(2))

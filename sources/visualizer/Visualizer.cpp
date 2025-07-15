@@ -13,8 +13,9 @@ static void* qtGetProcAddress(const char* proc)
 }
 
 
-Visualizer::Visualizer(QWidget *parent)
+Visualizer::Visualizer(QWidget *parent, ResourceHandler* resourceHandler)
     : QOpenGLWidget(parent)
+    , resourceHandler_(resourceHandler)
 {
     QTimer* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, QOverload<>::of(&Visualizer::update));
@@ -23,8 +24,7 @@ Visualizer::Visualizer(QWidget *parent)
 }
 
 
-void 
-Visualizer::initializeGL()
+void Visualizer::initializeGL()
 {
     if (!gladLoadGL((GLADloadfunc)qtGetProcAddress)) 
     {
@@ -45,16 +45,15 @@ Visualizer::initializeGL()
     glEnable(GL_DEPTH_TEST);
 
     // TODO: Initialize other resources (shaders, buffers, etc.)
-    auto& shaders          = resourceHandler_->getFiles().shaders;
-    auto& heightMaps       = resourceHandler_->getFiles().heightMaps;
-    auto& meshes           = resourceHandler_->getFiles().meshes; 
-    auto& entityKinematics = resourceHandler_->getFiles().entityKinematics;
+    auto& shaders    = resourceHandler_->getFiles().shaders;
+    auto& heightMaps = resourceHandler_->getFiles().heightMaps;
+    auto& meshes     = resourceHandler_->getFiles().meshes; 
 
+    droneMesh_       = new StlMesh(meshes.fpvDrone);
     camera_          = new Camera();
     light_           = new Light();
     axes_            = new Axes();
     terrain_         = new Terrain(heightMaps.icelandHeightMapPath.c_str());
-    drone_           = new Entity(meshes.fpvDrone, entityKinematics.generalAircraftKinematicsPath);
     droneCenterAxes_ = new Axes(0.1f);
 
     simpleShaderHandler_.init(shaders.simpleVertexShaderPath.c_str(), shaders.simpleFragmentShaderPath.c_str());
@@ -72,7 +71,7 @@ Visualizer::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    camera_->update(drone_->getPositionAsGlm(), drone_->getOrientationAsGlm());
+    camera_->update(dronePosition_, droneOrientation_);
 
     terrainShaderHandler_.use(*camera_);
     terrain_->update(terrainShaderHandler_);
@@ -81,19 +80,17 @@ Visualizer::paintGL()
     light_->update(shaderHandler_, *camera_);
 
     simpleShaderHandler_.use(*camera_);
-    droneCenterAxes_->setPosition(drone_->getPosition());
-    droneCenterAxes_->setOrientation(drone_->getOrientation());
+    droneCenterAxes_->setPosition(dronePosition_);
+    droneCenterAxes_->setOrientation(droneOrientation_);
     droneCenterAxes_->update(simpleShaderHandler_);
 
     shaderHandler_.use(*camera_);
-    drone_->update(shaderHandler_);
+    droneMesh_->draw(shaderHandler_, dronePosition_, droneOrientation_);
 
-    camera_->setLookAt(drone_->getPositionAsGlm());
+    camera_->setLookAt(dronePosition_);
 
     simpleShaderHandler_.use(*camera_);
     axes_->update(simpleShaderHandler_);
-
-    emit newData(static_cast<float>(std::chrono::steady_clock::now().time_since_epoch().count()), drone_->getEulerAngles().x());
 }
 
 
@@ -101,6 +98,17 @@ void
 Visualizer::resizeGL(int width, int height)
 {
     glViewport(0, 0, width, height);
+}
+
+
+void 
+Visualizer::entityKinematicsUpdated(int entityId, Eigen::Vector3d position, Eigen::Quaterniond orientation)
+{
+    if (entityId == 1 && droneMesh_) 
+    {
+        droneOrientation_ = glm::quat(orientation.w(), orientation.x(), orientation.y(), orientation.z());
+        dronePosition_    = glm::vec3(position.x(), position.y(), position.z());
+    }
 }
 
 

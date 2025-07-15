@@ -101,6 +101,22 @@ namespace Lib::Kinematics::Utils
     }
 
 
+    inline Eigen::Vector3d quat2euler(const Eigen::Quaterniond& q)
+    {
+        if (std::abs(q.norm() - 1.0) > 1e-2) 
+        {
+            std::cout << "Quaternion: " << q.coeffs().transpose() << std::endl;
+            std::cout << "Quaternion norm: " << q.norm() << std::endl;
+            throw std::runtime_error("norm(q) must be equal to 1");
+        }
+        auto   R     = q.toRotationMatrix();
+        double yaw   = std::atan2(R(1,0), R(0,0));
+        double pitch = std::asin(-R(2,0));
+        double roll  = std::atan2(R(2,1), R(2,2));
+        return Eigen::Vector3d(roll, pitch, yaw); // roll, pitch, yaw
+    }
+
+
     inline double 
     deg2rad(const double degrees)
     {

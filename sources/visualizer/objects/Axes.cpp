@@ -30,27 +30,19 @@ Axes::update(const ShaderHandler &shaderHandler)
 
 
 void 
-Axes::setPosition(const Eigen::Vector3<double>& position)
+Axes::setPosition(const glm::vec3& position)
 {
-    position_.x = position.x();
-    position_.y = position.y();
-    position_.z = position.z();
+    position_ = position;
 }
 
 
 void 
-Axes::setOrientation(const Eigen::Quaterniond& orientation)
+Axes::setOrientation(const glm::quat& orientation)
 {
-    glm::quat orientationGlm;
-    orientationGlm.x = orientation.x();
-    orientationGlm.y = orientation.y();
-    orientationGlm.z = orientation.z();
-    orientationGlm.w = orientation.w();
-
     glm::quat qZ90 = glm::angleAxis(glm::radians(90.0f),  glm::vec3(0.0f, 0.0f, 1.0f));
     glm::quat qY90 = glm::angleAxis(glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-    xOrientation_ = orientationGlm;                      
-    yOrientation_ = orientationGlm * qZ90;                
-    zOrientation_ = orientationGlm * qY90;                
+    xOrientation_ = orientation;                      
+    yOrientation_ = orientation * qZ90;                
+    zOrientation_ = orientation * qY90;                
 }

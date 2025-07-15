@@ -3,23 +3,18 @@
 #include "entity_utilities/PidController.h"
 
 
-Entity::Entity(const std::string& meshPath, const std::string& kinematicsFilePath)
-    : shape_(meshPath)
+Entity::Entity(const std::string& kinematicsFilePath)
 {
     init(kinematicsFilePath);
 }
 
 
-void 
-Entity::update(const ShaderHandler& shaderHandler)
+bool 
+Entity::update()
 {
-    shape_.draw(shaderHandler, 
-                kinematics_.getPositionAsGlm(), 
-                kinematics_.getOrientationAsGlm());
-
     auto controlForces = computeControlForces();
-
-    kinematics_.update(controlForces);
+    auto isUpdated = kinematics_.update(controlForces);
+    return isUpdated;
 }
 
 

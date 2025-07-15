@@ -13,8 +13,8 @@ class Axes
         Axes(double length);
 
         void update(const ShaderHandler& shaderHandler);
-        void setPosition(const Eigen::Vector3<double>&  position);
-        void setOrientation(const Eigen::Quaterniond&  orientation);
+        void setPosition(const glm::vec3&  position);
+        void setOrientation(const glm::quat&  orientation);
 
     private:
         glm::vec3 position_    {0.0f, 0.0f, 0.0f};

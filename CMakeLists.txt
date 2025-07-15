@@ -28,6 +28,7 @@ include_directories(sources/visualizer)
 include_directories(sources/entity)
 include_directories(sources/data_plotter)
 include_directories(sources/application_utilities)
+include_directories(sources/simulation_core)
 include_directories(third_party/glad/include)
 include_directories(third_party/stb)
 include_directories(third_party/stl_reader)
@@ -43,6 +44,7 @@ file(GLOB_RECURSE VISUALIZER_SOURCES        "sources/visualizer/*.cpp")
 file(GLOB_RECURSE ENTITY_SOURCES            "sources/entity/*.cpp")
 file(GLOB_RECURSE APPLICATION_UTILS_SOURCES "sources/application_utilities/*.cpp")
 file(GLOB_RECURSE DATA_PLOTTER_SOURCES      "sources/data_plotter/*.cpp")
+file(GLOB_RECURSE SIMULATION_CORE_SOURCES  "sources/simulation_core/*.cpp")
 
 file(GLOB GLAD_SOURCES "third_party/glad/src/gl.c")
 
@@ -52,6 +54,7 @@ set(SOURCES
     ${ENTITY_SOURCES}
     ${GLAD_SOURCES}
     ${DATA_PLOTTER_SOURCES}
+    ${SIMULATION_CORE_SOURCES}
     "Main.cpp"
 )
 
