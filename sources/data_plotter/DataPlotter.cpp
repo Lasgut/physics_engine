@@ -37,7 +37,7 @@ DataPlotter::newData(const double x, const double y)
     dataSeries_->append(xSec, yDeg);
 
     // Limit the number of points
-    const int maxPoints = 1000;
+    const int maxPoints = 2000;
     while (dataSeries_->count() > maxPoints) {
         dataSeries_->remove(0); // Remove the oldest point
     }
@@ -61,5 +61,6 @@ DataPlotter::newData(const double x, const double y)
     qreal marginY = (maxY - minY) * 0.05;
 
     chart_->axes(Qt::Horizontal).first()->setRange(minX - marginX, maxX + marginX);
-    //chart_->axes(Qt::Vertical).first()->setRange(minY - marginY, maxY + marginY);
+    chart_->axes(Qt::Vertical).first()->setRange(minY - marginY, maxY + marginY);
+    chart_->setTitle("Roll");
 }

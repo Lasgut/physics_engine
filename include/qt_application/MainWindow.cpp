@@ -10,11 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui_(new Ui::MainWindow)
 {
     ui_->setupUi(this);
-    ui_->CameraModeBox->addItem("Spherical");
-    ui_->CameraModeBox->addItem("First Person");
-    ui_->CameraModeBox->addItem("Third Person");
 
-
+    setupCameraModeBox();
 
     rollData_  = new QLineSeries();
     rollChart_ = new QChart();
@@ -29,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     rollChartView_->setRenderHint(QPainter::Antialiasing);
     rollChartView_->setVisible(true);
 
-    ui_->gridLayout_data->addWidget(rollChartView_, 0, 0, 1, 1);
+    ui_->gridLayout_data_1->addWidget(rollChartView_, 0, 0, 1, 1);
 }
 
 
@@ -71,4 +68,13 @@ QChart*
 MainWindow::getRollChart()
 {
     return rollChart_;
+}
+
+
+void
+MainWindow::setupCameraModeBox()
+{
+    ui_->CameraModeBox->addItem("Spherical");
+    ui_->CameraModeBox->addItem("First Person");
+    ui_->CameraModeBox->addItem("Third Person");
 }

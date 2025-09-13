@@ -171,6 +171,13 @@ Kinematics::getVelocity() const
 }
 
 
+Eigen::Vector3<double>
+Kinematics::getAcceleration() const 
+{
+    return data_.getAcceleration();
+}
+
+
 Eigen::Quaterniond
 Kinematics::getOrientation() const 
 {

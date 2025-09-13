@@ -6,7 +6,7 @@
 #include <map>
 #include <QObject>
 
-#include "Entity.h"
+#include "UnmannedAerialVehicle.h"
 #include "Clock.h"
 #include "ResourceHandler.h"
 

@@ -1,11 +1,12 @@
 #include "SimulationCore.h"
+#include "UnmannedAerialVehicle.h"
 
 SimulationCore::SimulationCore(ResourceHandler* resourceHandler)
     : resourceHandler_(resourceHandler)
 {
     auto& entityKinematics = resourceHandler_->getFiles().entityKinematics;
 
-    auto* drone = new Entity(entityKinematics.generalAircraftKinematicsPath);
+    auto* drone = new UnmannedAerialVehicle(entityKinematics.generalAircraftKinematicsPath);
 
     entities_[1] = drone;
 }

@@ -49,7 +49,7 @@ void Visualizer::initializeGL()
     auto& heightMaps = resourceHandler_->getFiles().heightMaps;
     auto& meshes     = resourceHandler_->getFiles().meshes; 
 
-    droneMesh_       = new StlMesh(meshes.fpvDrone);
+    droneMesh_       = new StlMesh(meshes.DeltaPlaneVtailS300);
     camera_          = new Camera();
     light_           = new Light();
     axes_            = new Axes();

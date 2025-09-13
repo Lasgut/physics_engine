@@ -2,9 +2,7 @@
 #define ENTITY_H
 
 #pragma once
-#include "shapes/StlMesh.h"
 #include "entity_utilities/Kinematics.h"
-#include "entity_utilities/PidController.h"
 #include "Clock.h"
 
 class Entity
@@ -21,16 +19,13 @@ class Entity
         glm::vec3 getPositionAsGlm()    const;
         glm::quat getOrientationAsGlm() const;
 
+    protected:
+        Kinematics kinematics_;
+
     private:
         void init(const std::string& kinematicsFilePath);
 
-        Eigen::Vector<double,6> computeControlForces();
-
-        Kinematics    kinematics_;
-        PidController pitchController_{1,0,0,7};
-        PidController pitchRateController_{1,0,0,20};
-        PidController rollRateController_{1,0,0,20};
-        PidController velocityController_{1,0,0,20};
+        virtual Eigen::Vector<double,6> appliedForcesAndMoments() {return {};};
 };
 
 #endif

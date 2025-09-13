@@ -97,11 +97,13 @@ ResourceHandler::loadMeshes(const std::filesystem::path &meshesDir)
         throw std::runtime_error("ERROR: Meshes directory does not exist: " + meshesDir.string());
     }
 
-    std::string blueRov2Heavy = (meshesDir / "BlueROV2Heavy.stl").string();
-    std::string fpv_drone     = (meshesDir / "drone-Frame.stl").string();
+    std::string blueRov2Heavy       = (meshesDir / "BlueROV2Heavy.stl").string();
+    std::string fpv_drone           = (meshesDir / "drone-Frame.stl").string();
+    std::string DeltaPlaneVtailS300 = (meshesDir / "Delta_Plane_Vtail_S300.stl").string();
 
-    files_.meshes.blueRov2HeavyPath = blueRov2Heavy;
-    files_.meshes.fpvDrone          = fpv_drone;
+    files_.meshes.blueRov2HeavyPath   = blueRov2Heavy;
+    files_.meshes.fpvDrone            = fpv_drone;
+    files_.meshes.DeltaPlaneVtailS300 = DeltaPlaneVtailS300;
 }
 
 

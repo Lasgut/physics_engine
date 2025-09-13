@@ -29,6 +29,8 @@ public:
     QChart* getRollChart();
 
 private:
+    void setupCameraModeBox();
+
     Ui::MainWindow *ui_;
 
     QLineSeries* rollData_;

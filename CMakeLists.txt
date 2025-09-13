@@ -25,7 +25,8 @@ include_directories(include/data_types)
 include_directories(include/libraries)
 include_directories(include/qt_application)
 include_directories(sources/visualizer)
-include_directories(sources/entity)
+include_directories(sources/entity/common)
+include_directories(sources/entity/unmanned_aerial_vehicle)
 include_directories(sources/data_plotter)
 include_directories(sources/application_utilities)
 include_directories(sources/simulation_core)
@@ -39,19 +40,20 @@ include_directories(${glm_INCLUDE_DIRS}
                     ${OPENGL_INCLUDE_DIRS}
                     ${EIGEN3_INCLUDE_DIRS})
 
-# Gather all .cpp files in the sources/objects and sources/shapes directories
 file(GLOB_RECURSE VISUALIZER_SOURCES        "sources/visualizer/*.cpp")
-file(GLOB_RECURSE ENTITY_SOURCES            "sources/entity/*.cpp")
+file(GLOB_RECURSE COMMON_ENTITY_SOURCES     "sources/entity/common/*.cpp")
+file(GLOB_RECURSE UAV_SOURCES               "sources/entity/unmanned_aerial_vehicle/*.cpp")
 file(GLOB_RECURSE APPLICATION_UTILS_SOURCES "sources/application_utilities/*.cpp")
 file(GLOB_RECURSE DATA_PLOTTER_SOURCES      "sources/data_plotter/*.cpp")
-file(GLOB_RECURSE SIMULATION_CORE_SOURCES  "sources/simulation_core/*.cpp")
+file(GLOB_RECURSE SIMULATION_CORE_SOURCES   "sources/simulation_core/*.cpp")
 
 file(GLOB GLAD_SOURCES "third_party/glad/src/gl.c")
 
 set(SOURCES
     ${APPLICATION_UTILS_SOURCES}
     ${VISUALIZER_SOURCES}
-    ${ENTITY_SOURCES}
+    ${COMMON_ENTITY_SOURCES}
+    ${UAV_SOURCES}
     ${GLAD_SOURCES}
     ${DATA_PLOTTER_SOURCES}
     ${SIMULATION_CORE_SOURCES}

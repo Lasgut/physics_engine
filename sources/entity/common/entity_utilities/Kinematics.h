@@ -24,6 +24,7 @@ public:
 
     Eigen::Vector<double,3>  getPosition()        const;
     Eigen::Vector<double,3>  getVelocity()        const;
+    Eigen::Vector<double,3>  getAcceleration()    const;
     Eigen::Quaterniond       getOrientation()     const;
     Eigen::Vector3d          getEulerAngles()     const;
     Eigen::Vector3d          getAngularVelocity() const;

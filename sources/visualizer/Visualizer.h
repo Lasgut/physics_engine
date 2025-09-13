@@ -13,6 +13,7 @@
 #include "ResourceHandler.h"
 #include "EventState.h"
 #include "Entity.h"
+#include "shapes/StlMesh.h"
 
 class Visualizer
     : public QOpenGLWidget
@@ -22,16 +23,16 @@ class Visualizer
 public:
     Visualizer(QWidget *parent = nullptr, ResourceHandler* resourceHandler = nullptr);
     
-    void initializeGL() override;
-    void paintGL() override;
+    void initializeGL()                  override;
+    void paintGL()                       override;
     void resizeGL(int width, int height) override;
 
-    void mousePressEvent(QMouseEvent* event) override;
+    void mousePressEvent  (QMouseEvent* event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
-    void mouseMoveEvent(QMouseEvent* event) override;
-    void wheelEvent(QWheelEvent* event) override;
-    void keyPressEvent(QKeyEvent* event) override;
-    void keyReleaseEvent(QKeyEvent* event) override;
+    void mouseMoveEvent   (QMouseEvent* event) override;
+    void wheelEvent       (QWheelEvent* event) override;
+    void keyPressEvent    (QKeyEvent* event)   override;
+    void keyReleaseEvent  (QKeyEvent* event)   override;
 
     void entityKinematicsUpdated(int entityId, Eigen::Vector3d position, Eigen::Quaterniond orientation);
 

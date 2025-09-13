@@ -25,6 +25,7 @@ struct Files
     {
         std::string blueRov2HeavyPath;
         std::string fpvDrone;
+        std::string DeltaPlaneVtailS300;
     } meshes;
     struct Shaders
     {
