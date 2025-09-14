@@ -237,11 +237,6 @@ bool
 Kinematics::update(Eigen::Vector<double,6> tau)
 {
     double deltaTime;
-    if (!settings_.simulation.isRunning) 
-    {
-        clock_.setPreviousTime();
-        return false;
-    }
     if (!clock_.rateLimit(deltaTime)) 
     {
         return false;

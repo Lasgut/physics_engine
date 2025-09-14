@@ -19,11 +19,14 @@
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>331</width>
-      <height>931</height>
+      <width>191</width>
+      <height>151</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_settings">
+     <item row="1" column="0">
+      <widget class="QComboBox" name="CameraModeBox"/>
+     </item>
      <item row="0" column="0">
       <widget class="QPushButton" name="PlayButton">
        <property name="text">
@@ -31,28 +34,25 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QComboBox" name="CameraModeBox"/>
-     </item>
     </layout>
    </widget>
    <widget class="QWidget" name="gridLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>1790</x>
+      <x>1710</x>
       <y>10</y>
-      <width>431</width>
-      <height>271</height>
+      <width>531</width>
+      <height>241</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout_data_1"/>
+    <layout class="QGridLayout" name="gridLayout_data_0"/>
    </widget>
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>220</x>
       <y>10</y>
-      <width>1401</width>
+      <width>1481</width>
       <height>941</height>
      </rect>
     </property>
@@ -61,21 +61,32 @@
    <widget class="QWidget" name="gridLayoutWidget_4">
     <property name="geometry">
      <rect>
-      <x>1790</x>
-      <y>340</y>
-      <width>431</width>
-      <height>271</height>
+      <x>1710</x>
+      <y>250</y>
+      <width>531</width>
+      <height>241</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout_data_2"/>
+    <layout class="QGridLayout" name="gridLayout_data_1"/>
    </widget>
    <widget class="QWidget" name="gridLayoutWidget_5">
     <property name="geometry">
      <rect>
-      <x>1790</x>
-      <y>660</y>
-      <width>431</width>
-      <height>271</height>
+      <x>1710</x>
+      <y>490</y>
+      <width>531</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_data_2"/>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget_6">
+    <property name="geometry">
+     <rect>
+      <x>1710</x>
+      <y>720</y>
+      <width>531</width>
+      <height>231</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_data_3"/>

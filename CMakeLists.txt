@@ -63,7 +63,10 @@ set(SOURCES
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME} 
-                      qt_application_lib
-                      ${SDL2_LIBRARIES} 
-                      ${OPENGL_LIBRARIES})
+    qt_application_lib
+    Qt6::Widgets
+    Qt6::Charts
+    Qt6::OpenGL
+    ${SDL2_LIBRARIES} 
+    ${OPENGL_LIBRARIES})
 

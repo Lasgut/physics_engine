@@ -2,9 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QtCharts/QLineSeries>
-#include <QtCharts/QChart>
-#include <QtCharts/QChartView>
+
+#include "ChartWidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -25,16 +24,13 @@ public:
     QWidget* getPlayButton();
     QWidget* getCameraModeBox();
 
-    QLineSeries* getRollData();
-    QChart* getRollChart();
+    std::vector<ChartWidget*> getChartWidgets();
 
 private:
     void setupCameraModeBox();
 
     Ui::MainWindow *ui_;
 
-    QLineSeries* rollData_;
-    QChart*      rollChart_;
-    QChartView*  rollChartView_;
+    std::vector<ChartWidget*> chartWidgets_;
 };
 #endif // MAINWINDOW_H

@@ -13,20 +13,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     setupCameraModeBox();
 
-    rollData_  = new QLineSeries();
-    rollChart_ = new QChart();
-
-    rollChart_->legend()->hide();
-    rollChart_->addSeries(rollData_);
-    rollChart_->createDefaultAxes();
-    rollChart_->axes(Qt::Vertical).first()->setRange(-3, 3);
-    rollChart_->setVisible(true);
-
-    rollChartView_ = new QChartView(rollChart_);
-    rollChartView_->setRenderHint(QPainter::Antialiasing);
-    rollChartView_->setVisible(true);
-
-    ui_->gridLayout_data_1->addWidget(rollChartView_, 0, 0, 1, 1);
+    for (int i = 0; i < 4; ++i)
+    {
+        chartWidgets_.emplace_back(new ChartWidget());
+    }
+    ui_->gridLayout_data_0->addWidget(chartWidgets_[0]->getChartView(), 0, 0, 1, 1);
+    ui_->gridLayout_data_1->addWidget(chartWidgets_[1]->getChartView(), 0, 0, 1, 1);
+    ui_->gridLayout_data_2->addWidget(chartWidgets_[2]->getChartView(), 0, 0, 1, 1);
+    ui_->gridLayout_data_3->addWidget(chartWidgets_[3]->getChartView(), 0, 0, 1, 1);
 }
 
 
@@ -57,17 +51,10 @@ MainWindow::getCameraModeBox()
 }
 
 
-QLineSeries*
-MainWindow::getRollData()
+std::vector<ChartWidget*> 
+MainWindow::getChartWidgets()
 {
-    return rollData_;
-}
-
-
-QChart*
-MainWindow::getRollChart()
-{
-    return rollChart_;
+    return chartWidgets_;
 }
 
 

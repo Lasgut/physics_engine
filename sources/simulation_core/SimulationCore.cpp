@@ -1,5 +1,6 @@
 #include "SimulationCore.h"
 #include "UnmannedAerialVehicle.h"
+#include "Settings.h"
 
 SimulationCore::SimulationCore(ResourceHandler* resourceHandler)
     : resourceHandler_(resourceHandler)
@@ -15,6 +16,11 @@ SimulationCore::SimulationCore(ResourceHandler* resourceHandler)
 void 
 SimulationCore::update()
 {
+    if (!Settings::getInstance().simulation.isRunning) 
+    {
+        return;
+    }
+    
     for (auto& [id, entity] : entities_)
     {
         auto isUpdated = entity->update();

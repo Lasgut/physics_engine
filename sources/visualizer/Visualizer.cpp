@@ -155,7 +155,11 @@ Visualizer::mouseMoveEvent(QMouseEvent* event)
 void 
 Visualizer::wheelEvent(QWheelEvent* event)
 {
-    eventState_.mouse.wheelRel = event->angleDelta().y() / 120;
+    double delta = event->angleDelta().y();
+    if (delta == 0)
+        delta = event->pixelDelta().y();
+    eventState_.mouse.wheelRel = delta / std::abs(delta);
+    event->accept();
 }
 
 

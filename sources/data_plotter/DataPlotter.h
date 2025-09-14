@@ -6,8 +6,11 @@
 #include <QtCharts/QChart>
 #include <QtCharts/QChartView>
 #include <Eigen/Dense>
+#include <vector>
 
 #include "MainWindow.h"
+#include "data_plotter_utilities/PlotChart.h"
+#include "ChartWidget.h"
 
 class DataPlotter 
     : public QWidget
@@ -16,6 +19,7 @@ class DataPlotter
 
 public:
     explicit DataPlotter(QWidget *parent = nullptr);
+    virtual ~DataPlotter();
 
 public slots:
     void entityKinematicsUpdated(int entityId, Eigen::Vector3d position, Eigen::Quaterniond orientation);
@@ -25,9 +29,7 @@ private:
 
     MainWindow  *window_;
 
-    QLineSeries *dataSeries_;
-    QChart      *chart_;
-    QChartView  *chartView_;
+    std::vector<PlotChart> plotCharts_;
 };
 
 #endif // DATAPLOTTER_H

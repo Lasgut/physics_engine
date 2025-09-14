@@ -44,6 +44,10 @@ Clock::rateLimit(double& deltaTime)
     auto desiredDeltaTime = 1.0f / frequency_;
     auto currentTime = std::chrono::steady_clock::now();
     std::chrono::duration<float> elapsedTime = currentTime - previousTime_;
+    if (elapsedTime.count() > 2 * desiredDeltaTime) {
+        previousTime_ = currentTime;
+        return false;
+    }
     bool pastDeltaTime = elapsedTime.count() >= desiredDeltaTime;
     if (pastDeltaTime)
     {

@@ -8,6 +8,7 @@
 #include <Eigen/Dense>
 #include <glm/glm.hpp>
 #include <optional>
+#include <string>
 
 class Kinematics
 {

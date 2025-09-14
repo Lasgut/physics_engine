@@ -13,6 +13,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGL Charts)
 
 set(LIB_SOURCES
+    ChartWidget.cpp
+    ChartWidget.h
     MainWindow.cpp
     MainWindow.h
     MainWindow.ui
