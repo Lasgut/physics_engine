@@ -1,5 +1,5 @@
 #include "ActuatorAllocation.h"
-#include <iostream>
+#include "math/utilities.h"
 
 
 ActuatorStates 
@@ -7,9 +7,9 @@ ActuatorAllocation::allocateActuators(const Eigen::Vector<double,6>& desiredCont
 {
     ActuatorStates actuatorInput{};
 
-    actuatorInput.throttle = desiredControlWrench[0];
-
-    std::cout << "DEBUG: allocateActuators: " << actuatorInput.throttle << std::endl;
+    actuatorInput.setThrottle(desiredControlWrench[0] / 20);    
+    actuatorInput.setElevator(desiredControlWrench[4] / 0.7);  // Scale factor for elevator
+    actuatorInput.setAileron(desiredControlWrench[3] / 0.5);  // Not used in this simple model
 
     return actuatorInput;
 }

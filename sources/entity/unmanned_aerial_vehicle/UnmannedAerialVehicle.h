@@ -3,7 +3,6 @@
 
 #pragma once
 #include "Entity.h"
-#include "entity_utilities/PidController.h"
 #include "EntityStates.h"
 #include "uav_control_system/ControlSystem.h"
 #include "uav_emulators/SensorEmulator.h"
@@ -21,11 +20,6 @@ class UnmannedAerialVehicle
 
     private:
         Eigen::Vector<double,6> appliedForcesAndMoments() override;
-
-        PidController pitchController_{1,0,0,7};
-        PidController pitchRateController_{1,0,0,20};
-        PidController rollRateController_{1,0,0,20};
-        PidController velocityController_{1,0,0,20};
 
         EntityStates estimatedStates_{};
 };

@@ -31,6 +31,14 @@ struct SensorData
         double altitude{0}; // meters
         int timestamp{0};   // microseconds
     } barometer;
+
+    struct AttitudeSensor  // temporary until i get a good estimator
+    {
+        double roll{};
+        double pitch{};
+        double yaw{};
+        int timestamp{0};   // microseconds
+    } attitudeSensor;
 };
 
 #endif

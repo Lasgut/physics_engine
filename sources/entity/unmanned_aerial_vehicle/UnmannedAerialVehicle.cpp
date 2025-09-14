@@ -16,6 +16,13 @@ UnmannedAerialVehicle::appliedForcesAndMoments()
     auto desiredActuatorStates = iterateControlLoop(sensorData);
     auto controlForces         = emulateActuatorDynamics(desiredActuatorStates);
 
+    // static Clock debugClock;
+    // if (debugClock.rateLimit(1))
+    // {
+    //     std::cout << "DEBUG: controlForces: " << controlForces.transpose() << std::endl;
+    // }
+    // std::cout << "DEBUG: appliedForcesAndMoments - position: " << kinematics_.getPosition().transpose() << " velocity: " << kinematics_.getVelocity().transpose() << std::endl;
+
     //Aircraft 
     // Eigen::Vector<double,6> controlForces(0,0,0,0,0,0);
     // Eigen::Vector3d         desiredRates(0, 0, 0); // [p_ref, q_ref, r_ref] (roll, pitch, yaw rates)

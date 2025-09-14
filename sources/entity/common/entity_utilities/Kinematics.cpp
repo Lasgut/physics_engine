@@ -151,9 +151,9 @@ Kinematics::setMass(double mass)
 
 
 void 
-Kinematics::setFrequency(double frequency)
+Kinematics::setFrequency(const double frequency)
 {
-    frequency_ = frequency;
+    clock_.setFrequency(frequency);
 }
 
 
@@ -236,17 +236,16 @@ Kinematics::getOrientationAsGlm() const
 bool
 Kinematics::update(Eigen::Vector<double,6> tau)
 {
+    double deltaTime;
     if (!settings_.simulation.isRunning) 
     {
         clock_.setPreviousTime();
         return false;
     }
-    if (!clock_.rateLimit(frequency_)) 
+    if (!clock_.rateLimit(deltaTime)) 
     {
         return false;
     }
-    auto deltaTime = clock_.getDeltaTime();
-    //auto deltaTime = 1.0f / frequency_;
 
     data_.tau = tau;
     if (data_.type == "aircraft" || data_.type == "UAV")

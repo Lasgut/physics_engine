@@ -20,7 +20,7 @@ public:
     void setVelocity    (const Eigen::Vector3<double>& vel);
     void setOrientation (const Eigen::Quaterniond&     orient, const double heading);
     void setMass        (double mass);
-    void setFrequency   (double frequency);
+    void setFrequency   (const double frequency);
 
     Eigen::Vector<double,3>  getPosition()        const;
     Eigen::Vector<double,3>  getVelocity()        const;
@@ -38,10 +38,8 @@ public:
 private:
     void eulerIntegration(const double deltaTime);
 
-    double frequency_{400};
-
     KinematicsData data_; 
-    Clock          clock_;
+    Clock          clock_{400};
     Clock          clockDebug_;
     Settings&      settings_ = Settings::getInstance();
 };

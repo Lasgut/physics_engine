@@ -23,8 +23,13 @@ class ControlSystem
         ActuatorStates iterateControlLoop(SensorData& sensorData);
 
     private:
-        ActuatorStates actuatorInput_{};
-        Clock          clock_;
+        ActuatorStates       actuatorInput_{};
+        Clock                clock_;
+        Clock                clockAltitude_; 
+        Clock                clockDebug_;
+
+        double desiredPitch_{0.0};
+        Lib::Controller::PID altitudeController_{0.0001, 0.0002, 0, 0.05};
 
 };
 

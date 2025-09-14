@@ -3,14 +3,23 @@
 
 #pragma once
 
+#include <Eigen/Dense>
+#include "EntityStates.h"
 
 class CommandInputHandler
 {
     public:
-        CommandInputHandler() = default;
+        CommandInputHandler();
 
     protected:
-        void processCommand();
+        void processCommands();
+        Eigen::Vector<double,6>& getCommandControlWrench() { return cmdControlWrench_; }
+        EntityStates&            getCommandStates() { return cmdStates_; }
+
+    private:
+        Eigen::Vector<double,6> cmdControlWrench_{0,0,0,0,0,0};
+
+        EntityStates cmdStates_{};
 };
 
 #endif
