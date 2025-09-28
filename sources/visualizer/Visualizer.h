@@ -34,7 +34,7 @@ public:
     void keyPressEvent    (QKeyEvent* event)   override;
     void keyReleaseEvent  (QKeyEvent* event)   override;
 
-    void entityKinematicsUpdated(int entityId, Eigen::Vector3d position, Eigen::Quaterniond orientation);
+    void entityKinematicsUpdated(int entityId, Kinematics* kinematics);
 
 private:
     ResourceHandler* resourceHandler_;

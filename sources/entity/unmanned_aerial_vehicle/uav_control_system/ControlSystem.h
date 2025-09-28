@@ -9,8 +9,11 @@
 #include "ActuatorAllocation.h"
 #include "uav_data_types/ActuatorStates.h"
 #include "uav_data_types/SensorData.h"
+#include "uav_data_types/ControlSystemData.h"
 #include "Clock.h"
 
+namespace UAV
+{
 class ControlSystem
     : public OperationController
     , public StateEstimator
@@ -18,19 +21,24 @@ class ControlSystem
 {
     public:
         ControlSystem() = default;
+        
+        ControlSystemData& getControlSystemData();
 
     protected:
-        ActuatorStates iterateControlLoop(SensorData& sensorData);
+        void iterateControlLoop(SensorData& sensorData);
+        ActuatorStates& getDesiredActuatorStates();
 
     private:
+        std::mutex           actuatorMtx_;
         ActuatorStates       actuatorInput_{};
-        Clock                clock_;
-        Clock                clockAltitude_; 
+        Clock                clock_{"ControlSystem"};
+        Clock                clockAltitude_{"altitudeControl"}; 
         Clock                clockDebug_;
 
-        double desiredPitch_{0.0};
-        Lib::Controller::PID altitudeController_{0.0001, 0.0002, 0, 0.05};
+        ControlSystemData controlSystemData_;
+        Lib::Controller::PID altitudeController_{0.1, 0, 0, 0};
 
 };
+}
 
 #endif

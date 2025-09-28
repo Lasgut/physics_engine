@@ -102,12 +102,12 @@ Visualizer::resizeGL(int width, int height)
 
 
 void 
-Visualizer::entityKinematicsUpdated(int entityId, Eigen::Vector3d position, Eigen::Quaterniond orientation)
+Visualizer::entityKinematicsUpdated(int entityId, Kinematics* kinematics)
 {
     if (entityId == 1 && droneMesh_) 
     {
-        droneOrientation_ = glm::quat(orientation.w(), orientation.x(), orientation.y(), orientation.z());
-        dronePosition_    = glm::vec3(position.x(), position.y(), position.z());
+        droneOrientation_ = kinematics->getOrientationAsGlm();
+        dronePosition_    = kinematics->getPositionAsGlm();
     }
 }
 

@@ -6,6 +6,8 @@
 #include <Eigen/Dense>
 #include "uav_data_types/ActuatorStates.h"
 
+namespace UAV
+{
 class ActuatorAllocation
 {
     public:
@@ -14,5 +16,6 @@ class ActuatorAllocation
     protected:
         ActuatorStates allocateActuators(const Eigen::Vector<double,6>& desiredControlWrench);
 };
+}
 
 #endif

@@ -10,43 +10,52 @@ PlotChart::PlotChart(ChartWidget* chartWidget)
 {
 }
 
-void PlotChart::newData(const double x, const double y)
+void 
+PlotChart::newData(const double x, const double y, int index)
 {
-    using namespace Lib::Kinematics::Utils;
-
-    auto dataSeries = chartWidget_->getData();
+    auto dataSeries = chartWidget_->getData().at(index);
     auto chart      = chartWidget_->getChart();
-    auto chartView  = chartWidget_->getChartView();
 
-    double xSec = x / 1e9;
-    double yDeg = rad2deg(y);
-    dataSeries->append(xSec, yDeg);
+    dataSeries->append(x, y);
 
     // Limit the number of points
-    const int maxPoints = 2000;
+    const int maxPoints = 200;
     while (dataSeries->count() > maxPoints) {
         dataSeries->remove(0); // Remove the oldest point
     }
 
-    // Dynamically adjust axes
-    qreal minX = dataSeries->at(0).x();
-    qreal maxX = dataSeries->at(0).x();
-    qreal minY = dataSeries->at(0).y();
-    qreal maxY = dataSeries->at(0).y();
+    // Set span view of x-axis
+    double span = 20.0;
+    chart->axes(Qt::Horizontal).first()->setRange(x - span, x);
 
-    for (int i = 1; i < dataSeries->count(); ++i) {
-        const QPointF& pt = dataSeries->at(i);
-        if (pt.x() < minX) minX = pt.x();
-        if (pt.x() > maxX) maxX = pt.x();
-        if (pt.y() < minY) minY = pt.y();
-        if (pt.y() > maxY) maxY = pt.y();
+    // --- Y AXIS: auto-scale based on ALL series ---
+    qreal minY = std::numeric_limits<qreal>::max();
+    qreal maxY = std::numeric_limits<qreal>::lowest();
+
+    for (auto series : chartWidget_->getData()) {
+        for (const QPointF& pt : series->points()) {
+            if (pt.y() < minY) minY = pt.y();
+            if (pt.y() > maxY) maxY = pt.y();
+        }
     }
 
-    // Add some margin
-    qreal marginX = (maxX - minX) * 0.05;
-    qreal marginY = (maxY - minY) * 0.05;
+    if (minY == std::numeric_limits<qreal>::max()) {
+        minY = -1; maxY = 1; // fallback if no data
+    }
 
-    chart->axes(Qt::Horizontal).first()->setRange(minX - marginX, maxX + marginX);
-    chart->axes(Qt::Vertical).first()->setRange(minY - marginY, maxY + marginY);
-    chart->setTitle("Roll");
+    // Add margin
+    qreal marginY = (maxY - minY) * 0.1;
+    if (marginY == 0) marginY = 1.0;  // avoid zero span
+
+    auto axisY = qobject_cast<QValueAxis*>(chart->axes(Qt::Vertical).first());
+    if (axisY) {
+        axisY->setRange(minY - marginY, maxY + marginY);
+    }
+}
+
+
+void 
+PlotChart::addPlotCurve()
+{
+    chartWidget_->addLineSeries(255, 100, 0);
 }

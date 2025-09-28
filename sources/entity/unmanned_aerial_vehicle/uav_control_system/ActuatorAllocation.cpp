@@ -1,7 +1,8 @@
 #include "ActuatorAllocation.h"
 #include "math/utilities.h"
 
-
+namespace UAV
+{
 ActuatorStates 
 ActuatorAllocation::allocateActuators(const Eigen::Vector<double,6>& desiredControlWrench)
 {
@@ -12,4 +13,5 @@ ActuatorAllocation::allocateActuators(const Eigen::Vector<double,6>& desiredCont
     actuatorInput.setAileron(desiredControlWrench[3] / 0.5);  // Not used in this simple model
 
     return actuatorInput;
+}
 }

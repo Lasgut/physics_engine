@@ -6,6 +6,8 @@
 #include "uav_data_types/SensorData.h"
 #include "EntityStates.h"
 
+namespace UAV
+{
 class StateEstimator
 {
     public:
@@ -14,5 +16,6 @@ class StateEstimator
     protected:
         EntityStates estimateStates(SensorData& sensorData);
 };
+}
 
 #endif

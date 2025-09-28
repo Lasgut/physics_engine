@@ -3,6 +3,8 @@
 
 #pragma once
 
+namespace UAV
+{
 class RoutePlanner
 {
     public:
@@ -11,4 +13,6 @@ class RoutePlanner
     private:
 
 };
+}
+
 #endif

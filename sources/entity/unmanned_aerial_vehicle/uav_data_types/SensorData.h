@@ -5,6 +5,8 @@
 
 #include <Eigen/Dense>
 
+namespace UAV
+{
 struct SensorData 
 {
     struct IMU
@@ -40,5 +42,6 @@ struct SensorData
         int timestamp{0};   // microseconds
     } attitudeSensor;
 };
+}
 
 #endif

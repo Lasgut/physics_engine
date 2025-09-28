@@ -7,6 +7,8 @@
 #include "CommandInputHandler.h"
 #include "StateController.h"
 
+namespace UAV
+{
 class OperationController
     : public CommandInputHandler
     , public StateController
@@ -17,4 +19,6 @@ class OperationController
     protected:
         EntityStates computeDesiredStates();
 };
+}
+
 #endif

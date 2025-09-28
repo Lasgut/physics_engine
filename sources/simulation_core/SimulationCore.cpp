@@ -21,16 +21,15 @@ SimulationCore::update()
         return;
     }
     
+    //TODO: simulate environment forces and moments
+
     for (auto& [id, entity] : entities_)
     {
-        auto isUpdated = entity->update();
+        auto isUpdated = entity->updateEntity();
         if (isUpdated)
         {
-            emit entityKinematicsUpdated(
-                id, 
-                entity->getPosition(), 
-                entity->getOrientation()
-            );
+            emit entityKinematicsUpdated(id, static_cast<Kinematics*>(entity));
+            emit controlSystemDataUpdated(id, &static_cast<UnmannedAerialVehicle*>(entity)->getControlSystemData());
         }
     }
 }

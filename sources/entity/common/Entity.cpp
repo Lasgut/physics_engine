@@ -13,54 +13,19 @@ Entity::Entity(const std::string& kinematicsFilePath)
 
 
 bool 
-Entity::update()
+Entity::updateEntity()
 {
     auto wrench    = appliedForcesAndMoments();
-    auto isUpdated = kinematics_.update(wrench);
+    auto isUpdated = updateKinematics(wrench);
     return isUpdated;
-}
-
-
-Eigen::Vector3<double>
-Entity::getPosition() const
-{
-    return kinematics_.getPosition();
-}
-
-
-Eigen::Quaterniond
-Entity::getOrientation() const
-{
-    return kinematics_.getOrientation();
-}
-
-
-Eigen::Vector3<double>
-Entity::getEulerAngles() const
-{
-    return kinematics_.getEulerAngles();
-}
-
-
-glm::vec3 
-Entity::getPositionAsGlm() const
-{
-    return kinematics_.getPositionAsGlm();
-}
-
-
-glm::quat 
-Entity::getOrientationAsGlm() const
-{
-    return kinematics_.getOrientationAsGlm();
 }
 
 
 void 
 Entity::init(const std::string& kinematicsFilePath)
 {
-    kinematics_.setPosition(Eigen::Vector3<double>   (0.0, 0.0, -100.0));
-    kinematics_.setVelocity(Eigen::Vector3<double>   (7,0,0));
+    setPosition(Eigen::Vector3<double>   (0.0, 0.0, -100.0));
+    setVelocity(Eigen::Vector3<double>   (7,0,0));
 
     double heading = glm::radians(0.0);
     glm::quat orientationGlm{glm::vec3(glm::radians(0.0), 0.0f, heading)}; // roll, pitch, yaw
@@ -70,7 +35,18 @@ Entity::init(const std::string& kinematicsFilePath)
     orientation.z() = orientationGlm.z;
     orientation.w() = orientationGlm.w;
 
-    kinematics_.setOrientation(orientation, heading);
+    setOrientation(orientation, heading);
 
-    kinematics_.loadKinematicsData(kinematicsFilePath);
+    loadKinematicsData(kinematicsFilePath);
+}
+
+void 
+Entity::updateTrueEntityStates()
+{
+    trueEntityStates_.position     = getPosition();
+    trueEntityStates_.velocity     = getVelocity();
+    trueEntityStates_.acceleration = getAcceleration();
+    trueEntityStates_.eulerAngels  = getEulerAngles();
+    trueEntityStates_.angularVelocity     = getAngularVelocity();
+    trueEntityStates_.angularAcceleration = getAngularAcceleration();
 }

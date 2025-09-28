@@ -1,19 +1,29 @@
 #include "ControlSystem.h"
+#include "EntityStates.h"
 #include <iostream>
-#include "kinematics/Utilities.h"
+#include "MathLib.h"
+#include "Settings.h"
 
-ActuatorStates 
+namespace UAV
+{
+void
 ControlSystem::iterateControlLoop(SensorData& sensorData)
 {
-    if (!clock_.rateLimit(20))
+    if (!clock_.rateLimit(40) && !Settings::getInstance().simulation.isRunning)
     {
-        return actuatorInput_;
+        return;
     }
 
     // handle command inputs
     processCommands();
     auto cmdControlWrench = getCommandControlWrench();
     auto cmdStates        = getCommandStates();
+
+    // map control system data
+    controlSystemData_.timeStamp = clock_.now();
+    double& desiredPitch    = controlSystemData_.desiredPitch;
+    double& desiredAltitude = controlSystemData_.desiredAltitude;
+    desiredAltitude         = cmdStates.position[2];
 
     // state estimation step
     auto estimatedStates = estimateStates(sensorData);
@@ -23,30 +33,37 @@ ControlSystem::iterateControlLoop(SensorData& sensorData)
     errorStates.velocity[0] = 11.5 - estimatedStates.velocity[0]; // Target speed is 12 m/s
 
     // altitude control with pitch control
-    if (clockAltitude_.rateLimit(5))
+    if (clockAltitude_.rateLimit(10))
     {
-        errorStates.position[2] = cmdStates.position[2] - estimatedStates.position[2]; // Target altitude is 100 m
-        desiredPitch_ = altitudeController_.control(errorStates.position[2]);          // altitudeControl
+        errorStates.position[2] = desiredAltitude - estimatedStates.position[2];
+        desiredPitch = altitudeController_.control(errorStates.position[2]);          // altitudeControl
     }
-    auto maxPitch = Lib::Kinematics::Utils::deg2rad(5.0);
-    desiredPitch_ = std::clamp(desiredPitch_, -maxPitch, maxPitch);
-    errorStates.pitch = desiredPitch_ - estimatedStates.pitch;
+    auto maxPitch = Lib::Math::Utils::deg2rad(5.0);
+    desiredPitch = std::clamp(desiredPitch, -maxPitch, maxPitch);
+    errorStates.eulerAngels[1] = desiredPitch - estimatedStates.eulerAngels[1];
 
     // controller step, PID
     auto controlWrench = computeDesiredControlWrench(errorStates);
 
     controlWrench += cmdControlWrench;
 
-    if (clockDebug_.rateLimit(1))
-    {
-        std::cout << "DEBUG: pitchEstimate: " << estimatedStates.pitch << " desired: " << desiredPitch_ << " pitchError: " << errorStates.pitch 
-        << " moment: " << controlWrench[4] << " altitude: " << sensorData.gps.altitude 
-        << " vel: " << sensorData.gps.speed
-        << std::endl;
-    }
-
     // actuator allocation step
-    actuatorInput_     = allocateActuators(controlWrench);
+    std::lock_guard<std::mutex> lock(actuatorMtx_);
+    actuatorInput_ = allocateActuators(controlWrench);
+}
 
+
+ActuatorStates&
+ControlSystem::getDesiredActuatorStates()
+{
+    std::lock_guard<std::mutex> lock(actuatorMtx_);
     return actuatorInput_;
+}
+
+
+ControlSystemData& 
+ControlSystem::getControlSystemData()
+{
+    return controlSystemData_;
+}
 }

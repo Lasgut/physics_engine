@@ -1,6 +1,8 @@
 #include "ActuatorEmulator.h"
 
 
+namespace UAV
+{
 Eigen::Vector<double, 6> 
 ActuatorEmulator::emulateActuatorDynamics(ActuatorStates &desiredStates)
 {
@@ -11,4 +13,5 @@ ActuatorEmulator::emulateActuatorDynamics(ActuatorStates &desiredStates)
     controlWrench[4] = desiredStates.getElevator() * 0.7;
 
     return controlWrench;
+}
 }

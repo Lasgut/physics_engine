@@ -5,6 +5,8 @@
 
 #include <algorithm> // For std::clamp
 
+namespace UAV
+{
 struct ActuatorStates
 {
 private:
@@ -26,5 +28,6 @@ public:
     double getElevator() const { return elevator_; }
     double getRudder()   const { return rudder_; }
 };
+}
 
 #endif

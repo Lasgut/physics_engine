@@ -115,18 +115,4 @@ namespace Lib::Kinematics::Utils
         double roll  = std::atan2(R(2,1), R(2,2));
         return Eigen::Vector3d(roll, pitch, yaw); // roll, pitch, yaw
     }
-
-
-    inline double 
-    deg2rad(const double degrees)
-    {
-        return degrees * M_PI / 180.0;
-    }
-
-
-    inline double 
-    rad2deg(const double radians)
-    {
-        return radians * 180.0 / M_PI;
-    }
 }

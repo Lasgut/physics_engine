@@ -4,26 +4,22 @@
 #pragma once
 #include "entity_utilities/Kinematics.h"
 #include "Clock.h"
+#include "EntityStates.h"
 
 class Entity
+    : public Kinematics
 {
     public:
         Entity(const std::string& kinematicsFilePath);
 
-        bool update();
-        
-        Eigen::Vector3<double> getPosition()        const;
-        Eigen::Quaterniond     getOrientation()     const;
-        Eigen::Vector3<double> getEulerAngles()     const;
-
-        glm::vec3 getPositionAsGlm()    const;
-        glm::quat getOrientationAsGlm() const;
+        bool updateEntity();
 
     protected:
-        Kinematics kinematics_;
+        EntityStates trueEntityStates_;
 
     private:
         void init(const std::string& kinematicsFilePath);
+        void updateTrueEntityStates();
 
         virtual Eigen::Vector<double,6> appliedForcesAndMoments() {return {};};
 };

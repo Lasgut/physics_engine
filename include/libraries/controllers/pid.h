@@ -33,20 +33,27 @@ namespace Lib::Controller
         private:
             double computePidEffort(const double error)
             {
-                auto gainI = I_ * integrator_;
-                if (antiWindupLimit_ != 0.0)
+                // Proportional term
+                double P_term = P_ * error;
+
+                // Derivative term
+                double D_term = D_ * (error - previousError_);
+
+                // Integrator update with anti-windup
+                integrator_ += error; // accumulate first
+
+                if (antiWindupLimit_ > 0.0)
                 {
-                    gainI = std::clamp(gainI, -antiWindupLimit_, antiWindupLimit_);
-                    if (abs(gainI) < antiWindupLimit_ ||
-                       (gainI >= antiWindupLimit_  && error < 0) ||
-                       (gainI <= -antiWindupLimit_ && error > 0))
-                    {
-                        integrator_ += error;
-                    }
+                    // clamp integrator to avoid excessive buildup
+                    integrator_ = std::clamp(integrator_, -antiWindupLimit_, antiWindupLimit_);
                 }
 
-                double effort = P_ * error  + gainI + D_ * (error - previousError_);
+                // Compute effort
+                double effort = P_term + I_ * integrator_ + D_term;
+
+                // Save error for next derivative computation
                 previousError_ = error;
+
                 return effort;
             }
 

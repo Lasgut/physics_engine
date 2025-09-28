@@ -23,24 +23,26 @@ public:
     void setMass        (double mass);
     void setFrequency   (const double frequency);
 
-    Eigen::Vector<double,3>  getPosition()        const;
-    Eigen::Vector<double,3>  getVelocity()        const;
-    Eigen::Vector<double,3>  getAcceleration()    const;
-    Eigen::Quaterniond       getOrientation()     const;
-    Eigen::Vector3d          getEulerAngles()     const;
-    Eigen::Vector3d          getAngularVelocity() const;
-    double                   getMass()            const;
+    double                   getTimeStamp()           const;
+    Eigen::Vector<double,3>  getPosition()            const;
+    Eigen::Vector<double,3>  getVelocity()            const;
+    Eigen::Vector<double,3>  getAcceleration()        const;
+    Eigen::Quaterniond       getOrientation()         const;
+    Eigen::Vector3d          getEulerAngles()         const;
+    Eigen::Vector3d          getAngularVelocity()     const;
+    Eigen::Vector3d          getAngularAcceleration() const;
+    double                   getMass()                const;
 
     glm::vec3 getPositionAsGlm()    const;
     glm::quat getOrientationAsGlm() const;
 
-    bool update(Eigen::Vector<double,6> controlForces);
+    bool updateKinematics(Eigen::Vector<double,6> controlForces);
 
 private:
     void eulerIntegration(const double deltaTime);
 
     KinematicsData data_; 
-    Clock          clock_{400};
+    Clock          clock_{400, "Entity"};
     Clock          clockDebug_;
     Settings&      settings_ = Settings::getInstance();
 };

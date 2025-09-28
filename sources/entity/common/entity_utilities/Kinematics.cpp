@@ -164,6 +164,13 @@ Kinematics::getPosition() const
 }
 
 
+double 
+Kinematics::getTimeStamp() const
+{
+    return data_.timeStamp;
+}
+
+
 Eigen::Vector3<double>
 Kinematics::getVelocity() const 
 {
@@ -203,6 +210,13 @@ Kinematics::getAngularVelocity() const
 }
 
 
+Eigen::Vector3d 
+Kinematics::getAngularAcceleration() const
+{
+    return data_.getAngularAcceleration();
+}
+
+
 double 
 Kinematics::getMass() const 
 {
@@ -234,13 +248,14 @@ Kinematics::getOrientationAsGlm() const
 
 
 bool
-Kinematics::update(Eigen::Vector<double,6> tau)
+Kinematics::updateKinematics(Eigen::Vector<double,6> tau)
 {
-    double deltaTime;
-    if (!clock_.rateLimit(deltaTime)) 
+    if (!clock_.rateLimit()) 
     {
         return false;
     }
+    double deltaTime = clock_.getDeltaTime();
+    data_.timeStamp  = clock_.now();
 
     data_.tau = tau;
     if (data_.type == "aircraft" || data_.type == "UAV")
@@ -255,19 +270,4 @@ Kinematics::update(Eigen::Vector<double,6> tau)
     eulerIntegration(deltaTime);
 
     return true;
-
-    // Eigen::Vector3d eulerAngles = data_.getOrientationEuler();
-    // if (clockDebug_.rateLimit(2))
-    // {
-    //     clockDebug_.setPreviousTime();
-    //     std::cout << "#########################################" << std::endl;
-    //     std::cout << "Control Forces:  " << data_.tau.transpose() << std::endl;
-    //     std::cout << "Position:        " << data_.getPosition().transpose() << std::endl;
-    //     std::cout << "velocity:        " << data_.getVelocity().transpose() << std::endl;
-    //     std::cout << "Orientation:     " << eulerAngles.transpose() << std::endl;
-    //     std::cout << "angularVelocity: " << data_.getAngularVelocity().transpose() << std::endl;
-    //     std::cout << "eta:             " << data_.eta.transpose() << std::endl;
-    //     std::cout << "nu:              " << data_.nu.transpose() << std::endl;
-    //     std::cout << "nuDot:           " << data_.nuDot.transpose() << std::endl;
-    // }
 }

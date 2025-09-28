@@ -4,11 +4,12 @@
 #include <QObject>
 #include <QComboBox>
 
-QtSignalMapper::QtSignalMapper(QObject *parent)
-    : QObject(parent)
+QtSignalMapper::QtSignalMapper(MainWindow* window, SimulationCore* simulationCore, Visualizer* visualizer, DataPlotter* dataPlotter)
+    : window_(window)
+    , simulationCore_(simulationCore)
+    , visualizer_(visualizer)
+    , dataPlotter_(dataPlotter)
 {
-    window_ = static_cast<MainWindow*>(parent);
-
     QObject::connect(
         qobject_cast<QPushButton*>(window_->getPlayButton()), 
         &QPushButton::clicked,  
@@ -20,6 +21,15 @@ QtSignalMapper::QtSignalMapper(QObject *parent)
         static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), 
         this, 
         &QtSignalMapper::cameraModeChanged);
+
+    // setup signal connections
+    QObject::connect(simulationCore_, &SimulationCore::entityKinematicsUpdated,
+                     visualizer_,     &Visualizer::entityKinematicsUpdated);
+    QObject::connect(simulationCore_, &SimulationCore::entityKinematicsUpdated,
+                     dataPlotter_,    &DataPlotter::entityKinematicsUpdated);
+
+    QObject::connect(simulationCore_, &SimulationCore::controlSystemDataUpdated,
+                     dataPlotter_,    &DataPlotter::controlSystemDataUpdated);
 }
 
 

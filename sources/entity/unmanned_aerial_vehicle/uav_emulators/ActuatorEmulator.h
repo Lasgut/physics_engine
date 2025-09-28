@@ -6,6 +6,8 @@
 #include <Eigen/Dense>
 #include "uav_data_types/ActuatorStates.h"
 
+namespace UAV
+{
 class ActuatorEmulator
 {
     public:
@@ -14,5 +16,6 @@ class ActuatorEmulator
     protected:
         Eigen::Vector<double, 6> emulateActuatorDynamics(ActuatorStates& desiredStates);
 };
+}
 
 #endif

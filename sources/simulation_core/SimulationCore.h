@@ -9,6 +9,7 @@
 #include "UnmannedAerialVehicle.h"
 #include "Clock.h"
 #include "ResourceHandler.h"
+#include "Entity.h"
 
 class SimulationCore
     : public QObject
@@ -28,7 +29,8 @@ class SimulationCore
         ResourceHandler*       resourceHandler_;
 
     signals: 
-        void entityKinematicsUpdated(int entityId, Eigen::Vector3d position, Eigen::Quaterniond orientation);
+        void entityKinematicsUpdated(int entityId, Kinematics* kinematics);
+        void controlSystemDataUpdated(int entityId, ControlSystemData* ctrlSysData);
 };
 
 #endif

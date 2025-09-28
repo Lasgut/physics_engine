@@ -1,11 +1,21 @@
 #include "Clock.h"
 #include <chrono>
 #include <iostream>
+#include <pthread.h>
+
 
 Clock::Clock()
 {
-    previousTime_ = std::chrono::steady_clock::now();
+    previousTime_ = simClock_.getTime();
 }
+
+
+Clock::Clock(std::string name)
+    : name_(name)
+{
+    Clock();
+}
+
 
 Clock::Clock(const double frequency)
     : frequency_(frequency)
@@ -14,12 +24,18 @@ Clock::Clock(const double frequency)
 }
 
 
-float 
+Clock::Clock(const double frequency, std::string name)
+    : name_(name)
+    , frequency_(frequency)
+{
+    Clock();
+}
+
+
+double 
 Clock::getDeltaTime()
 {
-    auto currentTime = std::chrono::steady_clock::now();
-    std::chrono::duration<float> deltaTime = currentTime - previousTime_;
-    return deltaTime.count();
+    return elapsedTime_;
 }
 
 
@@ -27,33 +43,14 @@ bool
 Clock::rateLimit()
 {
     auto desiredDeltaTime = 1.0f / frequency_;
-    auto currentTime = std::chrono::steady_clock::now();
-    std::chrono::duration<float> elapsedTime = currentTime - previousTime_;
-    bool pastDeltaTime = elapsedTime.count() >= desiredDeltaTime;
+    auto currentTime = simClock_.getTime();
+    elapsedTime_ = currentTime - previousTime_;
+    bool pastDeltaTime = elapsedTime_ >= desiredDeltaTime;
     if (pastDeltaTime)
     {
         previousTime_ = currentTime;
     }
-    return pastDeltaTime;
-}
-
-
-bool 
-Clock::rateLimit(double& deltaTime)
-{
-    auto desiredDeltaTime = 1.0f / frequency_;
-    auto currentTime = std::chrono::steady_clock::now();
-    std::chrono::duration<float> elapsedTime = currentTime - previousTime_;
-    if (elapsedTime.count() > 2 * desiredDeltaTime) {
-        previousTime_ = currentTime;
-        return false;
-    }
-    bool pastDeltaTime = elapsedTime.count() >= desiredDeltaTime;
-    if (pastDeltaTime)
-    {
-        previousTime_ = currentTime;
-    }
-    deltaTime = elapsedTime.count();
+    fallingBehindCheck(desiredDeltaTime, elapsedTime_);
     return pastDeltaTime;
 }
 
@@ -61,14 +58,8 @@ Clock::rateLimit(double& deltaTime)
 bool 
 Clock::rateLimit(const int frequency)
 {
-    auto desiredDeltaTime = 1.0f / frequency;
-    auto currentTime = std::chrono::steady_clock::now();
-    std::chrono::duration<float> elapsedTime = currentTime - previousTime_;
-    bool pastDeltaTime = elapsedTime.count() >= desiredDeltaTime;
-    if (pastDeltaTime)
-    {
-        previousTime_ = currentTime;
-    }
+    frequency_ = frequency;
+    bool pastDeltaTime = rateLimit();
     return pastDeltaTime;
 }
 
@@ -76,7 +67,7 @@ Clock::rateLimit(const int frequency)
 void 
 Clock::setPreviousTime()
 {
-    previousTime_ = std::chrono::steady_clock::now();
+    previousTime_ = simClock_.getTime();
 }
 
 
@@ -87,8 +78,18 @@ Clock::setFrequency(const double frequency)
 }
 
 
-float
+double
 Clock::now()
 {
-    return std::chrono::steady_clock::now().time_since_epoch().count();
+    return simClock_.getTime();
+}
+
+
+void 
+Clock::fallingBehindCheck(double desiredDeltaTime, double elapsedTime)
+{
+    if (elapsedTime > desiredDeltaTime * 1.05)
+    {
+        std::cout << "Warning: " << name_ << " clock is falling behind with " << elapsedTime-desiredDeltaTime << " seconds! Desired delta time is " << desiredDeltaTime << ", and elapsed time is " << elapsedTime << std::endl;
+    }
 }

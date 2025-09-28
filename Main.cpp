@@ -21,21 +21,25 @@ int main(int argc, char *argv[])
     Visualizer* visualizer = new Visualizer(&window, &resourceHandler);
     window.setVisualizerWidget(visualizer);
 
-    // setup signal connections
-    QObject::connect(&simulationCore, &SimulationCore::entityKinematicsUpdated,
-                     visualizer,      &Visualizer::entityKinematicsUpdated);
-    QObject::connect(&simulationCore, &SimulationCore::entityKinematicsUpdated,
-                     &dataPlotter,    &DataPlotter::entityKinematicsUpdated);
-
-    QtSignalMapper signalMapper(&window);
+    QtSignalMapper signalMapper(&window, &simulationCore, visualizer, &dataPlotter);
 
     window.show();
 
     std::thread simulationThread([&]()
     {
+        pthread_setname_np(pthread_self(), "SimulationCore");
         while (true) 
         {
             simulationCore.update();
+        }
+    });
+
+    std::thread plottingThread([&]()
+    {
+        pthread_setname_np(pthread_self(), "Plotting");
+        while (true) 
+        {
+            dataPlotter.updatePlots();
         }
     });
 

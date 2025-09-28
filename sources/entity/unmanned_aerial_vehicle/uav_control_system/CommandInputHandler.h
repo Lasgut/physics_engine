@@ -6,6 +6,8 @@
 #include <Eigen/Dense>
 #include "EntityStates.h"
 
+namespace UAV
+{
 class CommandInputHandler
 {
     public:
@@ -21,5 +23,6 @@ class CommandInputHandler
 
         EntityStates cmdStates_{};
 };
+}
 
 #endif

@@ -8,6 +8,11 @@
 #include "uav_emulators/SensorEmulator.h"
 #include "uav_emulators/ActuatorEmulator.h"
 #include "uav_data_types/SensorData.h"
+#include "uav_data_types/ControlSystemData.h"
+
+#include <thread>
+
+using namespace UAV;
 
 class UnmannedAerialVehicle
     : public Entity
@@ -19,9 +24,12 @@ class UnmannedAerialVehicle
         UnmannedAerialVehicle(const std::string& kinematicsFilePath);
 
     private:
+        void startControlSystem();
+        void startSensors();
         Eigen::Vector<double,6> appliedForcesAndMoments() override;
 
-        EntityStates estimatedStates_{};
+        std::thread controlSystemThread_;
+        std::thread sensorsThread_;
 };
 
 #endif

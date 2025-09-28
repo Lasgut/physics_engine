@@ -7,6 +7,8 @@
 #include "EntityStates.h"
 #include "ControllerLib.h"
 
+namespace UAV
+{
 class StateController
 {
     public:
@@ -16,8 +18,9 @@ class StateController
         Eigen::Vector<double,6> computeDesiredControlWrench(EntityStates& errorStates);
 
     private:
-        Lib::Controller::PID pitchController_{8, 0.1, 0, 0.2};
+        Lib::Controller::PID pitchController_{5, 0, 0, 0};
         Lib::Controller::PID velocityController_{4, 1, 0, 2};
 };
+}
 
 #endif

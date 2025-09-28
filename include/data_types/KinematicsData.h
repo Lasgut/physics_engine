@@ -15,6 +15,8 @@ struct KinematicsData
     //     vel = [u, v, w]
     //   omega = [p, q, r]
 
+    double timeStamp{0.0};
+
     Eigen::Vector<double,6> nu      {0,0,0,0,0,0};
     Eigen::Vector<double,6> nuDot   {0,0,0,0,0,0};
     Eigen::Vector<double,7> eta     {0,0,0,1,0,0,0};

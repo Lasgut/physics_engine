@@ -11,6 +11,7 @@
 #include "MainWindow.h"
 #include "data_plotter_utilities/PlotChart.h"
 #include "ChartWidget.h"
+#include "UnmannedAerialVehicle.h"
 
 class DataPlotter 
     : public QWidget
@@ -19,17 +20,24 @@ class DataPlotter
 
 public:
     explicit DataPlotter(QWidget *parent = nullptr);
-    virtual ~DataPlotter();
+
+    void updatePlots();
 
 public slots:
-    void entityKinematicsUpdated(int entityId, Eigen::Vector3d position, Eigen::Quaterniond orientation);
+    void entityKinematicsUpdated(int entityId, Kinematics* kinematics);
+    void controlSystemDataUpdated(int entityId, ControlSystemData* ctrlSysData);
 
 private:
-    void newData(const double x, const double y);
-
     MainWindow  *window_;
 
     std::vector<PlotChart> plotCharts_;
+
+    std::pair<double,double> roll_{0.0, 0.0};
+    std::pair<double,double> pitch_{0.0, 0.0};
+    std::pair<double,double> yaw_{0.0, 0.0};
+    std::pair<double,double> altitude_{0.0, 0.0};
+    std::pair<double,double> desiredPitch_{0.0, 0.0};
+    std::pair<double,double> desiredAltitude_{0.0, 0.0};
 };
 
 #endif // DATAPLOTTER_H

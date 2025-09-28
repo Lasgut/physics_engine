@@ -12,7 +12,10 @@ class PlotChart
     public:
         PlotChart(ChartWidget* chartWidget);
 
-        void newData(const double x, const double y);
+        void newData(const double x, const double y, int index=0);
+        void addPlotCurve();
+
+        ChartWidget* getChartWidget() { return chartWidget_; }
 
     private:
         ChartWidget* chartWidget_;

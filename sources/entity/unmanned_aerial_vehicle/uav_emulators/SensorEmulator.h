@@ -7,17 +7,22 @@
 #include "Entity.h"
 #include "Clock.h"
 
+namespace UAV
+{
 class SensorEmulator
 {
     public:
         SensorEmulator() = default;
 
     protected:
-        SensorData emulateSensorData(Kinematics& kinematics);
+        void emulateSensors(Kinematics* kinematics);
+        SensorData& getSensorData();
 
     private:
+        std::mutex      sensorMtx_;
         SensorData sensorData_{};
-        Clock      clock_;
+        Clock           clock_{"SensorEmulator"};
 };
+}
 
 #endif
