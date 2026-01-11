@@ -1,18 +1,33 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
 
-project(qt_application VERSION 0.1 LANGUAGES CXX)
+project(qt_application LANGUAGES CXX)
+
+set(CMAKE_PREFIX_PATH "/home/lasse/Qt/6.9.1/gcc_64/lib/cmake")
+
+# ============================================================
+# Options
+# ============================================================
+option(QT_APPLICATION_STANDALONE
+    "Build standalone Qt test application"
+    OFF
+)
+
+# ============================================================
+# Qt / C++ setup
+# ============================================================
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Find Qt6 components
 find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGL Charts)
 
-set(LIB_SOURCES
+# ============================================================
+# Library (used by PHYSICS_ENGINE and test app)
+# ============================================================
+set(QT_APPLICATION_LIB_SOURCES
     ChartWidget.cpp
     ChartWidget.h
     MainWindow.cpp
@@ -20,41 +35,42 @@ set(LIB_SOURCES
     MainWindow.ui
 )
 
-set(EXECUTABLE_SOURCES
-    main.cpp
+add_library(qt_application_lib STATIC
+    ${QT_APPLICATION_LIB_SOURCES}
 )
 
-# Application target
-qt_add_executable(qt_application
-    MANUAL_FINALIZATION
-    ${EXECUTABLE_SOURCES}
-    ${LIB_SOURCES}
+target_link_libraries(qt_application_lib
+    PUBLIC
+        Qt6::Widgets
+        Qt6::OpenGL
+        Qt6::Charts
 )
 
-target_link_libraries(qt_application PUBLIC
-    Qt6::Widgets
-    Qt6::OpenGL
-    Qt6::Charts
+target_include_directories(qt_application_lib
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-# Install
-include(GNUInstallDirs)
-install(TARGETS qt_application
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
+# ============================================================
+# Optional standalone test executable
+# ============================================================
+if (QT_APPLICATION_STANDALONE)
+    add_executable(qt_application_test
+        main.cpp
+    )
 
-#### Make it a library too ####
-add_library(qt_application_lib STATIC ${LIB_SOURCES})
+    target_link_libraries(qt_application_test
+        PRIVATE
+            qt_application_lib
+    )
 
-target_link_libraries(qt_application_lib PUBLIC
-    Qt6::Widgets
-    Qt6::OpenGL
-    Qt6::Charts
-)
+    set_target_properties(qt_application_test PROPERTIES
+        WIN32_EXECUTABLE TRUE
+    )
+endif()
 
-target_include_directories(qt_application_lib PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}
-)
+# ============================================================
+# Diagnostics (optional but helpful)
+# ============================================================
+message(STATUS "Qt application standalone build: ${QT_APPLICATION_STANDALONE}")
 

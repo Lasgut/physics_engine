@@ -1,7 +1,10 @@
 #ifndef QT_SIGNAL_MAPPER_H
 #define QT_SIGNAL_MAPPER_H
 
+#include <QPushButton>
 #include <QObject>
+#include <QComboBox>
+
 #include "Settings.h"
 #include "MainWindow.h"
 #include "DataPlotter.h"

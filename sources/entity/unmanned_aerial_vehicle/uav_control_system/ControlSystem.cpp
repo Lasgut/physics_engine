@@ -39,7 +39,7 @@ ControlSystem::iterateControlLoop(SensorData& sensorData)
         desiredPitch = altitudeController_.control(errorStates.position[2]);          // altitudeControl
     }
     auto maxPitch = Lib::Math::Utils::deg2rad(5.0);
-    desiredPitch = std::clamp(desiredPitch, -maxPitch, maxPitch);
+    desiredPitch  = std::clamp(desiredPitch, -maxPitch, maxPitch);
     errorStates.eulerAngels[1] = desiredPitch - estimatedStates.eulerAngels[1];
 
     // controller step, PID
