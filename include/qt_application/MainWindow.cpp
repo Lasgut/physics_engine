@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui_->setupUi(this);
 
+    //autopilotWidget_ = new AutopilotWidget(ui_);
+
     setupCameraModeBox();
 
     for (int i = 0; i < 4; ++i)

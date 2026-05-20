@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+#include "AutopilotWidget.h"
 #include "ChartWidget.h"
 
 QT_BEGIN_NAMESPACE
@@ -29,8 +30,9 @@ public:
 private:
     void setupCameraModeBox();
 
-    Ui::MainWindow *ui_;
+    Ui::MainWindow* ui_;
 
     std::vector<ChartWidget*> chartWidgets_;
+    //AutopilotWidget*          autopilotWidget_;
 };
 #endif // MAINWINDOW_H

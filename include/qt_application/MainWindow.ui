@@ -17,9 +17,9 @@
    <widget class="QWidget" name="gridLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>10</y>
-      <width>191</width>
+      <width>201</width>
       <height>151</height>
      </rect>
     </property>
@@ -90,6 +90,118 @@
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_data_3"/>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>530</y>
+      <width>201</width>
+      <height>421</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_autopilot">
+     <item>
+      <widget class="QPushButton" name="pushButtonAutopilotEnable">
+       <property name="text">
+        <string>AUTO</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_numbers">
+       <item>
+        <widget class="QLCDNumber" name="lcdNumberVelocity">
+         <property name="digitCount">
+          <number>3</number>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLCDNumber" name="lcdNumberAltitude">
+         <property name="digitCount">
+          <number>3</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_sliders">
+       <item>
+        <widget class="QSlider" name="verticalSliderVelocity">
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSlider" name="verticalSliderAltitude">
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_labels">
+       <item>
+        <widget class="QLabel" name="labelVelocity">
+         <property name="text">
+          <string>VELOCITY</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="labelAltitude">
+         <property name="text">
+          <string>ALTITUDE</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QLCDNumber" name="lcdNumberHeading">
+       <property name="digitCount">
+        <number>3</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDial" name="dialHeading">
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>360</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelHeading">
+       <property name="text">
+        <string>HEADING</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

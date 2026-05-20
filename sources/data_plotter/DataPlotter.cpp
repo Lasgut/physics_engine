@@ -54,7 +54,7 @@ void
 DataPlotter::controlSystemDataUpdated(int entityId, ControlSystemData* ctrlSysData)
 {
     desiredPitch_.first  = ctrlSysData->timeStamp;
-    desiredPitch_.second = ctrlSysData->desiredPitch;
+    desiredPitch_.second = Lib::Math::Utils::rad2deg(ctrlSysData->desiredPitch);
 
     desiredAltitude_.first  = ctrlSysData->timeStamp;
     desiredAltitude_.second = ctrlSysData->desiredAltitude;
